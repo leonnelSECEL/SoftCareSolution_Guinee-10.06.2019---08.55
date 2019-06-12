@@ -1,0 +1,48 @@
+﻿@model IEnumerable<SoftCare.ViewModels.AttenteVM2>
+
+@{
+     String CurrentUserId = "";
+    if(ViewBag.CurrentUser != null)
+    {
+         CurrentUserId = ViewBag.CurrentUser;
+    } 
+        
+ }
+
+    
+        <table class="table @*table-bordered*@ table-striped table-condensed" style="margin-bottom:0px;">               
+                                       
+            @if (Model == null)
+            {                         
+                <caption style="color:#000"><h6> Aucun résultat </h6></caption>
+            }
+            else
+            {               
+                    <thead>
+                        <tr> <th>Code dossier</th> <th>Patient</th> <th>Date </th> <th>Spécialiste</th> <th>Actions</th> </tr> 
+                   </thead>
+                    <tbody>                        
+                    @foreach (var satteAttente in Model)
+                    {
+                        if (satteAttente != null)
+                        {
+                            <tr><td>@satteAttente.CodePatient</td><td>@satteAttente.NomPatient</td><td>@satteAttente.Horaire</td><td>@satteAttente.Specialiste</td>
+                                <td>  
+                                   @if (satteAttente.EtatAttente && CurrentUserId == satteAttente.SpecialisteID)
+                                   {
+                                       <a href="~/GestionPatient/PRENDREENCHARGE/@SoftCare.Models.CRYPTAGE.StringHelpers.Decrypt(satteAttente.AttenteId)" class="btn btn-primary btn-xs" title="Prendre en charge ce patient"><span class="glyphicon glyphicon-check"></span></a>
+                                       <a href="~/GestionPatient/TRANSFERERATTENTE/@SoftCare.Models.CRYPTAGE.StringHelpers.Decrypt(satteAttente.AttenteId)" class="btn btn-warning btn-xs" title="Transferer ce patient à un autre spécialiste"><span class="glyphicon glyphicon-share"></span></a>
+                                   }
+                                   else
+                                   {
+                                       <span> Patient traité </span>
+                                   }
+                                </td>
+                            </tr>   
+                        }
+                    }  
+
+                            
+                </tbody>
+            }   
+        </table>

@@ -1,0 +1,134 @@
+﻿@model SoftCare.ViewModels.CaisseVM3
+@{
+    Layout = "../../Views/Shared/_SoftCareLayoutPage.cshtml";
+    ViewBag.Title = "Fermeture de Caisse";
+}
+
+<div class="row" style="margin:2em">
+
+    <div class="row">
+
+        @using (Html.BeginForm("FERMERCAISSE", "GestionCaisse", FormMethod.Post, new { @class = "col-lg-12" }))
+        {
+
+            <input type="hidden" name="Id" value="@Model.Id" />
+            <input type="hidden" name="CaissierId" value="@Model.CaissierId" />
+
+            <div class="row">
+
+                <fieldset class="col-lg-6">
+
+                    <legend> Fermeture Caisse </legend>
+
+                    <div class="row" style="margin-top:0em">
+
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.SoldeFermeture)
+                                @Html.TextBoxFor(model => model.SoldeFermeture, new { @class = "form-control", })
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.SoldeAttendu)
+                                @Html.TextBoxFor(model => model.SoldeAttendu, new { @class = "form-control", disabled="disabled"})
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.SoldeManquant)
+                                @Html.TextBoxFor(model => model.SoldeManquant, new { @class = "form-control", })
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.TypeManquant)
+                                @Html.TextBoxFor(model => model.TypeManquant, new { @class = "form-control", })
+                            </div>
+                        </div>
+
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.CommentaireFermeture)
+                                @Html.TextAreaFor(model => model.CommentaireFermeture, new { @class = "form-control", style = "height:5em" })
+                            </div>
+                        </div>
+
+                    </div>
+
+                </fieldset>
+
+
+                <fieldset class="col-lg-6">
+
+                    <legend> Rappel Ouverture Caisse </legend>
+
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.NomCaisse)
+                                @Html.TextBoxFor(model => model.NomCaisse, new { @class = "form-control", disabled = "disabled" })
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.NomCaissier)
+                                @Html.TextBoxFor(model => model.NomCaissier, new { @class = "form-control", disabled = "disabled" })
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.SoldeOuverture)
+                                @Html.TextBoxFor(model => model.SoldeOuverture, new { @class = "form-control", disabled = "disabled" })
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.DateOuverture)
+                                @Html.TextBoxFor(model => model.DateOuverture, new { @class = "form-control", disabled = "disabled" })
+                            </div>
+                        </div>
+
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.CommentaireOuverture)
+                                @Html.TextAreaFor(model => model.CommentaireOuverture, new { @class = "form-control", disabled = "disabled", style = "height:5em" })
+                            </div>
+                        </div>
+                    </div>
+
+                </fieldset>
+
+
+            </div>
+
+            <div class="row" style="margin-top:3em">
+                <div class="col-lg-4 col-lg-offset-2">
+                    <div class="form-group">
+                        <a href="" class="btn btn-warning" style="width:100%">
+                            <span class="glyphicon glyphicon-circle-arrow-left"></span>
+                            Retourner à la liste des Caisses
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        <input class="btn btn-primary" type="submit" value="Fermer cette Caisse" style="width:100%" />
+                    </div>
+                </div>
+
+            </div>
+        }
+
+    </div>
+
+</div>
+
+

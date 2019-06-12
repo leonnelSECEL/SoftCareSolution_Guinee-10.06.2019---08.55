@@ -1,0 +1,112 @@
+﻿@model SoftCare.Models.EXAMEN
+@{
+    Layout = "../../Views/Shared/_SoftCareLayoutPage.cshtml";
+    ViewBag.Title = "Dérails Examen Médical";
+}
+
+<div class="row" style="margin:3em">
+
+    <div class="row">
+
+        @using (Html.BeginForm("", "", FormMethod.Post, new { @class = "col-lg-12" }))
+        {
+            <input type="hidden" name="DossierID" value="@ViewBag.DossierId" />
+
+            <div class="row" style="margin-top:0em">
+                <div class="col-lg-5">
+                    <div class="form-group">
+                        @Html.LabelFor(Model => Model.Reference)
+                        @Html.TextBoxFor(Model => Model.Reference, new { @class = "form-control", disabled = "disabled" })
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        @Html.LabelFor(Model => Model.DateExamen)
+                        @Html.TextBoxFor(Model => Model.DateExamen, new { @class = "form-control", type = "date" })
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        @Html.LabelFor(Model => Model.Dossier.Patient.Nom) du Patient
+                        @Html.TextBoxFor(Model => Model.Dossier.Patient.Nom, new { @class = "form-control", })
+                    </div>
+                </div>
+
+                <div class="col-lg-8">
+                    <div class="form-group">
+                        @Html.LabelFor(Model => Model.ExamenType) 
+                        @Html.TextBoxFor(Model => Model.ExamenType, new { @class = "form-control", })
+                    </div>
+                </div>
+
+                <div class="col-lg-8">
+                    <div class="form-group">
+                        <label for="select"> Type d'Examen Médical </label>
+
+                        <select class="form-control" name="ExamenTypeID">
+
+                            <option value="0">--- Séléctionnez le type d'Examen --- </option>
+
+                            @*@if (ViewBag.ListeMaladie != null)
+                            {
+
+                                foreach (var maladie in (List<SoftCare.Models.MALADIE>)ViewBag.ListeMaladie)
+                                {
+                                    <option value="@maladie.MaladieID">@maladie.Intitule</option>
+                                }
+                            }*@
+                        </select>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row">
+
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label class="control-label" for="nomPatient" style="width:100%;">Nom du patient</label>
+                        <input class="form-control" id="nomPatient" name="nomPatient" placeholder="Nom du Patient" type="text" value="@ViewBag.NomPatient" style="display:inline; width:100%" disabled="disabled" />
+                    </div>
+                </div>
+
+                
+
+            </div>
+
+            <div class="row">
+
+                <div class="col-lg-12">
+                    <div class="form-group">
+                        @Html.LabelFor(Model => Model.Description)
+                        @Html.TextAreaFor(Model => Model.Description, new { @class = "form-control", })
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row" style="margin-top:2em">
+
+                <div class="col-lg-4 col-lg-offset-2">
+                    <div class="form-group">
+                        <input class="btn btn-primary" type="submit" value="Enregistrer" style="width:100%" />
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        <a href="~/GestionStock/CONSULTERLISTEPRODUITS" class="btn btn-warning" style="width:100%">
+                            <span class="glyphicon glyphicon-circle-arrow-left"></span>
+                            Retourner à la liste des Produits
+                        </a>
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>
+
+</div>
+
+

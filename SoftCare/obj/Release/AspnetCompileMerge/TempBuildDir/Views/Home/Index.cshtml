@@ -1,0 +1,59 @@
+﻿@{
+    Layout = "../../Views/Shared/_SoftCareLayoutPage.cshtml";
+    ViewBag.Title = "Accueil";
+}
+
+<div class="row" style="  margin:5%"> 
+  
+    <div id="accueil-links" class="col-lg-12 accueil-links" style=" "> 
+        
+            <div class="col-lg-4"  onclick="location.href = 'GestionPatient/CONSULTERREGISTREMEDICAL';">
+                <img src="~/Content/images/index-patients-icon.png" class="img-responsive" alt="Patients" />
+                <div class="hover-link-explain" >
+                    Consulter les patients du centre medical
+                </div>
+            </div>
+
+            <div class="col-lg-4"  onclick="location.href = 'GroupeCible/CONSULTERLISTEGROUPECIBLE';">
+                <img src="~/Content/images/index-gpeCible-icon.png" class="img-responsive" alt="Groupes Cibles" />
+                <div class="hover-link-explain" >
+                   Accedez aux groupes cibles directement
+                </div>
+            </div>
+             
+           <div class="col-lg-4"  onclick="location.href = 'GestionPatient/CONSULTERSALLEATTENTE';">
+                <img src="~/Content/images/index-salleattente-icon.png" class="img-responsive" alt="Salle attente" />
+                <div class="hover-link-explain" >
+                    Consulter la salle d'attente
+                </div>
+            </div>
+
+    </div>
+
+     <div id="accueil-links2" class="col-lg-12 accueil-links" style="  margin-top:3%"> 
+
+          <div class="col-lg-4 col-lg-offset-2"  onclick="location.href = 'Statistiques/PATHOLOGIES';">
+                <img src="~/Content/images/index-statistiques-icon.png" class="img-responsive" alt="Statistiques" />
+                <div class="hover-link-explain" >
+                    Voir les statistiques selon vos critères
+                </div>
+            </div>
+             
+           @*<div class="col-lg-4"  onclick="location.href = '#';">
+                <img src="~/Content/images/index-messagerie-icon.png" class="img-responsive" alt="Messagerie" />
+                <div class="hover-link-explain" >
+                    Accedez à votre messagerie
+                </div>
+            </div>*@
+             
+           <div class="col-lg-4"  onclick="location.href = 'GestionPatient/CONSULTERRENDEZVOUS';">
+                <img src="~/Content/images/index-rdv-icon.png" class="img-responsive" alt="Rendez-vous" />
+                <div class="hover-link-explain" >
+                    Consulter les rendez-vous
+                </div>
+            </div>
+    </div>
+
+     
+</div>
+

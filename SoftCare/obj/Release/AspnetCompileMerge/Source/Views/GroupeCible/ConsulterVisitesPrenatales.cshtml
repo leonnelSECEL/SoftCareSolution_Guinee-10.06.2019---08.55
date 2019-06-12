@@ -1,0 +1,228 @@
+﻿@model IEnumerable<SoftCare.ViewModels.SampleVisitePrenatale>
+
+@{
+    Layout = "~/Views/Shared/_SoftCareLayoutPage.cshtml";
+    ViewBag.Title = "Consulter Visites Prenatales";
+}
+
+<style>
+    .datepicker {
+      z-index:10000000000 !important;
+    }
+
+    .datepicker-months table tr td span {
+    padding:0 10px ;
+    }
+
+    .datepicker-years table tr td span {
+    padding:0 10px ;
+    }
+
+</style>
+
+<div class="row" >
+
+        @using(Html.BeginForm("", "", FormMethod.Post,new{ @class="col-lg-12", style="margin-top:2em" } ) )
+        {
+           <div class="row" >
+               <div class="col-lg-6" >
+                  <div class="form-group">
+                    <label class="control-label" for="" style = "width:100%;">Nom du patient</label>
+                    <input class="form-control" id="" name="nomPatient" placeholder="" type="text" value="@ViewBag.NomPatient"  style="display:inline; width:100%" disabled="disabled"/>
+                  </div>
+               </div>
+              <div class="col-lg-6" >
+                 <div class="form-group">
+                    <label class="control-label" for="" style = "width:100%;">Etat de la grossesse</label>
+                    <input class="form-control" id="" name="" type="text" value="@ViewBag.Etatgrossesse"  style="display:inline; width:100%" disabled="disabled"/>
+                 </div>
+              </div>
+         </div>
+        }
+
+</div>         
+
+
+    @if(ViewBag.AfficheBouton){
+        <div class="row">
+             <div class="col-lg-12" style="margin:1em" >                 
+                  <a href="#modalAjoutVisitePrenatale" data-toggle="modal" data-backdrop="false"  id="" class="btn btn-primary"  title="Ajouter une visite prénatale"> <span class="glyphicon glyphicon-plus"></span> Visite</a>
+             </div>
+        </div>
+    }
+
+
+<div class="row" > 
+    <div class="col-lg-12" style="margin: 2%;">
+        <a  ="~/GroupeCible/CONSULTERLISTEGROUPECIBLE" class="btn btn-warning"><span class="glyphicon glyphicon-circle-arrow-left"></span> Retourner aux Groupes</a>
+    </div>
+    <div class="col-lg-12">                            
+        <table class="table table-bordered_ table-striped table-condensed" style="margin-bottom:0px;">               
+                                       
+            @if (Model == null)
+            {                         
+                <caption style="color:#000"><h6> Aucun résultat </h6></caption>
+            }else{               
+                    <thead>
+                        <tr> <th>Date visite </th> <th>Spécialiste </th> <th>Commentaire</th> <th> Etat de la visite</th> </tr> 
+                    </thead>
+                    <tbody>   
+                        @{
+
+
+                        foreach (var visitePrenatale in Model)
+                        {
+                            if (visitePrenatale != null)
+                            {
+                                <tr>                                            
+                                    <td>@visitePrenatale.DateVisite</td>
+                                    <td>@visitePrenatale.Specialiste</td>
+                                    <td>@visitePrenatale.Commentaire</td>
+                                    <td>
+                                        @if(visitePrenatale.EtatVisite == -1)
+                                        {
+                                            <span style="color:green"> En attente </span>
+                                        }
+                                                
+                                        @if(visitePrenatale.EtatVisite == 0)
+                                        {
+                                            <span style="color:red"> Manqué </span>
+                                        }
+
+                                        @if(visitePrenatale.EtatVisite == 1)
+                                        {
+                                            <span style="color:blue"> Récu </span>
+                                        }
+                                    </td>
+                                </tr>
+                         
+                            }
+                        
+                        }  
+
+                        }     
+                </tbody>
+            }   
+        </table>
+    </div> 
+</div> 
+
+
+
+
+
+<script>
+    $(document).ready(function () {
+        var date_input = $('#DateVisite'); //our date input has the name "date"
+        var container = $('.softcare-add-DateVisite').length > 0 ? $('.softcare-add-DateVisite').parent() : "body";
+        var options = {
+            format: 'yyyy-mm-dd', //  mm/dd/yyyy
+            container: container,
+            todayHighlight: true,
+            autoclose: true,
+        };
+        date_input.datepicker(options);
+    })
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+     <div class="modal" id="modalAjoutVisitePrenatale"> 
+        
+		<div class="modal-dialog">
+			  
+			  <div class="modal-content">
+				<div class="modal-header">
+					  <button type="button" class="close" data-dismiss="modal">x</button>
+					  <h4 class="modal-title">  Ajout d'une visite prénatale </h4>
+				</div>
+				
+				<div class="modal-body">
+					
+                 @using (Html.BeginForm("CONFIGURERVISITEPRENATALE", "GroupeCible", FormMethod.Post, new { Id = "formulaireAjoutVisitePrenatale", @class = "row" }))
+                 { 
+                    <div class="col-lg-12">
+                        
+                      <div class="row">                                    
+
+                          <input class="form-control" id="GrossesseID" name="GrossesseId" type="hidden" value="@ViewBag.GrossesseId"/>
+
+                            <div class="col-lg-6" >
+                                <div class="form-group">
+                                <label class="control-label" for="NomPatient" style = "width:100%;">Nom du Patient</label>
+                                <input class="form-control" id="NomPatient" name="NomPatient" type="text" value="@ViewBag.NomPatient"  style="display:inline; width:100%" disabled="disabled"/>
+                                </div>
+                            </div>
+                                    
+                            <div class="col-lg-6" >
+                                <div class="form-group">
+                                <label class="control-label" for="Etatgrossesse" style = "width:100%;">Etat de la Grossesse</label>
+                                <input class="form-control" id="Etatgrossesse" name="Etatgrossesse" type="text" value="@ViewBag.Etatgrossesse"  style="display:inline; width:100%" disabled="disabled"/>
+                                </div>
+                            </div>
+                            
+                      </div>
+
+                      <div class="row">                                    
+
+                          <div class="col-lg-6" >
+                            <div class="form-group softcare-add-DateVisite">
+                                <label class="control-label" for="DateVisite" style = "width:100%;">Date Visite</label>
+                                <input class="form-control" id="DateVisite" name="DateVisite" type="text" value="" placeholder="Date visite: AAAA-MM-JJ"  style="display:inline; width:100%" required />
+                            </div>
+                          </div>
+
+                          <div class="col-lg-6" >
+                            <div class="form-group">
+                                <label for="select" style="width:100%">Spécialiste </label>                       
+                                @Html.DropDownList("SpecialisteID", (SelectList)ViewBag.ListeSpecialiste, new {@class="form-control", style="display:inline; width:100%"})                     
+                            </div>
+                          </div> 
+
+                      </div>
+
+                      <button class="btn btn-primary" id="" type="submit">Enregistrer</button>
+
+                    </div>
+                     
+                 }					
+				</div>
+
+				<div class="modal-footer">
+                    <button class="btn btn-danger" id="" data-dismiss="modal">Annuler</button>
+				</div>
+
+			 </div>
+        </div>
+      </div>
+	  
+    <script>
+        $(function () {
+            $("#formulaireAjoutVisitePrenatale").submit(function (e) {
+                e.preventDefault();
+                var $form = $(this);
+                $.post($form.attr("action"), $form.serialize())
+                .done(function (data) {
+                    location.reload();
+                    //$("#result").html(data);
+                    $("#modalAjoutVisitePrenatale").modal("hide");
+                    //window.location.href = "./files/programme_de_formation_secel_2015.pdf"; 
+                })
+                .fail(function () {
+                    alert("Une erreur s'est produite. Verifiez les données");
+                });
+            });
+        });
+    </script>
+
+         

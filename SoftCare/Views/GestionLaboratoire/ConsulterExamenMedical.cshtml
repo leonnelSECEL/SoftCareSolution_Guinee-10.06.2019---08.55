@@ -1,0 +1,80 @@
+﻿@model SoftCare.ViewModels.ExamenMedicalVM
+@{
+    Layout = "../../Views/Shared/_SoftCareLayoutPage.cshtml";
+    ViewBag.Title = "Enregistrement d'un Examen Médical";
+}
+
+<div class="row" style="margin:3em">
+
+    <div class="row">
+
+        @using (Html.BeginForm("ENREGISTREREXAMENMEDICAL", "GestionLaboratoire", FormMethod.Post, new { @class = "col-lg-12" }))
+        {
+
+            <input type="hidden" name="ExamenTypeId" value="@Model.ExamenTypeId" />
+
+            <div class="row">
+                <div class="col-lg-5">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Code)
+                        @Html.TextBoxFor(model => model.Code, new { @class = "form-control", })
+                    </div>
+                </div>
+
+                <div class="col-lg-7">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Libele)
+                        @Html.TextBoxFor(model => model.Libele, new { @class = "form-control", })
+                    </div>
+                </div>
+
+
+                <div class="col-lg-7">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ExamenType)
+                        @Html.TextBoxFor(model => model.ExamenType, new { @class = "form-control", })
+                    </div>
+                </div>
+
+
+                <div class="col-lg-5">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.DateCreation)
+                        @Html.TextBoxFor(model => model.DateCreation, new { @class = "form-control", })
+                    </div>
+                </div>
+
+
+            </div>
+
+            <div class="row">
+
+                <div class="col-lg-12">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Description)
+                        @Html.TextAreaFor(model => model.Description, new { @class = "form-control", style = "height:10em;" })
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="row" style="margin-top:2em">
+
+                <div class="col-lg-4 col-lg-offset-4">
+                    <div class="form-group">
+                        <a href="~/GestionLaboratoire/CONULTERLISTEEXAMENMEDICAUX" class="btn btn-warning" style="width:100%">
+                            <span class="glyphicon glyphicon-circle-arrow-left"></span>
+                            Retourner à la liste
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        }
+
+    </div>
+
+</div>
+
+

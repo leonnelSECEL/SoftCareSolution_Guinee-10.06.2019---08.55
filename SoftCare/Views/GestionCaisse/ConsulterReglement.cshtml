@@ -1,0 +1,104 @@
+﻿@model SoftCare.ViewModels.ReglementVM3
+@{
+    Layout = "../../Views/Shared/_SoftCareLayoutPage.cshtml";
+    ViewBag.Title = "Détails sur un Paiement";
+}
+
+<div class="row" style="margin:3em">
+
+    @using (Html.BeginForm("ENREGISTRERREGLEMENT", "GestionCaisse", FormMethod.Post, new { @class = "col-lg-12" }))
+    {
+
+        <div class="row">
+
+            <div class="col-lg-5">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Reference)
+                    @Html.TextBoxFor(model => model.Reference, new { @class = "form-control", disabled = "disabled" })
+                </div>
+            </div>
+            <div class="col-lg-2">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.EstLivre)
+                    @if (Model.EstLivre)
+                    {
+                        <input class="form-control" name="@Model.EstLivre" id="@Model.EstLivre" value="LIVRE" disabled="disabled" style="background-color:#8dc7606e;font-weight: 600;" />
+                    }
+                    else
+                    {
+                        <input class="form-control" name="@Model.EstLivre" id="@Model.EstLivre" value="NON-LIVRE" disabled="disabled" style="background-color:#ff000073;font-weight: 600;" />
+                    }
+                </div>
+            </div>
+
+            <div class="col-lg-5">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.DateCreation)
+                    @Html.TextBoxFor(model => model.DateCreation, new { @class = "form-control", disabled = "disabled" })
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+
+            <div class="col-lg-3">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Montant)
+                    @Html.TextBoxFor(model => model.Montant, new { @class = "form-control", disabled = "disabled" })
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Facture)
+                    @Html.TextBoxFor(model => model.Facture, new { @class = "form-control", disabled = "disabled" })
+                </div>
+            </div>
+
+            <div class="col-lg-3">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Reste)
+                    @Html.TextBoxFor(model => model.Reste, new { @class = "form-control", disabled = "disabled" })
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+            
+            <div class="col-lg-6">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Caisse)
+                    @Html.TextBoxFor(model => model.Caisse, new { @class = "form-control", disabled = "disabled" })
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ModePaiement)
+                    @Html.TextBoxFor(model => model.ModePaiement, new { @class = "form-control", disabled = "disabled" })
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="row" style="margin-top:3em">
+
+            <div class="col-lg-4 col-lg-offset-4">
+
+                <div class="form-group">
+                    <a href="~/GestionCaisse/CONSULTERLISTEREGLEMENTS" class="btn btn-warning" style="width:100%">
+                        <span class="glyphicon glyphicon-circle-arrow-left"></span>
+                        Retourner
+                    </a>
+                </div>
+            </div>
+        </div>
+    }
+
+</div>
+
+
+

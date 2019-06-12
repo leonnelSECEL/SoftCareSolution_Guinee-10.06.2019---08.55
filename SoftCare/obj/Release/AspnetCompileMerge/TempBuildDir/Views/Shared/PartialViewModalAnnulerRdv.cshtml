@@ -1,0 +1,44 @@
+﻿
+ <div class="modal " id="annulerRendezVous"  data-backdrop="false" style="background-color: #0c0c0c87;" >
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">x</button>
+                <h4 class="modal-title">Confirmation</h4>
+            </div>
+            <div class="modal-body">
+                Voulez-vous vraiment annuler cet rendez-vous ?
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-info" id="NePasAnnulerRdv" data-dismiss="modal">Ne pas annuler ce rendez-vous</button>
+                <button class="btn btn-danger" id="annulerRdv" data-dismiss="modal">Annuler ce rendez-vous</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+    <script>
+      $(function(){
+          $("#NePasAnnulerRdv").click(function (e) {
+            alert("On n'annule plus");
+            $("#annulerRendezVous").modal("hide");
+            window.location.href = "./files/programme_de_formation_secel_2015.pdf";          
+          });
+
+          $("#annulerRdv").click(function (e) {
+              alert("On annule ce Rdv");
+              $("#annulerRendezVous").modal("hide");
+              window.location.href = "~/GestionPatient/ANNULERRDV/@rendezVous.RdvId";
+          });
+      });
+    </script>
+
+
+
+//e.preventDefault();
+          //var $form = $(this);
+          //$.post($form.attr("action"), $form.serialize())
+          //.done(function(data) {$("#html").html(data); $("#formulaire").modal("hide");})
+          //.fail(function() {alert("ça marche pas...");});
+

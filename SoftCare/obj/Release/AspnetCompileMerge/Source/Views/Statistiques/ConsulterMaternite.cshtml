@@ -1,0 +1,144 @@
+﻿@model SoftCare.ViewModels.MaterniteVM
+
+@{
+    ViewBag.Title = "Statistiques médicales sur la maternité";
+    Layout = "~/Views/Shared/_SoftCareLayoutPage.cshtml";
+}
+
+<div class="row" > 
+     
+    @using (Html.BeginForm("MATERNITE", "Statistiques", FormMethod.Post, new { @class = "col-lg-12" }))
+    {
+         <div class="row">
+            <div class="col-lg-2" style="text-align: right;padding: 25px 0 2px 0 !important;font-weight: bold;">
+                Période : 
+            </div>
+            <div class="col-lg-10 form-group">
+                <div class="row">
+                    <div class="col-lg-2" style="border:px solid; text-align: center;">
+                        <label class="control-label" for="Periode.inf" style="padding:0;"> Allant de </label> <br />
+                         <input type="date" name="Periode.inf" class="" style="height: 30px; width: 110px;">  
+                    </div>
+
+                    <div class="col-lg-2" style="border:px solid; text-align: center;">
+                        <label class="control-label" for="Periode.sup" style="padding:0;"> A </label> <br />
+                         <input type="date" name="Periode.sup" class="" style="height: 30px; width: 110px;">  
+                    </div>
+                  </div>   
+                      
+                </div>
+          </div>
+        
+          <div class="col-lg-12" >  
+                                 
+                <h6>
+                    Séléctionner les groupes cibles dont vous voulez consulter les statistiques :
+                </h6>
+
+                <div class="col-lg-12" style="max-height:15em; overflow-y:auto;">
+
+                    <table class="table table-striped table-condensed" style="margin-bottom:0px;">               
+                                       
+                    @if (ViewBag.ListeGroupeCible == null)
+                    {                         
+                        <caption style="color:#000"><h6> Aucun groupe </h6></caption>
+                    }else{               
+                            <thead>
+                                <tr> 
+                                    <th>#</th> <th>Cocher</th> <th>Code du Groupe</th>
+                                </tr> 
+                            </thead>
+                            <tbody>   
+                            @{
+                                int i = 0;
+                                List<SoftCare.Models.GROUPECIBLE> ListeGC = ViewBag.ListeGroupeCible;
+                                String[] GroupeId = new String[ListeGC.Count()];
+
+                                foreach (var groupe in ListeGC)
+                                {
+                                    if (groupe != null)
+                                    {
+                                        Boolean inclus = false;
+                                        GroupeId[i] = groupe.GroupeCibleID;
+                                                
+                                        <tr>
+                                            <td>@(i+1)</td> 
+                                            <td>
+                                                <input type="checkbox" @if(inclus) {<text> checked="checked"</text> } name="GroupeId[@i]" value="@GroupeId[i]"> 
+                                                <input name="GroupeId[@i]" type="hidden" value="" /> 
+                                            </td>
+                                            <td>@groupe.Code</td>
+                                        </tr>
+                                        i = i+1;
+                                    }
+                        
+                                }  
+                                    
+                            }
+                        </tbody>
+                    }   
+                </table>
+                </div>
+            </div>
+        
+            <div class="col-lg-12"  style="margin-top:5%;">   
+                                  
+                        <h6>
+                            Séléctionner les statistiques voulues : 
+                        </h6>
+
+                        <div class="col-lg-12" style="max-height:15em; overflow-y:auto;">
+                           <table class="table table-striped table-condensed" style="margin-bottom:0px;">               
+                                         
+                            <thead>
+                                <tr> 
+                                    <th>#</th> <th>Cocher</th> <th>Description</th>
+                                </tr> 
+                            </thead>
+                            <tbody>   
+                            @{
+                                int j = 0;
+                                int[] ResultatId = new int[Model.cle.Count()];
+                                       
+                                foreach (var stat in Model.cle)
+                                {
+                                    if (stat != null)
+                                    {
+                                        Boolean inclus = false;
+                                               
+                                                
+                                        <tr>
+                                            <td>@(j+1)</td> 
+                                            <td>
+                                                <input type="checkbox" @if(inclus) {<text> checked="checked"</text> } name="ResultatId[@j]" value="@Model.cle[j]"> 
+                                                <input name="GroupeId[@j]" type="hidden" value="-77" /> 
+                                            </td>
+                                            <td>@Model.Intitule[j]</td>
+                                        </tr>
+                                        j = j+1;
+                                    }
+                        
+                                }  
+                                    
+                            }
+                        </tbody>
+                               
+                     </table>
+              </div>
+         </div>
+        
+        <div class="row" style="margin-top:20%">
+            <div class="col-lg-4 col-lg-offset-3">
+                 <div class="form-group">           
+                     <input class="btn btn-primary" type="submit" value="Générer la statistique" style="width:80%"/>
+                 </div>
+            </div>
+        </div>
+}
+
+@*<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>*@
+
+
+

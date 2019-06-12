@@ -1,0 +1,76 @@
+﻿@model SoftCare.ViewModels.CaisseVM3
+@{
+    Layout = "../../Views/Shared/_SoftCareLayoutPage.cshtml";
+    ViewBag.Title = "Ouverture de la Caisse";
+}
+
+<div class="row" style="margin:3em">
+
+    <div class="row">
+
+        @using (Html.BeginForm("OUVRIRCAISSE", "GestionCaisse", FormMethod.Post, new { @class = "col-lg-12" }))
+        {
+
+            <input type="hidden" name="Id" value="@Model.Id" />
+
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.NomCaisse)
+                        @Html.TextBoxFor(model => model.NomCaisse, new { @class = "form-control", disabled = "disabled" })
+                    </div>
+                </div>
+
+
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.NomCaissier)
+                        @Html.DropDownList("CaissierId", (SelectList)ViewBag.ListeSpecialiste, new { @class = "form-control", style = "display:inline; width:100%" })
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.SoldeOuverture)
+                        @Html.TextBoxFor(model => model.SoldeOuverture, new { @class = "form-control", required = "required" })
+                    </div>
+                </div>
+
+
+            </div>
+
+            <div class="row">
+
+                <div class="col-lg-12">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.CommentaireOuverture)
+                        @Html.TextAreaFor(model => model.CommentaireOuverture, new { @class = "form-control", style = "height:10em;" })
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row" style="margin-top:1em">
+
+                <div class="col-lg-4 col-lg-offset-2">
+                    <div class="form-group">
+                        <a href="~/GestionCaisse/CONSULTERLISTECAISSES" class="btn btn-warning" style="width:100%">
+                            <span class="glyphicon glyphicon-circle-arrow-left"></span>
+                            Retourner à la liste des Caisses
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-4 ">
+                    <div class="form-group">
+                        <input class="btn btn-primary" type="submit" value="Ouvrir cette Caisse" style="width:100%" />
+                    </div>
+                </div>
+
+            </div>
+        }
+
+    </div>
+
+</div>
+
+

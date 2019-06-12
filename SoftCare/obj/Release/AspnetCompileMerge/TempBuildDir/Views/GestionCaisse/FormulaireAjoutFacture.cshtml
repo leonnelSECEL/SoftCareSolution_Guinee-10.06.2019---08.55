@@ -1,0 +1,87 @@
+﻿@model IEnumerable<SoftCare.ViewModels.FactureVM>
+@{
+    Layout = "../../Views/Shared/_SoftCareLayoutPage.cshtml";
+    ViewBag.Title = "Edition d'une Facture";
+}
+
+<div class="row" style="margin:2em">
+    
+    @using (Html.BeginForm("", "", FormMethod.Post, new { @class = "col-lg-12" }))
+    {
+        <div class="row" style="margin-top:0em">
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <label class="control-label" for="patient"> Nom Patient </label>
+                    <input type="text" id="patient" class="form-control" name="@ViewBag.Patient" disabled="disabled" style="width:100%" />
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <label class="control-label" for="patient"> Nom Caissier(ère) </label>
+                    <input type="text" id="patient" class="form-control" name="@ViewBag.Patient" disabled="disabled" style="width:100%" />
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+
+            <h5 style="color:#000"> Listes des Produits ou Services </h5>
+
+            <section class="col-lg-12 bloc-scrollable table-responsive table-scrollable" style="max-height:23em;">
+
+                <table class="table table-striped table-condensed">
+
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th> Réf. </th>
+                            <th> Intitulé</th>
+                            <th> Prix vente</th>
+                            <th> Quantité </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            for (int i = 0; i < 10; i++)
+                            {
+                                <tr>
+                                    <td>
+                                        <input type="checkbox" name="IdsProduitsAFacturer[2]" value="">
+                                        <input type="hidden" name="IdsProduitsAFacturer[2]" value="false" />
+                                    </td>
+                                    <td> PRO1254 </td>
+                                    <td> EFFERALGAN </td>
+                                    <td> 2000 Frs CFA</td>
+                                    <td style="width:20%;"> <input type="number" class="form-control" placeholder="Qté" style="width:7em; height:2em" /> </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </section>
+
+
+        </div>
+
+        <div class="row" style="margin-top:3em">
+
+            <div class="col-lg-4 col-lg-offset-2">
+                <div class="form-group">
+                    <input class="btn btn-primary" type="submit" value="Enregistrer" style="width:100%" />
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="form-group">
+                    <a href="" class="btn btn-warning" style="width:100%">
+                        <span class="glyphicon glyphicon-circle-arrow-left"></span>
+                        Retourner
+                    </a>
+                </div>
+            </div>
+        </div>
+    }
+
+</div>
+
+

@@ -1,0 +1,37 @@
+﻿@model IEnumerable<SoftCare.Models.EXAMEN>
+
+<table class="table table-bordered table-striped table-condensed" style="margin-bottom:0px;">
+        
+           
+    @if (Model != null)
+    {                         
+            <caption style="color:#000"><h6> Résultat de la recherche </h6></caption>
+                           
+            <thead>
+                <tr>  <th> Réference </th> <th> Patient </th> <th> Type de l'examen </th> <th> Date de l'examen </th> <th> Description </th>  </tr>
+            </thead>
+            <tbody>                        
+                @foreach (var Exam in Model)
+                {
+                    if(Exam != null)
+                    {
+
+                        <tr> 
+                            <td> 
+                                <a href=""> 
+                                     @Exam.Reference  
+                                </a> 
+                            </td> 
+                            <td> @Exam.Dossier.Code</td> 
+                            <td> @Exam.ExamenType.Libelle</td> 
+                            <td> @Exam.DateExamen  </td> 
+                            <td> @Exam.Description  </td>
+                        </tr>
+                    }
+                }  
+
+                            
+            </tbody>
+    } 
+              
+</table>

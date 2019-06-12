@@ -1,0 +1,109 @@
+﻿@model SoftCare.ViewModels.RendezVousVM2
+
+@{
+    Layout = "../../Views/Shared/_SoftCareLayoutPage.cshtml";
+    ViewBag.Title = "Ajout rendez-vous Patient";
+
+}
+
+
+<div class="row">
+
+    @using (Html.BeginForm("AJOUTERRDV", "GestionPatient", FormMethod.Post, new { @class = "col-lg-12", style = "margin-top:20px;" }))
+    {
+
+        <div class="row">
+
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <input class="form-control" id="DossierId" name="DossierId" type="hidden" value="@Model.DossierId" />
+
+                    <label class="control-label" for="nomPatient" style="width:100%;">Nom du patient à recevoir</label>
+                    <input class="form-control" id="nomPatient" name="nomPatient" placeholder="nomPatient" type="text" value="@Model.nomPatient" style="display:inline; width:100%" />
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <label for="select" style="width:100%">Spécialiste </label>
+                    @Html.DropDownList("SpecialisteID", (SelectList)ViewBag.ListeSpecialiste, new { @class = "form-control", style = "display:inline; width:100%" })
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12">
+
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="form-group softcare-add-rdv-date">
+                            <label class="control-label" for="dateRDV">Date</label>
+                            <input class="form-control" id="dateRDV" name="dateRDV" placeholder="aaaa-mm-jj" type="text" />
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="form-group">
+                            <label class="control-label" for="date">Heure</label>
+                            <input class="form-control" id="heureRDV" name="heureRDV" placeholder="Heure" type="number" min="0" max="23" />
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="form-group">
+                            <label class="control-label" for="minuteRDV">Minute</label>
+                            <input class="form-control" id="minuteRDV" name="minuteRDV" placeholder="minute" type="number" min="0" max="59" style="display:inline; width:100%" />
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="row">
+           <div class="col-lg-12">
+                <div class="form-group">
+                  <label class="control-label" for="ObjetRDV">Objet de la rencontre</label>
+                  <Textarea class="form-control" id="ObjetRDV" name="ObjetRDV" placeholder="Objet de rendez-vous" style="display:inline; width:100%;height:5em;"></Textarea>
+                </div>
+           </div>
+        </div>
+
+        <div class="row" style="margin-top:2em">
+            <div class="col-lg-10 col-lg-offset-2">
+                <div class="row">
+                    <div class="col-lg-5">
+                        <div class="form-group">
+                            <input class="btn btn-primary" type="submit" value="Enregistrer" style="width: 100%;" />
+                        </div>
+                     </div>
+                     <div class="col-lg-5">
+                        <div class="form-group">
+                            <a href="~/GestionPatient/CONSULTERDOSSIER/@SoftCare.Models.CRYPTAGE.StringHelpers.Decrypt(Model.DossierId)" class="btn btn-warning" style="width: 100%;">Annuler</a>
+                        </div>
+                     </div>
+                </div>
+            </div>
+        </div>
+        }
+
+ </div>
+
+
+
+
+
+
+<script>
+    $(document).ready(function () {
+        var date_input = $('#dateRDV'); //our date input has the name "date"
+        var container = $('.col-lg-3 .softcare-add-rdv-date').length > 0 ? $('.col-lg-3 .softcare-add-rdv-date').parent() : "body";
+        var options = {
+            format: 'yyyy-mm-dd', //  mm/dd/yyyy
+            container: container,
+            todayHighlight: true,
+            autoclose: true,
+        };
+        date_input.datepicker(options);
+    })                   
+</script>
+
+

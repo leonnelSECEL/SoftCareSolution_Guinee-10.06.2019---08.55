@@ -1,0 +1,92 @@
+﻿@model IEnumerable<SoftCare.ViewModels.SearchDossier>
+
+@{
+    Layout = "~/Views/Shared/_SoftCareLayoutPage.cshtml";
+    ViewBag.Title = "Ajout d'un membre à un Programme";
+}
+
+
+<div class="row">
+
+    @using (Html.BeginForm("AJOUTERMEMBRE", "GroupeCible", FormMethod.Post, new { @class = "col-lg-12" }))
+        {
+            <div class="row" style="margin-top:2%;">
+                    <div class="col-lg-12">
+                        
+                    <div class="row">
+
+                        @*<div class="col-lg-6" >
+                            <div class="form-group">
+                            <label class="control-label" for="IdGroupe" style = "width:100%;">Id Groupe</label>*@
+                            <input class="form-control" id="IdGroupe" name="IdGroupe" type="hidden" value="@ViewBag.IdGroupe"  />
+                           @* </div>
+                        </div>*@
+
+                        <div class="col-lg-6" >
+                            <div class="form-group">
+                            <label class="control-label" for="CodeGroupe" style = "width:100%;">Code du Programme</label>
+                            <input class="form-control" id="CodeGroupe" name="CodeGroupe" type="text" value="@ViewBag.CodeGroupe"  style="display:inline; width:100%" disabled="disabled"/>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                       
+                        <section class="col-lg-12 bloc-scrollable table-responsive table-scrollable">
+                            
+                            <table class="table table-bordered_ table-striped table-condensed">                     
+
+                                @if (Model == null)
+                                {                         
+                                    <caption style="color:#000"><h5>Il n'y aucun membre adminisble à ce Programme </h5></caption>                        
+                                }
+                                else 
+                                {
+                                    <caption style="color:#000"><h5>Listes des membres admissibles à ce Programme</h5> <button class="btn btn-primary btn pull-right" title="Ajouter un patient à ce groupe">Ajouter à ce Programme</button> </caption> 
+                                <thead>
+                                    <tr> 
+                                        <th></th> 
+                                        <th>Code Dossier</th> 
+                                        <th>Nom Patient</th> 
+                                        <th>Téléphone</th> 
+                                        <th>Adresse Patient</th> 
+                                        <th>Date dernière visite</th>    
+                                    </tr>
+                                </thead>
+                                <tbody>   
+                                     @{
+                                            int i = 0;
+                                            String[] IdsMembresAAjouter = new String[Model.Count()];
+                                                            
+                                            foreach (var patient in Model)
+                                            {
+                                               if(patient!=null)
+                                                {
+                                                    IdsMembresAAjouter[i] = patient.DossierId;
+                                                    <tr>
+                                                        <td>
+                                                            <input type="checkbox" name="IdsMembresAAjouter[@i]" value="@IdsMembresAAjouter[i]"> 
+                                                            <input type="hidden" name="IdsMembresAAjouter[@i]"  value="false" /> 
+                                                        </td>
+                                                        <td>@patient.Code</td><td>@patient.Nom</td><td>@patient.Tel</td><td>@patient.Adresse</td><td>@patient.LastVisit</td></tr>
+                                                    i = i+1;
+                                                }
+                        
+                                            } 
+                                        } 
+
+                       
+                                </tbody>
+                                }
+  
+                               </table>
+                           </section>
+                                                              
+
+                    </div>
+
+                </div>
+            </div>     
+    }
+    </div>

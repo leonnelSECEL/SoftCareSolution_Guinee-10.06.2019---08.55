@@ -1,0 +1,64 @@
+﻿@model IEnumerable<SoftCare.Models.REGLEMENT>
+
+@{
+    Layout = "~/Views/Shared/_SoftCareLayoutPage.cshtml";
+    ViewBag.Title = "Paiements en Caisse";
+}
+
+
+<div class="row" style="margin-top:2em">
+    <div class="col-lg-4">
+        <a href="" class="btn btn-primary" title="Créer une nouvelle Facture" style="width:100%">
+            <span class="glyphicon glyphicon-plus"></span> Enregistrer un nouveau Paiement
+        </a>
+    </div>
+</div>
+
+<div class="row" style="margin-top:1em">
+    <section class="col-lg-12 bloc-scrollable table-responsive table-scrollable">
+        <table class="table table-bordered_ table-striped table-condensed">
+
+            @if (Model == null)
+            {
+                <caption style="color:#000"><h5>Il n'y aucun enregistré. </h5></caption>
+            }
+            else
+            {
+                <caption style="color:#000"><h5> Liste des Paiements en Caisse </h5></caption>
+                <thead>
+                    <tr>
+                        <th> Réf. Paiement</th>
+                        <th> Montant </th>
+                        <th> Caisse </th>
+                        <th> Montant Reçu </th>
+                        <th> Difference </th>
+                        <th> Montant Remboursé </th>
+                        <th> Mode Paiement </th>
+                        <th> Date Paiement </th>
+                        <th> Paiement validé </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var Paiement in Model)
+                    {
+                    <tr>
+                        <td> <a href="#">@Paiement.Reference</a></td>
+                        <td> @Paiement.MontantNet </td>
+                        <td> @Paiement.Facture.Reference </td>
+                        <td> @Paiement.Caisse.Nom</td>
+                        <td> @Paiement.MontantRecu </td>
+                        <td> @Paiement.MontantARembourse </td>
+                        <td> @Paiement.MontantRembourse </td>
+                        <td> @Paiement.ModePaiement </td>
+                        <td> @Paiement.Date </td>
+                        <td> @Paiement.EstValide </td>
+                    </tr>
+                    }
+
+                </tbody>
+            }
+
+        </table>
+    </section>
+</div>
+

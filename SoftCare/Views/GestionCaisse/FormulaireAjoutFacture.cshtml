@@ -1,0 +1,125 @@
+﻿@model SoftCare.ViewModels.FactureVM
+@{
+    Layout = "../../Views/Shared/_SoftCareLayoutPage.cshtml";
+    ViewBag.Title = "Edition d'une Facture";
+}
+
+<div class="row" style="margin:2em">
+
+    @using (Html.BeginForm("ENREGISTRERFACTURE", "GestionCaisse", FormMethod.Post, new { @class = "col-lg-12" }))
+    {
+
+        @Html.TextBoxFor(model => model.DossierID, new { type = "hidden", value = Model.DossierID })
+        @Html.TextBoxFor(model => model.CaissierID, new { type = "hidden", value = Model.CaissierID })
+
+        <div class="row" style="margin-top:0em">
+            <div class="col-lg-6">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Patient)
+                    @Html.TextBoxFor(model => model.Patient, new { @class = "form-control", disabled = "disabled" })
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.NomCaissier)
+                    @Html.TextBoxFor(model => model.NomCaissier, new { @class = "form-control", disabled = "disabled" })
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="row">
+
+            <h5 style="color:#000"> Sélectionner les Produits ou Services </h5>
+
+            <section class="col-lg-12 bloc-scrollable table-responsive table-scrollable" style="max-height:23em;">
+
+                <table class="table table-striped table-condensed">
+
+                    <thead>
+                        <tr>
+                            <th>  </th>
+                            <th> Réf. </th>
+                            <th> Intitulé</th>
+                            <th> Prix Unitaire</th>
+                            <th> Quantité </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            int i = 0;
+                            String[] IdsProduitsSelectionnes = new String[Model.ListeProduits.Count()];
+                            String[] QtesProduitsSelectionnes = new String[Model.ListeProduits.Count()];
+                        }
+                        @foreach (var pMV in Model.ListeProduits)
+                        {
+                            if (pMV != null)
+                            {
+                                IdsProduitsSelectionnes[i] = pMV.ProduitID;
+                        <tr>
+                            <td>
+                                <input type="checkbox" name="IdsProduitsSelectionnes[@i]" value="@IdsProduitsSelectionnes[i]" onclick="CheckQuantity(this,@i)">
+                                <input name="IdsProduitsSelectionnes[@i]" type="hidden" value="false" />
+                            </td>
+                            <td><a href="#"> @pMV.Reference</a></td>
+                            <td>@pMV.Nom</td>
+                            <td>@pMV.PrixVente</td>
+                            <td style="width:20%;">
+                                <input type="number" id="QtesProduitsSelectionnes[@i]" min="1" max="@pMV.QuantiteStock" name="QtesProduitsSelectionnes[@i]" class="form-control" placeholder="Qté" style="width:10em; height:2em; display:none;" required />
+                            </td>
+
+
+
+                        </tr>
+                                i = i + 1;
+                            }
+
+                        }
+                    </tbody>
+                </table>
+            </section>
+
+
+        </div>
+
+
+        <div class="row" style="margin-top:3em">
+
+            <div class="col-lg-4 col-lg-offset-2">
+                <div class="form-group">
+                    <input class="btn btn-primary" type="submit" value="Enregistrer" style="width:100%" />
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="form-group">
+                    <a href="" class="btn btn-warning" style="width:100%">
+                        <span class="glyphicon glyphicon-circle-arrow-left"></span>
+                        Retourner
+                    </a>
+                </div>
+            </div>
+        </div>
+    }
+
+</div>
+
+
+<script>
+
+    function CheckQuantity(champ,id) {
+        if (champ.checked == 1) {
+            var qte = document.getElementById('QtesProduitsSelectionnes[' + id + ']');
+            qte.style.display = "inline";
+            //alert("il sera visible: ");
+        }
+        else {
+            var qte = document.getElementById('QtesProduitsSelectionnes[' + id + ']');
+            qte.style.display = "none";
+        }
+    }
+
+</script>
+
+

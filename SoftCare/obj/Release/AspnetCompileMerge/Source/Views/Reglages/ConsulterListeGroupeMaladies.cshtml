@@ -1,0 +1,465 @@
+﻿@model IEnumerable<SoftCare.ViewModels.GroupeMaladieVM>
+
+@{
+    ViewBag.Title = "Liste Groupe des Maladies";
+    Layout = "~/Views/Shared/_SoftCareLayoutPage.cshtml";
+}
+
+
+<div class="row" style="margin:2em">       
+    <div class="col-lg-2">
+        <a href="#modalAjoutGroupeMaladie" data-toggle="modal" data-backdrop="false"  id="" class="btn btn-primary"  title="Ajouter un nouveau groupe de maladies"> <span class="glyphicon glyphicon-plus"></span> Nouveau Groupe </a>
+    </div>      
+</div>
+
+<div class="row">  
+  
+ <div id="userList" class="col-lg-12 table-responsive" style="max-height:41em;overflow-y: auto;">
+      
+     <table class="table @*table-bordered*@ table-striped table-condensed">
+        
+           
+    @if (Model != null && Model.Count() != 0)
+    {                         
+        
+        <thead>
+            <tr>  <th> # </th> <th> Groupe de maladie </th> <th> Date d'ajout </th> <th style=""> Maladie associées </th>  <th style="text-align:right;">  </th> </tr>
+        </thead>
+        <tbody>   
+                                 
+            @{
+                int i = 0;
+                
+                foreach (var groupe in Model)
+                {
+                
+                    if (groupe != null )
+                    {
+                        int j = 1;
+                        <tr>  
+                             <td> @(i+1) </td>
+                            <td> 
+                               <a data-toggle="modal" data-id="@SoftCare.Models.CRYPTAGE.StringHelpers.Decrypt(groupe.GroupeMaladieID)" data-intitule="@groupe.IntituleGroupe" data-backdrop="false" title="Modifier l'intitulé de ce groupe de maladie" class="modalEditerGroupeMaladie" href="#modalEditerGroupeMaladie">@groupe.IntituleGroupe</a>
+                            </td> 
+                            <td> @groupe.DateCreation </td> 
+                            <td style="width: 30%;">                                                           
+							    <div id="monaccordeon_@i" class="" style="">							 
+							        <div class="" >
+								        <h6 style="margin:0;">
+                                                @{
+                                                     if(groupe.ListMaladie.Count() == 0)
+                                                     {
+                                                         <span> Aucune maladie enregistrée</span>
+                                                      }else {
+                                                        <a href="#item_@i" data-parent="#monaccordeon_@i" data-toggle="collapse" style="text-decoration:none;">   @groupe.ListMaladie.Count() maladies </a>
+                                                     }
+                                                  }
+								        </h6>
+								        <div id="item_@i" class="panel-collapse collapse">										         
+									        <ul class="panel-body table-responsive" style="padding:0px; list-style:square;"> 
+										        @foreach (var maladie in groupe.ListMaladie)
+                                                {
+                                                     <li> 
+                                                         <a data-toggle="modal" data-idmaladie="@SoftCare.Models.CRYPTAGE.StringHelpers.Decrypt(maladie.Id)" data-intitulemaladie="@SoftCare.Models.CRYPTAGE.StringHelpers.Decrypt(maladie.NomMaladie)" data-backdrop="false" title="Modifier l'intitulé de cette maladie" class="modalEditerMaladie" href="#modalEditerMaladie" style="text-decoration:none">
+                                                             @j - @SoftCare.Models.CRYPTAGE.StringHelpers.Decrypt(maladie.NomMaladie) 
+                                                          </a> 
+                                                     </li>
+                                                    j = j+1;
+                                                }
+                                            </ul>
+								        </div>
+							        </div>
+						         </div>
+                            </td>
+                            <td style="text-align:right;"> 
+                               <a data-toggle="modal" data-idgroupe="@SoftCare.Models.CRYPTAGE.StringHelpers.Decrypt(groupe.GroupeMaladieID)" data-intitulegroupe="@groupe.IntituleGroupe" data-backdrop="false" title="Ajouter une maladie" class="modalAjouterMaladie btn btn-primary btn-xs" href="#modalAjouterMaladie">
+                                   <span class="glyphicon glyphicon-plus"></span>
+                               </a>
+                                 &nbsp;&nbsp;
+                                <a href="~/Reglages/SUPPRIMERGROUPEMALADIE/@SoftCare.Models.CRYPTAGE.StringHelpers.Decrypt(groupe.GroupeMaladieID)" class="btn btn-danger btn-xs" style=""><span class="glyphicon glyphicon-trash"></span></a>
+                            </td> 
+                        </tr>
+                  i = i + 1;
+
+
+                    }
+                }   
+            }    
+        </tbody>
+        
+    } 
+              
+</table>
+
+</div>
+
+</div>
+
+
+
+
+
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+@*
+    DEBUT : AJOUT DE NOUVEAU GROUPE DE MALADIES
+*@
+
+    <div class="modal" id="modalAjoutGroupeMaladie"> 
+        
+		<div class="modal-dialog">
+			  
+			  <div class="modal-content">
+				<div class="modal-header">
+					  <button type="button" class="close" data-dismiss="modal">&times;</button>
+					  <h4 class="modal-title">  Ajout d'un Groupe de Maladies </h4>
+				</div>
+				
+				<div class="modal-body">
+					
+                 @using (Html.BeginForm("AJOUTERGROUPEMALADIE", "Reglages", FormMethod.Post, new { Id = "formulaireAjoutGroupeMaladie", @class = "row" }))
+                 { 
+                        <div class="col-lg-12">
+
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <label class="control-label" for="NomGroupe" style = "width:100%;">Intitulé Groupe </label>
+                                        <input class="form-control" id="NomGroupe" name="NomGroupe" type="text" value="" />
+                                    </div>
+                                </div>
+                            </div>
+
+                
+                            <div class="row">                   
+                                <div class="col-lg-6">
+                                    <div class="form-group">           
+                                        <button class="btn btn-primary" type="submit" style="width: 100%;" >
+                                             <span class="glyphicon glyphicon-ok"></span> Enregistrer ce Groupe
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                 }					
+				</div>
+
+				<div class="modal-footer">
+                    <button class="btn btn-warning" id="" data-dismiss="modal">Annuler l'ajout</button>
+				</div>
+
+			 </div>
+        </div>
+      </div>
+   
+    <script>
+        $(function () {
+            $("#formulaireAjoutGroupeMaladie").submit(function (e) {
+                e.preventDefault();
+                var $form = $(this);
+                $.post($form.attr("action"), $form.serialize())
+                .done(function (data) {
+                    location.reload();
+                    //$("#result").html(data);
+                    $("#modalAjoutGroupeMaladie").modal("hide");
+                    //window.location.href = "./files/programme_de_formation_secel_2015.pdf"; 
+                })
+                .fail(function () {
+                    alert("Une erreur s'est produite. Verifiez les données");
+                });
+            });
+        });
+    </script>
+ @*
+   FIN :  AJOUT DE NOUVEAU GROUPE DE MALADIES
+*@      
+
+
+
+@*
+    DEBUT : MODIFICATION GROUPE DE MALADIES EXISTANTE
+*@
+
+    <div class="modal" id="modalEditerGroupeMaladie"> 
+        
+		<div class="modal-dialog">
+			  
+			  <div class="modal-content">
+				<div class="modal-header">
+					  <button type="button" class="close" data-dismiss="modal">&times;</button>
+					  <h4 class="modal-title"> Modification d'un Groupe de Maladies </h4>
+				</div>
+				<div class="modal-body">
+                    
+                     @using (Html.BeginForm("EDITERGROUPEMALADIE", "Reglages", FormMethod.Post, new { Id = "formulaireEditerGroupeMaladie", @class = "row" }))
+                     { 
+                        <div class="col-lg-12">
+
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <label class="control-label" for="IntituleGroupe" style = "width:100%;">Intitulé Groupe </label>
+                                        <input class="form-control" name="IntituleGroupe" id="IntituleGroupeId" type="text" value="" />
+
+                                         <input class="form-control" name="GroupeMaladieID" id="GroupeMaladieIDId" type="hidden" value="" />
+                                    </div>
+                                </div>
+                            </div>
+
+                
+                            <div class="row">                   
+                                <div class="col-lg-6">
+                                    <div class="form-group">           
+                                        <button class="btn btn-primary" type="submit" style="width: 100%;" >
+                                                <span class="glyphicon glyphicon-ok"></span> Enregistrer ce Groupe
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+					 	
+				</div>
+
+				<div class="modal-footer">
+                    <button class="btn btn-warning" id="" data-dismiss="modal">Annuler</button>
+				</div>
+
+			 </div>
+        </div>
+      </div>
+      
+    <script>
+    $(document).on("click", ".modalEditerGroupeMaladie", function () {
+        var groupeMaladieId = $(this).data('id');
+        var intitule = $(this).data('intitule');
+        $(".modal-body #IntituleGroupeId").val(intitule);
+        $(".modal-body #GroupeMaladieIDId").val(groupeMaladieId);
+    });
+
+    $(function () {
+        $("#formulaireEditerGroupeMaladie").submit(function (e) {
+            e.preventDefault();
+            var $form = $(this);
+            $.post($form.attr("action"), $form.serialize())
+            .done(function (data) {
+                location.reload();
+                //$("#result").html(data);
+                $("#formulaireEditerGroupeMaladie").modal("hide");
+                //window.location.href = "./files/programme_de_formation_secel_2015.pdf"; 
+            })
+            .fail(function () {
+                alert("Une erreur s'est produite. Verifiez les données");
+            });
+        });
+    });
+
+</script>
+
+@*
+   FIN :  MODIFICATION GROUPE DE MALADIES EXISTANTE
+*@      
+
+
+
+@*
+    DEBUT : AJOUT MALADIE
+*@
+
+    <div class="modal" id="modalAjouterMaladie"> 
+        
+		<div class="modal-dialog">
+			  
+			  <div class="modal-content">
+				<div class="modal-header">
+					  <button type="button" class="close" data-dismiss="modal">&times;</button>
+					  <h4 class="modal-title"> Ajout d'une maladie</h4>
+				</div>
+				<div class="modal-body">
+                    @using (Html.BeginForm("ENREGISTRERMALADIE", "Reglages", FormMethod.Post, new { Id = "formulaireAjouterMaladie", @class = "row" }))
+                    { 
+                        <div class="col-lg-12">
+
+                            <input class="form-control" name="GroupeMaladieID" id="GroupeMaladieID" type="hidden" value="" />
+
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <label class="control-label" for="IntituleGroupeAjout" style = "width:100%;">Ajout maladie au Groupe </label>
+                                        <input class="form-control" name="IntituleGroupeAjout" id="IntituleGroupeAjout" type="text" value="" disabled="disabled" />
+                                         
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="control-label" for="NomMaladie" style = "width:100%;">Intitulé Maladie </label>
+                                        <input class="form-control" name="NomMaladie" id="NomMaladie" type="text" value="" />
+                                    </div>
+
+                                </div>
+                            </div>
+
+                
+                            <div class="row">                   
+                                <div class="col-lg-6">
+                                    <div class="form-group">           
+                                        <button class="btn btn-primary" type="submit" style="width: 50%;" >
+                                                <span class="glyphicon glyphicon-ok"></span> Enregistrer
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+					 	
+				</div>
+
+				<div class="modal-footer">
+                    <button class="btn btn-warning" id="" data-dismiss="modal">Annuler</button>
+				</div>
+
+			 </div>
+        </div>
+      </div>
+      
+    <script>
+        $(document).on("click", ".modalAjouterMaladie", function () {
+            var groupeMaladieId = $(this).data('idgroupe');
+            var intitule = $(this).data('intitulegroupe');
+            $(".modal-body #IntituleGroupeAjout").val(intitule);
+            $(".modal-body #GroupeMaladieID").val(groupeMaladieId);
+        });
+
+        $(function () {
+            $("#formulaireAjouterMaladie").submit(function (e) {
+                e.preventDefault();
+                var $form = $(this);
+                $.post($form.attr("action"), $form.serialize())
+                .done(function (data) {
+                    location.reload();
+                    //$("#result").html(data);
+                    $("#formulaireAjouterMaladie").modal("hide");
+                    //window.location.href = "./files/programme_de_formation_secel_2015.pdf"; 
+                })
+                .fail(function () {
+                    alert("Une erreur s'est produite. Verifiez les données");
+                });
+            });
+        });
+
+</script>
+
+@*
+   FIN : AJOUT MALADIE
+*@  
+
+
+
+
+@*
+    DEBUT : MODIFICATION DE MALADIE EXISTANTE
+*@
+
+    <div class="modal" id="modalEditerMaladie"> 
+        
+		<div class="modal-dialog">
+			  
+			  <div class="modal-content">
+				<div class="modal-header">
+					  <button type="button" class="close" data-dismiss="modal">&times;</button>
+					  <h4 class="modal-title"> Modification de l'intitulé d'une Maladie </h4>
+				</div>
+				<div class="modal-body">
+                    @using (Html.BeginForm("EDITERMALADIE", "Reglages", FormMethod.Post, new { Id = "formulaireEditerMaladie", @class = "row" }))
+                    { 
+                        <div class="col-lg-12">
+
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <label class="control-label" for="Intitule" style = "width:100%;">Intitulé Maladie </label>
+                                        <input class="form-control" name="Intitule" id="MaladieIntitule" type="text" value="" />
+
+                                         <input class="form-control" name="MaladieID" id="MaladieID" type="hidden" value="" />
+                                    </div>
+                                </div>
+                            </div>
+                            
+                
+                            <div class="row">                   
+                                <div class="col-lg-6">
+                                    <div class="form-group">           
+                                        <button class="btn btn-primary" type="submit" style="width: 100%;" >
+                                                <span class="glyphicon glyphicon-ok"></span> Enregistrer modifications
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">           
+                                         <a id="deleteMaladieid" style="width: 100%;" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span> Supprimer cette maladie</a>
+                                    </div>  
+                                </div>
+                            </div>
+                        </div>
+                    }
+					 	
+				</div>
+
+				<div class="modal-footer">
+                    <button class="btn btn-warning" id="" data-dismiss="modal">Annuler</button>
+				</div>
+
+			 </div>
+        </div>
+      </div>
+      
+    <script>
+        $(document).on("click", ".modalEditerMaladie", function () {
+            var groupeMaladieId = $(this).data('idmaladie');
+            var intitule = $(this).data('intitulemaladie');
+            $(".modal-body #MaladieIntitule").val(intitule);
+            $(".modal-body #MaladieID").val(groupeMaladieId);
+
+            $("#deleteMaladieid").attr('href', '~/../../Reglages/SUPPRIMERMALADIE/' + groupeMaladieId)
+        });
+
+        $(function () {
+            $("#formulaireEditerMaladie").submit(function (e) {
+                e.preventDefault();
+                var $form = $(this);
+                $.post($form.attr("action"), $form.serialize())
+                .done(function (data) {
+                    location.reload();
+                    //$("#result").html(data);
+                    $("#formulaireEditerMaladie").modal("hide");
+                    //window.location.href = "./files/programme_de_formation_secel_2015.pdf"; 
+                })
+                .fail(function () {
+                    alert("Une erreur s'est produite. Verifiez les données");
+                });
+            });
+        });
+
+       
+</script>
+
+@*
+   FIN :  MODIFICATION DE MALADIE EXISTANTE
+*@  
+
+
+
+
+
+

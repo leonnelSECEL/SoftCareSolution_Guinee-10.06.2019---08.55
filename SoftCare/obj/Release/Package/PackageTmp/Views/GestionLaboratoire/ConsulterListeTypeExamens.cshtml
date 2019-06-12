@@ -1,0 +1,57 @@
+﻿@model IEnumerable<SoftCare.Models.EXAMENTYPE>
+
+@{
+    Layout = "../../Views/Shared/_SoftCareLayoutPage.cshtml";
+    ViewBag.Title = "Liste des Types d'Examens";
+
+    ViewBag.Btndisabled = "disabled=\"disabled\";";
+}
+
+
+    <div class="row" style="margin:1em 0.5em">
+
+        <div class="col-lg-4 col-lg-offset-8">
+            <a href="~/GestionPatient/CONSULTERREGISTREMEDICAL" class="btn btn-primary">
+                <span class="glyphicon glyphicon-plus"></span>
+                Prescrire Examen Médical
+            </a>
+        </div>
+
+        <section class="col-lg-12 table-responsive" style="max-height: 37em;overflow-x: auto;">
+
+            <table class="table @*table-bordered*@ table-striped table-condensed" style="margin-bottom:0px;">
+
+                @if (Model == null)
+                {
+                    <caption style="color:#000"><h6> Aucun Type d' Examen enregistré </h6></caption>
+                }
+                else
+                {
+                    <thead>
+                        <tr>
+                            <th>Intitulé</th>
+                            <th>Prix </th>
+                            <th>Description</th>
+                            <th>Date Examen</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @foreach (var ExamenType in Model)
+                        {
+                            if (ExamenType != null)
+                            {
+                                <tr>
+                                    <td><a href="~/GestionLaboratoire/CONSULTERTYPEEXAMEN/@ExamenType.ExamenTypeID"> @ExamenType.Libelle </a></td>
+                                    <td> @ExamenType.Prix </td>
+                                    <td> @ExamenType.Description </td>
+                                    <td> @ExamenType.DateCreation</td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                }
+            </table>
+        </section>
+
+    </div>

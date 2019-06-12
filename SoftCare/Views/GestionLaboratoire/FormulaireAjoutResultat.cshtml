@@ -1,0 +1,82 @@
+﻿@model SoftCare.ViewModels.ResultatVM
+@{
+    Layout = "../../Views/Shared/_SoftCareLayoutPage.cshtml";
+    ViewBag.Title = "Enregistrement du Résultat d'un Examen Médical";
+}
+
+<div class="row" style="margin:1em 0">
+
+        @using (Html.BeginForm("ENREGISTRERRESULTAT", "GestionLaboratoire", FormMethod.Post, new { @class = "col-lg-12" }))
+        {
+            <input type="hidden" name="Id" value="@Model.Id" />
+            <input type="hidden" name="ExamenId" value="@Model.ExamenId" />
+
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Patient)
+                        @Html.TextBoxFor(model => model.Patient, new { @class = "form-control", disabled = "disabled" })
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ExamenType)
+                        @Html.TextBoxFor(model => model.ExamenType, new { @class = "form-control", disabled = "disabled" })
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Medecin)
+                        @Html.TextBoxFor(model => model.Medecin, new { @class = "form-control", disabled = "disabled" })
+                    </div>
+                </div>
+
+
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ReferenceExam)
+                        @Html.TextBoxFor(model => model.ReferenceExam, new { @class = "form-control", disabled = "disabled" })
+                    </div>
+                </div>
+
+                <div class="col-lg-8">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Description)
+                        @Html.TextAreaFor(model => model.Description, new { @class = "form-control", style = "height:2.5em;", disabled = "disabled" })
+                    </div>
+                </div>
+
+                <section class="col-lg-12 table-responsive" style="max-height:30em;overflow-y: auto;">
+
+                    @Html.Partial("PartialViewListeExamenPrescrits")
+
+                </section>
+
+
+
+            </div>
+
+            <div class="row" style="margin-top:1em">
+
+
+                <div class="col-lg-4 col-lg-offset-2">
+                    <div class="form-group">
+                        <a href="~/GestionLaboratoire/CONSULTERLISTERESULTATS" class="btn btn-warning" style="width:100%">
+                            <span class="glyphicon glyphicon-circle-arrow-left"></span>
+                            Retourner à la liste
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-4 ">
+                    <div class="form-group">
+                        <input class="btn btn-primary" type="submit" value="Enregistrer" style="width:100%" />
+                    </div>
+                </div>
+            </div>
+        }
+
+</div>
+
+

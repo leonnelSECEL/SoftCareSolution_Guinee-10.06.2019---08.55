@@ -1,0 +1,148 @@
+﻿@model SoftCare.ViewModels.PersonneVM
+
+@{
+    Layout = "../../Views/Shared/_SoftCareLayoutPage.cshtml";
+    ViewBag.Title = "Création Dossier Patient";
+}
+
+
+<div class="row"  style="margin:1em">
+     
+    @using (Html.BeginForm("CREERDOSSIER", "GestionPatient", FormMethod.Post, new { @class = "col-lg-12", style = "max-height:40em; overflow-x: auto;" }))
+    {
+
+        <div class="row" style="margin-top:0em">
+            <div class="col-lg-6">
+                <div class="form-group">
+                    @Html.LabelFor(Model => Model.Nom) <span class="requiredInput">*</span>
+                    @Html.TextBoxFor(Model => Model.Nom, new { @class = "form-control", required = "required" })
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="form-group">
+                    @Html.LabelFor(Model => Model.Prenom)  <span class="blankInput">*</span>
+                    @Html.TextBoxFor(Model => Model.Prenom, new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            @*<div class="col-lg-4">
+                    <div class="form-group">
+                        @Html.LabelFor(Model => Model.DateNaissance) <span class="requiredGroupInput">*</span>
+                        <input type="date" name="DateNaissance" class="form-control" style="height: 30px; width: 110px;">
+                    </div>
+                </div>*@
+            <div class="col-lg-4">
+                <div class="form-group">
+                    @Html.LabelFor(Model => Model.DateNaissance) <span class="requiredGroupInput">*</span>
+                    @Html.TextBoxFor(Model => Model.DateNaissance, new { @class = "form-control", type = "date" })
+                </div>
+            </div>
+            <div class="col-lg-8">
+                <div class="form-group">
+                    @Html.LabelFor(Model => Model.LieuNaissance) <span class="requiredGroupInput">*</span>
+                    @Html.TextBoxFor(Model => Model.LieuNaissance, new { @class = "form-control" })
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="form-group">
+                    @Html.LabelFor(Model => Model.TelephonePrincipal) <span class="requiredGroupInput">*</span>
+                    @Html.TextBoxFor(Model => Model.TelephonePrincipal, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="form-group">
+                    @Html.LabelFor(Model => Model.TelephoneSecondaire) <span class="requiredGroupInput">*</span>
+                    @Html.TextBoxFor(Model => Model.TelephoneSecondaire, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="form-group">
+                    @Html.LabelFor(Model => Model.Email)  <span class="requiredGroupInput">*</span>
+                    @Html.TextBoxFor(Model => Model.Email, new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+
+            <div class="col-lg-3">
+                <div class="form-group">
+                    <label class="form-label" for="sexe">Genre  <span class="blankInput">*</span> </label>
+                    <select id="sexe" name="sexe" class="form-control">
+                        <option value="0">Homme</option>
+                        <option value="1">Femme</option>
+                    </select>
+
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="form-group">
+                    @Html.LabelFor(Model => Model.Adresse)  <span class="blankInput">*</span>
+                    @Html.TextBoxFor(Model => Model.Adresse, new { @class = "form-control" })
+                </div>
+            </div>
+
+            <div class="col-lg-5">
+                <div class="form-group">
+                    @Html.LabelFor(Model => Model.ProgrammeSOS, new { @class = "form-label" })  <span class="blankInput">*</span>
+
+                    <select class="form-control" name="ProgrammeSOS" style="display:inline;">
+
+                        <option value="0">--- Programmes SOS --- </option>
+
+                        @if (ViewBag.ListeDesProgrammesSOS != null)
+                        {
+
+                            foreach (var programme in (List<SoftCare.Models.GROUPECIBLE>)ViewBag.ListeDesProgrammesSOS)
+                            {
+                                <option value="@programme.GroupeCibleID">@programme.Intitule</option>
+                            }
+                        }
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="form-group">
+                    @Html.LabelFor(Model => Model.PenseBete)
+                    @Html.TextAreaFor(Model => Model.PenseBete, new { @class = "form-control", style = "height:3em" })
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-5 col-lg-offset-1">
+                <div class="form-group">
+                    <input class="btn btn-primary" type="submit" value="Enregistrer"  style="width:100%" />
+                </div>
+            </div>
+            <div class="col-lg-5">
+                <div class="form-group">
+                    <a href="~/GestionPatient/CONSULTERREGISTREMEDICAL" class="btn btn-warning" style="width:100%">
+                        <span class="glyphicon glyphicon-circle-arrow-left"></span>
+                        Retourner au Registre Médical
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <p class="col-lg-12">
+                <span class="requiredInput">*</span> <span style="font-size:1.5em;"> : Remplir obligatoirement le champ. </span>
+                <span class="requiredGroupInput">*</span> <span style="font-size:1.5em;">: Remplir obligatoirement au moins un des champs. </span>
+            </p>
+        </div>
+
+    }
+
+</div>
+

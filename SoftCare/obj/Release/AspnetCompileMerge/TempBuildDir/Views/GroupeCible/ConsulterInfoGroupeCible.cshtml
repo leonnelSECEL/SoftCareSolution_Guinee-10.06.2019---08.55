@@ -1,0 +1,226 @@
+﻿@model SoftCare.ViewModels.GroupeCibleVM2
+
+@{
+    Layout = "~/Views/Shared/_SoftCareLayoutPage.cshtml";
+
+    ViewBag.Title = "Consulter les Informations sur le Programme";
+
+    Boolean isAdmin = (Boolean)ViewBag.AffichePlus;
+    String disableThisField = "disabled =\"disabled\" ";
+
+    String LibeleMembre = "", LibeleNombre = "";
+
+    SoftCare.ViewModels.UtilisateurVM2 Admin = new SoftCare.ViewModels.UtilisateurVM2();
+    Admin.Id = Model.Admin.Id;
+}
+
+<div class="row">
+
+    @using (Html.BeginForm("CONSULTERINFOSGROUPECIBLE", "GroupeCible", FormMethod.Post, new { @class = "col-lg-12" }))
+    {
+
+    <div class="row" style="margin:1em">
+        <div class="col-lg-6">
+            <p style="width:100%;font-size: 1.1em;">
+                Code du Programme: <strong>@Model.Code.TrimEnd()</strong>,
+                créé: <strong>@Model.DateCreationGroupe</strong>
+            </p>
+        </div>
+        <div class="col-lg-3">
+            <a href="~/GroupeCible/CONSULTERLISTEGROUPECIBLE" class="btn btn-warning">
+                <span class="glyphicon glyphicon-circle-arrow-left"></span>
+                Liste des Programmes
+            </a>
+        </div>
+        <div class="col-lg-3 form-group">
+            @if (isAdmin)
+            {
+                <input class="btn btn-primary" type="submit" value="Enregistrer les modifications" />
+            }
+        </div>
+    </div>
+
+    <div class="row" style="">
+
+        <input class="form-control" id="Admin.Id" name="Admin.Id" value="@Admin.Id" type="hidden" />
+        <input class="form-control" id="Objet" name="Objet" value="@Model.Objet" type="hidden" />
+
+        <div class="col-lg-4">
+            <div class="form-group">
+                <label class="control-label" for="Intitule" style="width:100%;"> Nom du Programme </label>
+                <input class="form-control" id="Intitule" name="Intitule" value="@Model.Intitule" type="text" style="display:inline; width:100%" />
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="form-group">
+                <label class="control-label" for="type" style="width:100%;"> Type Programme </label>
+
+                @if (!isAdmin)
+                { // Si ce n'est pas un admin, on affiche la date
+                    <input class="form-control" id="type" name="type" value="@Model.TypeGroupe.Objet" type="text" style="display:inline; width:100%" @if (!isAdmin) { @disableThisField } />
+                }
+                else
+                {
+                    <select class="form-control" name="type" style="display:inline; width:100%">
+
+                        @if (ViewBag.ListeDesTypesDeGC != null)
+                        {
+                            String TypeSelected = "";
+                            foreach (var type in (List<SoftCare.Models.TYPEGROUPE>)ViewBag.ListeDesTypesDeGC)
+                            {
+                                TypeSelected = "";
+
+                                if (Model.TypeGroupe.TypeGroupeID == type.TypeGroupeID)
+                                {
+                                    TypeSelected = "selected=\"selected\" ";
+                                }
+
+                                <option value="@type.TypeGroupeID" @TypeSelected>@type.Objet</option>
+                            }
+                        }
+                    </select>
+                }
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="form-group">
+                <label class="control-label" for="DateClotureGroupe" style="width:100%;">Date clôture </label>
+                <input class="form-control" id="DateClotureGroupe" name="DateClotureGroupe" value="@Model.DateClotureGroupe" type="text" style="display:inline; width:100%" @if (!isAdmin) { @disableThisField } />
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="form-group">
+                <label class="control-label" for="Administrateur" style="width:100%;">Administrateur du Programme</label>
+                @if (!isAdmin)
+                { // Si ce n'est pas un admin, on affiche la date
+                    <input class="form-control" id="Administrateur" name="Administrateur" value="@Model.Admin.Nom" type="text" style="display:inline; width:100%" @if (!isAdmin) { @disableThisField } />
+                }
+                else
+                {
+                    <select class="form-control" name="Administrateur" style="display:inline; width:100%">
+
+                        @if (ViewBag.ListeDesAdministrateurs != null)
+                        {
+                            String TypeSelected = "";
+
+                            foreach (var adminGroupe in (List<SoftCare.ViewModels.UtilisateurVM2>)ViewBag.ListeDesAdministrateurs)
+                            {
+                                TypeSelected = "";
+
+                                if (Model.Admin.Id == adminGroupe.Id)
+                                {
+                                    TypeSelected = "selected=\"selected\" ";
+                                }
+
+                                <option value="@adminGroupe.Id" @TypeSelected>@adminGroupe.Nom.</option>
+                            }
+
+                        }
+                    </select>
+                }
+            </div>
+        </div>
+
+        <div class="col-lg-8">
+            <div class="form-group">
+                <label class="control-label" for="Objet" style="width:100%;"> Objet du Programme </label>
+                <textarea class="form-control" id="Objet" name="Objet" style="display:inline; width:100%; height:2.5em;">@Model.Objet</textarea>
+
+            </div>
+        </div>
+
+        
+    </div>
+
+    }
+
+</div>
+
+<div class="row" style="margin: 2em auto;">
+    <div class="col-lg-4 pull-right">
+        <a href="~/GroupeCible/AJOUTERMEMBRE/@SoftCare.Models.CRYPTAGE.StringHelpers.Decrypt(Model.Id)" class="btn btn-primary btn" title="Ajouter un membre à ce Programme">
+            <span class="glyphicon glyphicon-plus"></span> Ajouter un Membre à ce Progamme
+        </a>
+    </div>
+
+    <div class="col-lg-6" style="    padding: 0.7em 0 0 0;">
+        <span class="" style="font-size:1.2em; font-weight:500">
+            @if (Model.Membres.Count() <= 1)
+            {
+                LibeleMembre = "seul membre";
+            }
+            else
+            {
+                LibeleMembre = "membres";
+            }
+            @if (Model.Membres.Count() <= 9)
+            {
+                LibeleNombre = "0" + Model.Membres.Count();
+            }
+            else
+            {
+                LibeleNombre = "" + Model.Membres.Count();
+            }
+
+            Il y a @LibeleNombre @LibeleMembre dans ce Programme.
+        </span>
+    </div>
+
+</div>
+
+
+<div class="row">
+    <div class="col-lg-12 table-responsive">
+        <table class="table table-bordered_ table-striped table-condensed" style="margin-bottom:0px;">
+            @if (Model.Membres == null)
+            {
+                <caption style="color:#000"><h6> Il n'y a Membre dans ce Programme  </h6></caption>
+            }
+            else
+            {
+                <thead> <tr> <th>Nom du Patient</th> <th>Date d'intégration</th> <th>Spécialiste</th> <th>Etat @*de la grossesse*@</th>  <th> Actions</th> </tr>  </thead>
+
+                <tbody>
+                    @{
+                        foreach (var membre in Model.Membres)
+                        {
+                            if (membre != null)
+                            {
+                                <tr>
+                                    <td>@membre.NomPatient</td>
+                                    <td>@membre.DateIntegration</td>
+                                    <td>@membre.Specialiste</td>
+                                    <td><a href="~/GroupeCible/CONSULTERGROSSESSE/@SoftCare.Models.CRYPTAGE.StringHelpers.Decrypt(membre.GrossesseId)">@membre.EtatGrossesse</a></td>
+                                    <td>
+                                        <a href="~/GroupeCible/AJOUTERGROSSESSE/@SoftCare.Models.CRYPTAGE.StringHelpers.Decrypt(membre.LiaisonId)" class="btn btn-info btn-xs" title="Ajouter une Grossesse à ce groupe">
+                                            <span class="glyphicon glyphicon-plus"></span>
+                                        </a>
+                                        <a href="~/GroupeCible/CONFIGURERVISITEPRENATALE/@SoftCare.Models.CRYPTAGE.StringHelpers.Decrypt(membre.GrossesseId)" class="btn btn-primary btn-xs" title="Consulter le calendrier des visites prénatales de '@membre.NomPatient'">
+                                            <span class="glyphicon glyphicon-calendar"></span>
+                                        </a>
+
+                                        <a href="~/GroupeCible/RETIRERMEMBREGROUPE/@SoftCare.Models.CRYPTAGE.StringHelpers.Decrypt(membre.GrossesseId)" class="btn btn-danger btn-xs" title="Supprimer '@membre.NomPatient' de ce groupe">
+                                            <span class="glyphicon glyphicon-log-out"></span>
+                                        </a>
+
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    }
+                </tbody>
+            }
+        </table>
+    </div>
+
+</div>
+
+
+
+
+
+
+

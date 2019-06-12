@@ -1,0 +1,93 @@
+﻿@model IEnumerable<SoftCare.ViewModels.UtilisateurVM4>
+
+@{
+    ViewBag.Title = "Liste Utilisateurs";
+    Layout = "~/Views/Shared/_SoftCareLayoutPage.cshtml";
+}
+
+<div class="row">  
+     
+<div class="col-lg-12" style="margin-top:1em">
+     
+    @using (Ajax.BeginForm("CONSULTERLISTEUTILISATEUR", "GestionPatient", new AjaxOptions { InsertionMode = InsertionMode.Replace, UpdateTargetId = "userList", LoadingElementId = "loader" }, new { @class = "row form-inline" }))
+    {
+        
+       <div class="col-lg-2">
+         <h6> Sélectionnez la vue </h6>
+       </div>
+        
+       <div class="col-lg-4">
+         <div class="form-group" style="width: 100%">
+            <label for="select" class="sr-only" style="width:100%"> Compte </label>
+            <select name="etatCompte" class="form-control" style="width:100%">
+                <option value="-1">Tous les utilisateurs</option>
+                <option value="0">Utilisateurs actifs</option>
+                <option value="1">Utilisateurs désactivés</option>
+            </select>
+         </div>
+       </div>
+        
+       <div class="col-lg-4">
+            <div class="form-group"  style="width: 100%">
+                <label for="select" class="sr-only" style="width:100%">Rôles </label>
+                <select class="form-control" name="role">
+
+                    <option value="-1">Tous les rôles</option>
+
+                    @if (ViewBag.ListeRole != null)
+                    {
+
+                        foreach (var role in (List<SoftCare.ViewModels.RoleVM>)ViewBag.ListeRole) 
+                        { 
+                            <option value="@role.RoleID">@role.Intitule</option>
+                        }                             
+                    }
+                </select> 
+            </div>
+        </div>
+        
+        <div class="col-lg-2">
+            <div class="form-group" style="width: 100%">
+                <button type="submit" class="btn btn-info" style="width: 100%"> Filtrer </button>
+            </div> 
+        </div>
+        
+          
+    }
+ </div>
+
+ </div>
+
+
+<div class="row" style="margin:2em">       
+    <div class="col-lg-2">
+        <a href="~/CompteUtilisateur/CREERUTILISATEUR" class="btn btn-primary" ><span class="glyphicon glyphicon-plus"></span> Utilisateur</a>
+    </div>      
+</div>
+
+<div class="row">  
+  
+ <div id="userList" class="col-lg-12 table-responsive" style="max-height:41em;overflow-y: auto;">
+      
+      <div id="loader" class="alert" style="display:none">
+         <img src="~/Content/images/ajax-loader.gif" style="height:200px; width:200px" />
+      </div>
+
+      @Html.Partial("../Shared/PartialViewListeUtilisateur")
+
+</div>
+
+</div>
+
+
+ @*@Html.Partial("../Shared/PartialViewGestionCompteUser")*@
+
+   
+
+
+
+
+
+
+
+   

@@ -1,0 +1,26 @@
+﻿@model IEnumerable<SoftCare.ViewModels.SearchDossier>
+
+<table class="table table-bordered table-striped table-condensed" style="margin-bottom:0px;">
+        
+           
+    @if (Model != null)
+    {                         
+            <caption style="color:#000"><h6> Résultat de la recherche </h6></caption>
+                           
+            <thead>
+                <tr>  <th> Noms des Patients </th> <th> Adresses </th> <th>Téléphones </th> <th>Dernière visite </th> </tr>
+            </thead>
+            <tbody>                        
+                @foreach (var patient in Model)
+                {
+                    if(patient!=null)
+                    {
+                        <tr>  <td> <a href="~/GestionPatient/CONSULTERDOSSIER/@SoftCare.Models.CRYPTAGE.StringHelpers.Decrypt(@patient.DossierId)"> @patient.Nom  </a> </td> <td> @patient.Adresse </td> <td> @patient.Tel  </td> <td> @patient.LastVisit  </td></tr>
+                    }
+                }  
+
+                            
+            </tbody>
+    } 
+              
+</table>

@@ -1,0 +1,90 @@
+﻿@model IEnumerable<SoftCare.ViewModels.FactureVM2>
+
+@{
+    Layout = "~/Views/Shared/_SoftCareLayoutPage.cshtml";
+    ViewBag.Title = "Liste des Factures ";
+
+    int counter = 0; 
+}
+
+
+<div class="row" style="margin:1em">
+    <div class="col-lg-4 ">
+        <a href="~/GestionCaisse/RECHERCHERDOSSIER" class="btn btn-primary" title="Créer une nouvelle Facture" style="width:100%">
+            <span class="glyphicon glyphicon-plus"></span> Editer Nouvelle Facture
+        </a>
+    </div>
+</div>
+
+<div class="row" style="margin:0em">
+    <section class="col-lg-12 bloc-scrollable table-responsive table-scrollable" style="max-height:40em;">
+        <table class="table table-bordered_ table-striped table-condensed">
+
+            @if (Model == null)
+            {
+                <caption style="color:#000"><h5>Il n'y aucune Facture enregistrée. </h5></caption>
+            }
+            else
+            {
+                <caption style="color:#000"><h5> Liste des Factures éditées </h5></caption>
+                <thead>
+                    <tr>
+                        <th> #</th>
+                        <th> Réference Facture</th>
+                        <th> Patient </th>
+                        <th> Montant </th>
+                        <th> Reste </th>
+                        <th> Date  </th>
+                        <th> Statut </th>
+                        <th> Actions </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var Facture in Model)
+                    {
+                        counter++; 
+                    <tr>
+                        <td>@counter</td>
+                        <td><a href="~/GestionCaisse/CONSULTERFACTURE/@SoftCare.Models.CRYPTAGE.StringHelpers.Decrypt(Facture.Id)"> @Facture.Reference</a></td>
+                        <td> @Facture.Patient</td>
+                        <td> @Facture.Montant </td>
+                        <td> @Facture.Reste </td>
+                        <td> @Facture.DateCreation </td>
+                        <td>
+                            @if (Facture.EstPaye)
+                            {
+                                <span> PAYEE </span>
+                            }
+                            else
+                            {
+                                <span> NON-PAYEE </span>
+                            }
+                        </td>
+                        <td>
+                            @if (Facture.EstPaye)
+                            {
+                                <a href="~/GestionCaisse/CONSULTERREGLEMENT/@SoftCare.Models.CRYPTAGE.StringHelpers.Decrypt(Facture.RegrementId)" class="btn btn-info btn-xs" title="Consulter le Reglement">
+                                    <span class="glyphicon glyphicon-check"></span>
+                                </a>
+                            }
+                            else
+                            {
+                                <a href="~/GestionCaisse/ENREGISTRERREGLEMENT/@SoftCare.Models.CRYPTAGE.StringHelpers.Decrypt(Facture.Id)" class="btn btn-info btn-xs" title="Regler cette facture">
+                                    <span class="glyphicon glyphicon-check"></span>
+                                </a>
+                                <a href="~/GestionCaisse/ANNULERFACTURE/@SoftCare.Models.CRYPTAGE.StringHelpers.Decrypt(Facture.Id)" class="btn btn-danger btn-xs" title="Annuler cette facture">
+                                    <span class="glyphicon glyphicon-trash"></span>
+                                </a>
+                            }
+
+                        </td>
+                    </tr>
+                    }
+
+                </tbody>
+            }
+
+        </table>
+    </section>
+</div>
+

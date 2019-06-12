@@ -1,0 +1,101 @@
+﻿@model SoftCare.Models.PRIVILEGE
+
+@{
+    ViewBag.Title = "Création Privilège";
+    Layout = "~/Views/Shared/_SoftCareLayoutPage.cshtml";
+}
+
+
+
+<div class="row" style="margin:2em">
+     
+    @using (Html.BeginForm("AJOUTERPRIVILEGE", "CompteUtilisateur", FormMethod.Post, new { @class = "col-lg-12" }))
+    {
+        <div class="row" style=""> 
+
+            <div class="col-lg-12">
+
+                <input type="hidden" name="PrivilegeID" value="@Model.PrivilegeID" />
+
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Controller) <span class="requiredInput">*</span>
+                            @Html.TextBoxFor(model => model.Controller, new { @class = "form-control", required = "required" })
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ActionName) <span class="requiredInput">*</span>
+                            @Html.TextBoxFor(model => model.ActionName, new { @class = "form-control", required = "required" })
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Peut) <span class="requiredInput">*</span>
+                            @Html.TextBoxFor(model => model.Peut, new { @class = "form-control", required = "required" })
+                        </div>
+                    </div>
+
+                    <div class="col-lg-8">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Libelle) <span class="requiredInput">*</span>
+                            @Html.TextBoxFor(model => model.Libelle, new { @class = "form-control", required = "required" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="alert alert-primary" role="alert" style="">
+                    @ViewBag.PrivilegeExiste
+                </div>
+
+                <div class="col-lg-5 col-lg-offset-1">
+                    <div class="form-group">
+                        <a href="~/CompteUtilisateur/LISTEPRIVILEGES" class="btn btn-warning" style="width: 100%;">
+                            <span class="glyphicon glyphicon-circle-arrow-left"></span>
+                            &nbsp; &nbsp; Retourner à la liste des Privilèges
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-lg-5">
+                    <div class="form-group">
+                        <input class="btn btn-primary" type="submit" value="Enregistrer" style="width: 100%;" />
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+        
+        
+
+       
+    }
+
+
+</div>
+
+
+
+
+
+<script>
+    $(document).ready(function () {
+        var date_input = $('#DatePrivilegeCreation');
+        var container = $('.softcare-add-creation-date').length > 0 ? $('.softcare-add-creation-date').parent() : "body";
+        var options = {
+            format: 'yyyy-mm-dd', //  mm/dd/yyyy
+            container: container,
+            todayHighlight: true,
+            autoclose: true,
+        };
+        date_input.datepicker(options);
+    })                   
+</script>
+
+
+
+

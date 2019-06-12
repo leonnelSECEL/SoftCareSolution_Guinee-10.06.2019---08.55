@@ -1,0 +1,117 @@
+﻿@model SoftCare.Models.REGLEMENT
+@{
+    Layout = "../../Views/Shared/_SoftCareLayoutPage.cshtml";
+    ViewBag.Title = "Enregistrement d'un Paiement";
+}
+
+<div class="row" style="margin:3em">
+
+    @using (Html.BeginForm("", "", FormMethod.Post, new { @class = "col-lg-12" }))
+    {
+
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <label class="control-label" for="patient"> Nom du Patient </label>
+                    <input type="text" id="patient" class="form-control" name="@ViewBag.Patient" disabled="disabled" style="width:100%" />
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="form-group">
+                    @Html.LabelFor(Model => Model.Facture.Reference) Facture
+                    @Html.TextBoxFor(Model => Model.Facture.Reference, new { @class = "form-control", disabled = "disabled" })
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+
+            <div class="col-lg-4">
+                <div class="form-group">
+                    @Html.LabelFor(Model => Model.MontantNet) à Payer
+                    @Html.TextBoxFor(Model => Model.MontantNet, new { @class = "form-control", disabled = "disabled" })
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="form-group">
+                    @Html.LabelFor(Model => Model.ModePaiement.Nom) du Mode de Paiement
+                    <select class="form-control" name="ExamenTypeID">
+                        <option value="0">--- Mode de Paiement --- </option>
+                        @*@if (ViewBag.ListeMaladie != null)
+                            {
+                                foreach (var maladie in (List<SoftCare.Models.MALADIE>)ViewBag.ListeMaladie)
+                                {
+                                    <option value="@maladie.MaladieID">@maladie.Intitule</option>
+                                }
+                            }*@
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="form-group">
+                    <label class="control-label" for="patient"> Nom du Caissier(ère) </label>
+                    <input type="text" id="patient" class="form-control" name="" disabled="disabled" style="width:100%" />
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="form-group">
+                    @Html.LabelFor(Model => Model.MontantRecu)
+                    @Html.TextBoxFor(Model => Model.MontantRecu, new { @class = "form-control", })
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="form-group">
+                    @Html.LabelFor(Model => Model.MontantARembourse)
+                    @Html.TextBoxFor(Model => Model.MontantARembourse, new { @class = "form-control", disabled = "disabled" })
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-5">
+                <div class="form-group">
+                    @Html.LabelFor(Model => Model.MontantRembourse)
+                    @Html.TextBoxFor(Model => Model.MontantRembourse, new { @class = "form-control", })
+                </div>
+            </div>
+
+            <div class="col-lg-7">
+                <div class="form-group">
+                    <label class="control-label" for="Reste"> Reste à Payer  </label>
+                    <input type="text" id="Reste" class="form-control" name="" disabled="disabled" style="width:100%" />
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row" style="margin-top:3em">
+
+            <div class="col-lg-4 col-lg-offset-2">
+                <div class="form-group">
+                    <input class="btn btn-primary" type="submit" value="Enregistrer" style="width:100%" />
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="form-group">
+                    <a href="" class="btn btn-warning" style="width:100%">
+                        <span class="glyphicon glyphicon-circle-arrow-left"></span>
+                        Retourner
+                    </a>
+                </div>
+            </div>
+        </div>
+    }
+
+</div>
+
+</div>
+
+

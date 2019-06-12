@@ -1,0 +1,95 @@
+﻿
+
+<div class="modal" id="ajouterMembreAuGroupeCurrentModalId" role="dialog"  data-backdrop="false" data-keyboard="true" style="background-color: #0c0c0c87;" >
+    
+    <div class="modal-dialog" role="document">
+        
+        <div class="modal-content">
+            
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">x</button>
+                <h6 class="modal-title"> Ajout d'un membre au Groupe Cible</h6>
+            </div>
+
+            <div class="modal-body">
+
+                @using (Html.BeginForm("CREERNOUVEAUGROUPE", "GroupeCible", FormMethod.Post, new { @class = "col-lg-12" }))
+                 { 
+                    
+                     <div class="row">
+                              <div class="col-lg-12">
+                        
+                                <div class="row">
+
+                                    <div class="col-lg-6" >
+                                        <div class="form-group">
+                                        <label class="control-label" for="IdGroupe" style = "width:100%;">Id Groupe</label>
+                                        <input class="form-control" id="IdGroupe" name="IdGroupe" type="text" value=""  style="display:inline; width:100%" disabled="disabled"/>
+                                        </div>
+                                    </div>
+
+                                   <div class="col-lg-6" >
+                                        <div class="form-group">
+                                        <label class="control-label" for="Code" style = "width:100%;">Code du Groupe</label>
+                                        <input class="form-control" id="Code2" name="Code" type="text" value=""  style="display:inline; width:100%" disabled="disabled"/>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="row">
+                                     <section class="col-lg-12 bloc-scrollable table-responsive table-scrollable">
+                                      <table class="table table-bordered_ table-striped table-condensed">                     
+
+                                            @if (Model == null)
+                                            {                         
+                                               <caption style="color:#000"><h5>Il n'y aucun paramètre enregistré </h5></caption>                        
+                                            }
+                                            else 
+                                            {
+                                               <caption style="color:#000"><h5> Liste des Groupes cibles</h5></caption> 
+                                            <thead>
+                                                <tr> <th>Code Groupe</th> <th>Type de Groupe</th> <th>Date création</th> <th>Administrateur Groupe</th> <th>Nombre de patient</th>   </tr>
+                                            </thead>
+                                            <tbody>                        
+                                                @foreach (var dossier in Model)   //DatePrise.ToShortDateString()
+                                                {
+                                                        <tr>  <td> <a href="~/GroupeCible/CONSULTERINFOSGROUPECIBLE/@dossier.DossierId"> @dossier.Code </a> </td> <td> @dossier.Nom </td> <td> @dossier.Tel  </td> <td> @dossier.LastVisit  </td> <td> @dossier.Adresse </td> </tr>
+                                                }  
+                       
+                                            </tbody>
+                                            }
+  
+                                     </table>
+      </section>
+                                                              
+
+                                </div>
+
+                            </div>
+                     </div>
+            
+                    
+                }
+             </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-info" id="" data-dismiss="modal">Fermer</button>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+
+<script>
+    $(document).on("click", ".ajouterMembre", function ()
+    {
+         var goupeId = $(this).data('ajoutermembreid');
+         $(".modal-body #IdGroupe").val(goupeId);
+    });
+</script>

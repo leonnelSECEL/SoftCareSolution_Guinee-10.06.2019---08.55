@@ -1,0 +1,68 @@
+﻿@model SoftCare.ViewModels.TransfertStockVM
+
+@{
+    Layout = "../../Views/Shared/_SoftCareLayoutPage.cshtml";
+    ViewBag.Title = "Liste des Transferts Stock ";
+
+    ViewBag.Btndisabled = "disabled=\"disabled\";";
+
+    int counter = 0;
+
+    var ListeProduit = Model.ListeProduit; 
+}
+
+
+<div class="row" style="margin:20px 0">
+
+    <section class="col-lg-12 table-responsive" style="max-height: 37em;overflow-x: auto;">
+       
+            <table class="table @*table-bordered*@ table-striped table-condensed" style="margin-bottom:0px;">
+
+                @if (Model == null)
+                {
+                    <caption style="color:#000"><h6> Aucun Produit ou service enregistré </h6></caption>
+                }
+                else
+                {
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Réf. </th>
+                            <th>Intitulé</th>
+                            <th>Prix Vente</th>
+                            <th>Date Expiration</th>
+                            <th>Qté Stock</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                        @foreach (var Produit in Model)
+                        {
+                            counter++;
+                            if (Produit != null)
+                            {
+                                <tr>
+                                    <td>@counter</td>
+                                    <td><a href="~/GestionStock/CONSULTERPRODUITS/@Produit.ProduitID"> @Produit.ReferenceProduit </a></td>
+                                    <td>@Produit.NomProduit</td>
+                                    <td>@Produit.PrixVente </td>
+                                    <td>@Produit.DateExpiration</td>
+                                    <td >@Produit.QuantiteStock</td>
+                                    <td >
+                                        <a href="~/GestionStock/MODIFIERPRODUIT" class="btn btn-info btn-xs" title="Modifier cette ligne">
+                                            <span class="glyphicon glyphicon-pencil"></span> 
+                                        </a>
+                                        <a href="~/GestionStock/SUPPRIMERPRODUIT" class="btn btn-danger btn-xs" title="Supprimer cette ligne">
+                                            <span class="glyphicon glyphicon-trash"></span> 
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                }
+            </table>
+    </section>
+
+</div>

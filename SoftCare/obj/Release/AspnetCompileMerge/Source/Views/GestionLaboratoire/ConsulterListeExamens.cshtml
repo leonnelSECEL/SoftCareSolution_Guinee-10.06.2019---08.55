@@ -1,0 +1,52 @@
+﻿@model IEnumerable<SoftCare.Models.EXAMEN>
+
+@{
+    Layout = "../../Views/Shared/_SoftCareLayoutPage.cshtml";
+    ViewBag.Title = "Liste des Examens Médicaux";
+
+    ViewBag.Btndisabled = "disabled=\"disabled\";";
+}
+
+
+<div class="row">
+
+    <section class="col-lg-12 table-responsive" style="max-height: 37em;overflow-x: auto;">
+       
+            <table class="table @*table-bordered*@ table-striped table-condensed" style="margin-bottom:0px;">
+
+                @if (Model == null)
+                {
+                    <caption style="color:#000"><h6> Aucun Examen enregistré </h6></caption>
+                }
+                else
+                {
+                    <thead>
+                        <tr>
+                            <th>Réf. Examen</th>
+                            <th>Intitulé</th>
+                            <th>Patient </th>
+                            <th>Type Examen</th>
+                            <th>Date Examen</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                        @foreach (var Examen in Model)
+                        {
+                            if (Examen != null)
+                            {                                
+                                <tr>
+                                    <td><a href=""> @Examen.Reference </a></td>
+                                    <td><a href=""> @Examen.Description </a></td>
+                                    <td>@Examen.Dossier.Patient.Nom</td>
+                                    <td>@Examen.ExamenType</td>
+                                    <td>@Examen.DateExamen</td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                }
+            </table>
+    </section>
+
+</div>

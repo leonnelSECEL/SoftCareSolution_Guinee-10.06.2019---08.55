@@ -1,0 +1,64 @@
+﻿@model IEnumerable<SoftCare.Models.LABORATOIREOUTILS>
+
+@{
+    Layout = "../../Views/Shared/_SoftCareLayoutPage.cshtml";
+    ViewBag.Title = "Liste Materiels du Laboratoire Médical";
+
+    ViewBag.Btndisabled = "disabled=\"disabled\";";
+}
+
+<div class="row" style="margin:20px 0">
+
+    <div class="col-lg-5">
+        <a href="~/GestionLaboratoire/ENREGISTRERMATERIEL" class="btn btn-primary">
+            <span class="glyphicon glyphicon-plus"></span>
+            Ajouter un Materiels au Laboratoire Médical
+        </a>
+    </div>
+
+</div>
+
+
+<div class="row">
+
+    <section class="col-lg-12 table-responsive" style="max-height: 37em;overflow-x: auto;">
+       
+            <table class="table table-striped table-condensed" style="margin-bottom:0px;">
+
+                @if (Model == null)
+                {
+                    <caption style="color:#000"><h6> Aucun Matériel ou service enregistré </h6></caption>
+                }
+                else
+                {
+                    <thead>
+                        <tr>
+                            <th>Libelle materiel</th>
+                            <th>libelle Labo</th>
+                            <th>Nom du rayon</th>
+                            <th>Nom du stock</th>
+                            <th>Description du Materiel</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                        @foreach (var materiel in Model)
+                        {
+                            if (materiel != null)
+                            {                                
+                                <tr>
+                                    <td><a href=""># </a></td>
+                                    <td>@materiel.Libelle</td>
+                                    <td>@materiel.Laboratoire.Libelle</td>
+                                    <td>@materiel.Rayon.Nom</td>
+                                    <td>@materiel.Rayon.Nom</td>
+                                    <td>@materiel.Description</td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                }
+            </table>
+    </section>
+
+</div>

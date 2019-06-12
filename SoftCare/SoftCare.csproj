@@ -1,0 +1,569 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{5220C31C-7A27-4C90-B610-219F8EB3D195}</ProjectGuid>
+    <ProjectTypeGuids>{E3E379DF-F4C6-4180-9B81-6769533ABE47};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SoftCare</RootNamespace>
+    <AssemblyName>SoftCare</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <Use64BitIISExpress />
+    <UseGlobalApplicationHostFile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.4.5.6\lib\net40\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Rotativa">
+      <HintPath>..\..\eMBA_02032017\eMBA\maureenSolution\maureen\bin\Rotativa.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.4.0.20710.0\lib\net40\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.4.0.20710.0\lib\net40\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.4.0.20710.0\lib\net40\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.4.0.20710.0\lib\net40\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.0.0\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.2.0.20710.0\lib\net40\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="WebMatrix.Data, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.Data.2.0.20710.0\lib\net40\WebMatrix.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.WebPages.OAuth, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.OAuth.2.0.20710.0\lib\net40\Microsoft.Web.WebPages.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="WebMatrix.WebData, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.WebData.2.0.20710.0\lib\net40\WebMatrix.WebData.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.AspNet, Version=4.0.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\DotNetOpenAuth.AspNet.4.0.3.12153\lib\net40-full\DotNetOpenAuth.AspNet.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\DotNetOpenAuth.Core.4.0.3.12153\lib\net40-full\DotNetOpenAuth.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OAuth.Consumer, Version=4.0.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\DotNetOpenAuth.OAuth.Consumer.4.0.3.12153\lib\net40-full\DotNetOpenAuth.OAuth.Consumer.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OAuth, Version=4.0.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\DotNetOpenAuth.OAuth.Core.4.0.3.12153\lib\net40-full\DotNetOpenAuth.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OpenId, Version=4.0.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\DotNetOpenAuth.OpenId.Core.4.0.3.12153\lib\net40-full\DotNetOpenAuth.OpenId.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OpenId.RelyingParty, Version=4.0.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\DotNetOpenAuth.OpenId.RelyingParty.4.0.3.12153\lib\net40-full\DotNetOpenAuth.OpenId.RelyingParty.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.1.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.1.0\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\AuthConfig.cs" />
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CompteUtilisateurController.cs" />
+    <Compile Include="Controllers\GestionLaboratoireController.cs" />
+    <Compile Include="Controllers\GestionStockController.cs" />
+    <Compile Include="Controllers\GestionPharmacieController.cs" />
+    <Compile Include="Controllers\GestionCaisseController.cs" />
+    <Compile Include="Controllers\GestionPatientController.cs" />
+    <Compile Include="Controllers\GroupeCibleController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ReglagesController.cs" />
+    <Compile Include="Controllers\StatistiquesController.cs" />
+    <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ACCES.cs" />
+    <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\ATTENTE.cs" />
+    <Compile Include="Models\BddContext.cs" />
+    <Compile Include="Models\RESULTAT.cs" />
+    <Compile Include="Models\EXAMENDETAILS.cs" />
+    <Compile Include="Models\SERVICE.cs" />
+    <Compile Include="Models\EXAMENMEDICAL.cs" />
+    <Compile Include="Models\STOCKTYPE.cs" />
+    <Compile Include="Models\STOCKTRANSFERTDETAILS.cs" />
+    <Compile Include="Models\STOCKTRANSFERT.cs" />
+    <Compile Include="Models\STOCKMOUVEMENTDETAILS.cs" />
+    <Compile Include="Models\STOCKMOUVEMENT.cs" />
+    <Compile Include="Models\STOCKDETAILS.cs" />
+    <Compile Include="Models\STOCK.cs" />
+    <Compile Include="Models\REGLEMENT.cs" />
+    <Compile Include="Models\RAYON.cs" />
+    <Compile Include="Models\PRODUIT.cs" />
+    <Compile Include="Models\MODEPAIEMENT.cs" />
+    <Compile Include="Models\LIVRAISON.cs" />
+    <Compile Include="Models\LABORATOIREOUTILS.cs" />
+    <Compile Include="Models\LABORATOIRE.cs" />
+    <Compile Include="Models\INVENTAIREDETAILS.cs" />
+    <Compile Include="Models\INVENTAIRE.cs" />
+    <Compile Include="Models\FOURNISSEUR.cs" />
+    <Compile Include="Models\FACTURE.cs" />
+    <Compile Include="Models\FACTUREDETAILS.cs" />
+    <Compile Include="Models\FABRICANT.cs" />
+    <Compile Include="Models\EXAMENTYPE.cs" />
+    <Compile Include="Models\EXAMENRESULTAT.cs" />
+    <Compile Include="Models\EXAMEN.cs" />
+    <Compile Include="Models\CAISSEOUVERTUREFERMETURE.cs" />
+    <Compile Include="Models\CAISSEMOUVEMENT.cs" />
+    <Compile Include="Models\CAISSE.cs" />
+    <Compile Include="Models\CLETABLE.cs" />
+    <Compile Include="Models\CRYPTAGE.cs" />
+    <Compile Include="Models\Dal.cs" />
+    <Compile Include="Models\DIAGNOSTIC.cs" />
+    <Compile Include="Models\DOSSIER.cs" />
+    <Compile Include="Models\GROSSESSE.cs" />
+    <Compile Include="Models\GROUPECIBLE.cs" />
+    <Compile Include="Models\GROUPEMALADIE.cs" />
+    <Compile Include="Models\IDAL.cs" />
+    <Compile Include="Models\LIAISONDOSSIERGROUPECIBLE.cs" />
+    <Compile Include="Models\MALADIE.cs" />
+    <Compile Include="Models\MenuHelper.cs" />
+    <Compile Include="Models\MODIFICATION.cs" />
+    <Compile Include="Models\MODIFICATIONATTENTE.cs" />
+    <Compile Include="Models\PARAMETRE.cs" />
+    <Compile Include="Models\PERSONNE.cs" />
+    <Compile Include="Models\PRIVILEGE.cs" />
+    <Compile Include="Models\RAPPELRDV.cs" />
+    <Compile Include="Models\RENDEZVOUS.cs" />
+    <Compile Include="Models\ROLE.cs" />
+    <Compile Include="Models\TRAITEMENT.cs" />
+    <Compile Include="Models\TYPEGROUPE.cs" />
+    <Compile Include="Models\UTILISATEUR.cs" />
+    <Compile Include="Models\VISITEPRENATALE.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\ExamenDetailsVM.cs" />
+    <Compile Include="ViewModels\ResultatVM3.cs" />
+    <Compile Include="ViewModels\ResultatVM2.cs" />
+    <Compile Include="ViewModels\ResultatVM.cs" />
+    <Compile Include="ViewModels\ExamenVM2.cs" />
+    <Compile Include="ViewModels\ExamenVM.cs" />
+    <Compile Include="ViewModels\ExamenMedicalVM.cs" />
+    <Compile Include="ViewModels\TransfertStockVM2.cs" />
+    <Compile Include="ViewModels\ListePeremptionVM.cs" />
+    <Compile Include="ViewModels\AccesVM.cs" />
+    <Compile Include="ViewModels\AddMembreGroup.cs" />
+    <Compile Include="ViewModels\AddVisit.cs" />
+    <Compile Include="ViewModels\ApprovisionnementStockVM2.cs" />
+    <Compile Include="ViewModels\AttenteVM2.cs" />
+    <Compile Include="ViewModels\AttenteVM3.cs" />
+    <Compile Include="ViewModels\BDConnexion.cs" />
+    <Compile Include="ViewModels\CaisseVM3.cs" />
+    <Compile Include="ViewModels\CaisseVM2.cs" />
+    <Compile Include="ViewModels\DataPoint.cs" />
+    <Compile Include="ViewModels\DiagnosticVM.cs" />
+    <Compile Include="ViewModels\DiagnosticVM2.cs" />
+    <Compile Include="ViewModels\CaisseVM.cs" />
+    <Compile Include="ViewModels\SearchReglementVM.cs" />
+    <Compile Include="ViewModels\ReglementVM4.cs" />
+    <Compile Include="ViewModels\ReglementVM3.cs" />
+    <Compile Include="ViewModels\ReglementVM2.cs" />
+    <Compile Include="ViewModels\ReglementVM.cs" />
+    <Compile Include="ViewModels\FactureVM2.cs" />
+    <Compile Include="ViewModels\ProduitVM3.cs" />
+    <Compile Include="ViewModels\ModePaiementVM.cs" />
+    <Compile Include="ViewModels\SearchDossier.cs" />
+    <Compile Include="ViewModels\ApprovisionnementStockVM.cs" />
+    <Compile Include="ViewModels\StockVM2.cs" />
+    <Compile Include="ViewModels\TransfertStockVM.cs" />
+    <Compile Include="ViewModels\DossierVM.cs" />
+    <Compile Include="ViewModels\FabricantVM.cs" />
+    <Compile Include="ViewModels\RayonVM.cs" />
+    <Compile Include="ViewModels\StockVM.cs" />
+    <Compile Include="ViewModels\ProduitVM2.cs" />
+    <Compile Include="ViewModels\ProduitVM.cs" />
+    <Compile Include="ViewModels\GroupeCibleVM.cs" />
+    <Compile Include="ViewModels\GroupeCibleVM2.cs" />
+    <Compile Include="ViewModels\GroupeCibleVM3.cs" />
+    <Compile Include="ViewModels\GroupeMaladieVM.cs" />
+    <Compile Include="ViewModels\FactureVM.cs" />
+    <Compile Include="ViewModels\MaladieVM.cs" />
+    <Compile Include="ViewModels\MaladieVM2.cs" />
+    <Compile Include="ViewModels\FournisseurVM.cs" />
+    <Compile Include="ViewModels\StatistiquesVM.cs" />
+    <Compile Include="ViewModels\MaterniteVM.cs" />
+    <Compile Include="ViewModels\MembreGroupeCible.cs" />
+    <Compile Include="ViewModels\ParametreVM.cs" />
+    <Compile Include="ViewModels\ParametreVM2.cs" />
+    <Compile Include="ViewModels\PathologieVM.cs" />
+    <Compile Include="ViewModels\PersonneVM.cs" />
+    <Compile Include="ViewModels\RendezVousVM.cs" />
+    <Compile Include="ViewModels\RendezVousVM2.cs" />
+    <Compile Include="ViewModels\RendezVousVM3.cs" />
+    <Compile Include="ViewModels\RendezVousVM4.cs" />
+    <Compile Include="ViewModels\RoleVM.cs" />
+    <Compile Include="ViewModels\RoleVM2.cs" />
+    <Compile Include="ViewModels\RoleVM3.cs" />
+    <Compile Include="ViewModels\SampleVisitePrenatale.cs" />
+    <Compile Include="ViewModels\SearchProduit.cs" />
+    <Compile Include="ViewModels\SpecialisteVM.cs" />
+    <Compile Include="ViewModels\TraitementVM.cs" />
+    <Compile Include="ViewModels\TraitementVM2.cs" />
+    <Compile Include="ViewModels\TraitementVM3.cs" />
+    <Compile Include="ViewModels\UtilisateurVM.cs" />
+    <Compile Include="ViewModels\UtilisateurVM2.cs" />
+    <Compile Include="ViewModels\UtilisateurVM3.cs" />
+    <Compile Include="ViewModels\UtilisateurVM4.cs" />
+    <Compile Include="ViewModels\UtilisateurVM5.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\images\ajax-loader.gif" />
+    <Content Include="Content\images\ajax-loader2.gif" />
+    <Content Include="Content\images\softcare_bg.jpg" />
+    <Content Include="Content\images\softcare_bg3.png" />
+    <Content Include="Content\images\icon.gif" />
+    <Content Include="Content\images\index-messagerie-icon.png" />
+    <Content Include="Content\images\index-rdv-icon.png" />
+    <Content Include="Content\images\index-statistiques-icon.png" />
+    <Content Include="Content\images\index-salleattente-icon.png" />
+    <Content Include="Content\images\index-gpeCible-icon.png" />
+    <Content Include="Content\images\index-patients-icon.png" />
+    <Content Include="Content\images\logo.png" />
+    <Content Include="Content\images\side-bg.png" />
+    <Content Include="Content\images\softcare_bg0.jpg" />
+    <Content Include="Content\images\softcare_bg2.jpg" />
+    <Content Include="Content\scripts\bootstrap-datepicker.js" />
+    <Content Include="Content\scripts\canvasjs.min.js" />
+    <Content Include="Content\scripts\Hn_inc_core.js" />
+    <Content Include="Content\scripts\jquery.js" />
+    <Content Include="Content\scripts\jquery------k.js" />
+    <Content Include="Content\scripts\jquery.ui.datepicker.min.css" />
+    <Content Include="Content\styles\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\styles\Hn_inc_core.css" />
+    <Content Include="Content\styles\jquery.ui.datepicker.css" />
+    <Content Include="Content\styles\SoftCareStyle.css" />
+    <Content Include="Global.asax" />
+    <Content Include="Content\styles\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\styles\glyphicons-halflings-regular.ttf" />
+    <Content Include="Content\styles\glyphicons-halflings-regular.woff" />
+    <Content Include="Content\styles\glyphicons-halflings-regular.woff2" />
+    <Content Include="Content\documents\Manuel_Utilisation_Application_SoftCare_V1.0.pdf" />
+    <None Include="Content\scripts\jquery-1.8.0.intellisense.js" />
+    <Content Include="Content\scripts\jquery-1.8.0.js" />
+    <Content Include="Content\scripts\jquery-1.8.0.min.js" />
+    <Content Include="Content\scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Content\scripts\jquery.unobtrusive-ajax.min.js" />
+    <Content Include="Rotativa\wkhtmltopdf.exe" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Account\_ChangePasswordPartial.cshtml" />
+    <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
+    <Content Include="Views\Account\_RemoveExternalLoginsPartial.cshtml" />
+    <Content Include="Views\Account\_SetPasswordPartial.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\Manage.cshtml" />
+    <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
+    <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\CompteUtilisateur\Login.cshtml" />
+    <Content Include="Views\Shared\_SoftCareLayoutPageLogin.cshtml" />
+    <Content Include="Views\Shared\_SoftCareLayoutPage.cshtml" />
+    <Content Include="Views\Shared\PartialViewSearchDossierFacture.cshtml" />
+    <Content Include="Views\Shared\PartialViewSalleAttente.cshtml" />
+    <Content Include="Views\Shared\PartialViewRendezVous.cshtml" />
+    <Content Include="Views\GestionPatient\ConsulterParametre.cshtml" />
+    <Content Include="Views\Shared\PartialViewFooter.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Shared\PartialViewHead.cshtml" />
+    <Content Include="Views\Shared\PartialViewModalAnnulerRdv.cshtml" />
+    <Content Include="Views\GroupeCible\FormulaireCreationGroupeCible.cshtml" />
+    <Content Include="Views\GroupeCible\ConsulterInfoGroupeCible.cshtml" />
+    <Content Include="Views\GestionPatient\ConsulterListeRdvPatient.cshtml" />
+    <Content Include="Views\GroupeCible\FormulaireAjoutMembreGroupeCible.cshtml" />
+    <Content Include="Views\GroupeCible\ConsulterListeGroupeCible.cshtml" />
+    <Content Include="Views\GroupeCible\ConsulterVisitesPrenatales.cshtml" />
+    <Content Include="Views\Shared\PartialViewModalNouveauMembreGC.cshtml" />
+    <Content Include="Views\GroupeCible\ConsulterSuiviGrossesse.cshtml" />
+    <Content Include="Views\CompteUtilisateur\FormulaireCreationUtilisateur.cshtml" />
+    <Content Include="Views\CompteUtilisateur\ConsulterListeUtilisateurs.cshtml" />
+    <Content Include="Views\CompteUtilisateur\ConsulterProfilUtilisateur.cshtml" />
+    <Content Include="Views\CompteUtilisateur\FormulaireGestionCompte.cshtml" />
+    <Content Include="Views\Shared\PartialViewListeUtilisateur.cshtml" />
+    <Content Include="Views\Shared\PartialViewRequiredInputInfos.cshtml" />
+    <Content Include="Views\Shared\PartialViewRequiredAndGroupInputInfos.cshtml" />
+    <Content Include="Views\CompteUtilisateur\FormulaireCreationRole.cshtml" />
+    <Content Include="Views\CompteUtilisateur\FormulaireGestionRole.cshtml" />
+    <Content Include="Views\CompteUtilisateur\ConsulterListeRoles.cshtml" />
+    <Content Include="Views\Reglages\ConsulterListeGroupeMaladies.cshtml" />
+    <Content Include="Views\Reglages\FormulaireEditerMaladie.cshtml" />
+    <Content Include="Views\Reglages\FormulaireEditerGroupeMaladies.cshtml" />
+    <Content Include="Views\Statistiques\StatsPathologies.cshtml" />
+    <Content Include="Views\Statistiques\ConsulterPathologies.cshtml" />
+    <Content Include="Views\Statistiques\ConsulterMaternite.cshtml" />
+    <Content Include="Views\Statistiques\StatsMaternite.cshtml" />
+    <Content Include="Views\GestionPatient\ImpressionDossierPatient.cshtml" />
+    <Content Include="Views\Shared\_SoftCareLayoutImpression.cshtml" />
+    <Content Include="Views\GestionPatient\ImpressionDiagnostic.cshtml" />
+    <Content Include="Views\GestionPatient\ImpressionTraitement.cshtml" />
+    <Content Include="Views\Shared\PartialViewGestionCompteUser.cshtml" />
+    <Content Include="Views\GestionPatient\StatsParametres.cshtml" />
+    <Content Include="Views\GestionPatient\ConsulterArchiveMedical.cshtml" />
+    <Content Include="Views\GestionPatient\ConsulterDossierPatientArchived.cshtml" />
+    <Content Include="Views\GestionCaisse\FormulaireAjoutReglement.cshtml" />
+    <Content Include="Views\GestionStock\ConsulterListeProduits.cshtml" />
+    <Content Include="Views\GestionStock\FormulaireAjoutProduit.cshtml" />
+    <Content Include="Views\GestionLaboratoire\ConsulterListeExamens.cshtml" />
+    <Content Include="Views\GestionLaboratoire\ConsulterExamen.cshtml" />
+    <Content Include="Views\GestionCaisse\ConsulterListeCaisses.cshtml" />
+    <Content Include="Views\GestionCaisse\FormulaireAjoutFacture.cshtml" />
+    <Content Include="Views\GestionCaisse\FormulaireOuvertureCaisse.cshtml" />
+    <Content Include="Views\GestionCaisse\FormulaireFermetureCaisse.cshtml" />
+    <Content Include="Views\GestionCaisse\FormulaireSortieCaisse.cshtml" />
+    <Content Include="Views\GestionCaisse\FormulaireAjoutCaisse.cshtml" />
+    <Content Include="Views\GestionCaisse\ConsulterListeReglements.cshtml" />
+    <Content Include="Views\GestionCaisse\ConsulterHistoriqueOuvertureFermetureCaisse.cshtml" />
+    <Content Include="Views\GestionCaisse\ConsulterHistoriqueOperationsCaisse.cshtml" />
+    <Content Include="Views\GestionLaboratoire\FormulaireAjoutExamen.cshtml" />
+    <Content Include="Views\GestionLaboratoire\FormulaireRechercheExamen.cshtml" />
+    <Content Include="Views\Shared\PartialViewSearchExamen.cshtml" />
+    <Content Include="Views\GestionCaisse\ConsulterHistoriqueSortiesCaisse.cshtml" />
+    <Content Include="Views\GestionLaboratoire\DashboardLaboratoire.cshtml" />
+    <Content Include="Views\GestionLaboratoire\FormulaireAjoutMateriel.cshtml" />
+    <Content Include="Views\GestionLaboratoire\ConsulterListeMateriels.cshtml" />
+    <Content Include="Views\GestionLaboratoire\FormulaireRechercheMateriel.cshtml" />
+    <Content Include="Views\GestionPharmacie\FormulaireRechercheProduit.cshtml" />
+    <Content Include="Views\GestionStock\FormulaireRechercheProduit.cshtml" />
+    <Content Include="Views\GestionPharmacie\ConsulterHistoriqueLivraison.cshtml" />
+    <Content Include="Views\GestionPharmacie\ConsulterListeLivraisons.cshtml" />
+    <Content Include="Views\GestionPharmacie\FormulaireAjoutLivraison.cshtml" />
+    <Content Include="Views\GestionPharmacie\ConsulterProduit.cshtml" />
+    <Content Include="Views\GestionPharmacie\ConsulterDetailsLivraison.cshtml" />
+    <Content Include="Views\GestionPharmacie\ConsulterListeProduits.cshtml" />
+    <Content Include="Views\GestionStock\ConsultationHistoriqueMvtStock.cshtml" />
+    <Content Include="Views\GestionStock\FormulaireTransfertStock.cshtml" />
+    <Content Include="Views\GestionStock\ConsulterProduit.cshtml" />
+    <Content Include="Views\GestionStock\ConsulterListeTransfertStock.cshtml" />
+    <Content Include="Views\GestionStock\ConsulterTransfertStock.cshtml" />
+    <Content Include="Views\Shared\PartialViewSearchProduit.cshtml" />
+    <Content Include="Views\GestionStock\FormulaireApprovisionnementStock.cshtml" />
+    <Content Include="Views\GestionCaisse\FormulaireRechercheDossier.cshtml" />
+    <Content Include="Views\Shared\PartialViewSearchDossier.cshtml" />
+    <Content Include="Views\GestionCaisse\ConsulterListeFactures.cshtml" />
+    <Content Include="Views\GestionCaisse\ConsulterFacture.cshtml" />
+    <Content Include="Views\GestionCaisse\ConsulterReglement.cshtml" />
+    <Content Include="Views\Shared\PartialViewSearchPaiementProduit.cshtml" />
+    <Content Include="Views\GestionPharmacie\FormulaireRecherchePaiement.cshtml" />
+    <Content Include="Views\GestionStock\FormulaireAjoutStock.cshtml" />
+    <Content Include="Views\GestionStock\ConsulterListeStocks.cshtml" />
+    <Content Include="Views\GestionStock\ConsulterStock.cshtml" />
+    <Content Include="Views\GestionLaboratoire\FormulaireAjoutTypeExamen.cshtml" />
+    <Content Include="Views\GestionLaboratoire\ConsulterListeTypeExamens.cshtml" />
+    <Content Include="Views\GestionLaboratoire\ConsulterTypeExamen.cshtml" />
+    <Content Include="Views\GestionLaboratoire\FormulaireAjoutExamenMedical.cshtml" />
+    <Content Include="Views\GestionLaboratoire\ConsulterListeExamensMedicaux.cshtml" />
+    <Content Include="Views\GestionLaboratoire\ConsulterExamenMedical.cshtml" />
+    <Content Include="Views\Shared\PartialViewListeExamens.cshtml" />
+    <Content Include="Views\GestionLaboratoire\FormulaireAjoutResultat.cshtml" />
+    <Content Include="Views\GestionLaboratoire\ConsulterListeResultats.cshtml" />
+    <Content Include="Views\GestionLaboratoire\ConsulterResultat.cshtml" />
+    <Content Include="Views\Shared\PartialViewListeExamenPrescrits.cshtml" />
+    <Content Include="Views\GestionPatient\ConsulterListeExamen.cshtml" />
+    <Content Include="Views\CompteUtilisateur\ConsulterListePrivileges.cshtml" />
+    <Content Include="Views\CompteUtilisateur\FormulaireCreationPrivilege.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\GestionPatient\Accueil.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\GestionPatient\ConsulterDossierPatient.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\GestionPatient\FormulaireRecherchePatient.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\GestionPatient\FormulaireAjoutDossier.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\GestionPatient\ConsulterTraitement.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\GestionPatient\FormulairePriseParametre.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\GestionPatient\ConsulterDiagnostic.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\GestionPatient\FormulaireAjoutDiagnostic.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\GestionPatient\FormulaireAjoutTraitement.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\GestionPatient\ConsulterListeDiagnostic.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\GestionPatient\ConsulterListeRdv.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
+    <None Include="Properties\PublishProfiles\Softcare.pubxml" />
+    <Content Include="Views\GestionPatient\ConsulterRegistreMedical.cshtml" />
+    <Content Include="Views\GestionPatient\FormulaireAjoutRdv.cshtml" />
+    <Content Include="Views\GestionPatient\FormulaireReprogrammerRdv.cshtml" />
+    <Content Include="Views\GestionPatient\ConsulterSalleAttente.cshtml" />
+    <Content Include="Views\GestionPatient\FormulaireTransfertAttente.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:49251/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

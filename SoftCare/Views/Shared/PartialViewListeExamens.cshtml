@@ -1,0 +1,46 @@
+﻿@model SoftCare.ViewModels.ExamenVM
+
+<table class="table table-striped table-condensed" style="margin-bottom:0px;">
+
+    <caption style="color:#000"><h6> Liste des Examens Médicaux Possibles </h6></caption>
+
+    <thead>
+        <tr>  <th></th> <th>Code</th> <th>Libellé</th> <th>Prix</th>  </tr>
+    </thead>
+
+    @if (Model.Examens != null)
+    {
+
+        <tbody>
+            @{
+                int i = 0;
+                String[] IdsExamenAPrescrire = new String[Model.Examens.Count()];
+            }
+
+            @foreach (var exam in Model.Examens)
+            {
+                if (exam != null)
+                {
+                    IdsExamenAPrescrire[i] = exam.Id;
+
+                    <tr>
+                        <td>
+                            <input type="checkbox" name="IdsExamenAPrescrire[@i]" value="@IdsExamenAPrescrire[i]">
+                            <input name="IdsExamenAPrescrire[@i]" type="hidden" value="false" />
+                        </td>
+                        <td>@exam.Code</td>
+                        <td> @exam.Libele</td>
+                        <td> @exam.Prix</td>
+                    </tr>
+                }
+                i += 1;
+            }
+
+
+        </tbody>
+    }
+
+</table>
+
+
+

@@ -1,0 +1,73 @@
+﻿@model SoftCare.Models.EXAMENTYPE
+@{
+    Layout = "../../Views/Shared/_SoftCareLayoutPage.cshtml";
+    ViewBag.Title = "Dérails d'un Type Examen Médical";
+}
+
+<div class="row" style="margin:3em">
+
+    <div class="row">
+
+        @using (Html.BeginForm("ENREGISTRERTYPEEXAMEN", "GestionLaboratoire", FormMethod.Post, new { @class = "col-lg-12" }))
+        {
+            <input type="hidden" name="ExamenTypeID" value="@Model.ExamenTypeID" />
+
+            <div class="row" style="margin-top:0em">
+                <div class="col-lg-5">
+                    <div class="form-group">
+                        @Html.LabelFor(Model => Model.Libelle)
+                        @Html.TextBoxFor(Model => Model.Libelle, new { @class = "form-control", })
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        @Html.LabelFor(Model => Model.Prix)
+                        @Html.TextBoxFor(Model => Model.Prix, new { @class = "form-control",  })
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        @Html.LabelFor(Model => Model.DateCreation) du Patient
+                        @Html.TextBoxFor(Model => Model.DateCreation, new { @class = "form-control", type = "date" })
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="row">
+
+                <div class="col-lg-12">
+                    <div class="form-group">
+                        @Html.LabelFor(Model => Model.Description)
+                        @Html.TextAreaFor(Model => Model.Description, new { @class = "form-control", })
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row" style="margin-top:2em">
+
+                <div class="col-lg-4 col-lg-offset-2">
+                    <div class="form-group">
+                        <input class="btn btn-primary" type="submit" value="Enregistrer" style="width:100%" />
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        <a href="~/GestionLaboratoire/CONULTERLISTETYPEEXAMENS" class="btn btn-warning" style="width:100%">
+                            <span class="glyphicon glyphicon-circle-arrow-left"></span>
+                            Retourner à la liste des types d'examen
+                        </a>
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>
+
+</div>
+
+

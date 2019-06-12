@@ -1,0 +1,57 @@
+﻿@model IEnumerable<SoftCare.Models.FACTURE>
+
+@{
+    Layout = "~/Views/Shared/_SoftCareLayoutPage.cshtml";
+    ViewBag.Title = "Liste des Factures ";
+}
+
+
+<div class="row" style="margin-top:2em">
+    <div class="col-lg-3">
+        <a href="" class="btn btn-primary" title="Créer une nouvelle Facture" style="width:100%">
+            <span class="glyphicon glyphicon-plus"></span> Ajouter une Facture
+        </a>
+    </div>
+</div>
+
+<div class="row" style="margin-top:1em">
+    <section class="col-lg-12 bloc-scrollable table-responsive table-scrollable">
+        <table class="table table-bordered_ table-striped table-condensed">
+
+            @if (Model == null)
+            {
+                <caption style="color:#000"><h5>Il n'y aucune Facture enregistrée. </h5></caption>
+            }
+            else
+            {
+                <caption style="color:#000"><h5> Liste des Factures</h5></caption>
+                <thead>
+                    <tr>
+                        <th> Ref. Facture</th>
+                        <th> Patient </th>
+                        <th> Montant </th>
+                        <th> Date facturation </th>
+                        <th> Facture validée ?</th>
+                        <th> Facture Reglée ? </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var Facture in Model)
+                    {
+                    <tr>
+                        <td><a href="#"> @Facture.Reference</a></td>
+                        <td> @Facture.Dossier.Patient.Nom</td>
+                        <td> @Facture.Montant </td>
+                        <td> @Facture.Date </td>
+                        <td> @Facture.EstValide </td>
+                        <td> @Facture.EstPaye </td>
+                    </tr>
+                    }
+
+                </tbody>
+            }
+
+        </table>
+    </section>
+</div>
+

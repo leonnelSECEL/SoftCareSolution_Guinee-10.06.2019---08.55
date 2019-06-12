@@ -1,0 +1,19 @@
+﻿@model System.Web.Mvc.HandleErrorInfo
+
+@{
+    Layout = "../../Views/Shared/_SoftCareLayoutPage.cshtml";
+    ViewBag.Title = "Notification d'une information d'utilisation";
+}
+
+
+
+<div class="row" style="font-size:2em; padding:1em; ">
+    <div class="col-lg-12" >
+        <header class="page-header" style="background-color: #ddd; padding:10px">
+            &nbsp; &nbsp; <span class="glyphicon glyphicon-alert"></span> Message d'utilisation
+        </header>
+        <p class="" style="text-align:justify">
+            @ViewBag.ErrorMessage
+        </p>
+    </div>
+</div>

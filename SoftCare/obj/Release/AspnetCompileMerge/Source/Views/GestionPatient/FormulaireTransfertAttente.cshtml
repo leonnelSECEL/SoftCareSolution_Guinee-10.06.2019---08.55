@@ -1,0 +1,105 @@
+﻿@model SoftCare.ViewModels.AttenteVM3
+
+@{
+    Layout = "../../Views/Shared/_SoftCareLayoutPage.cshtml";
+    ViewBag.Title = "Transfert d'attente";
+}
+
+
+<div class="row" > 
+     
+ <div class="col-lg-12">
+    
+    @using (Html.BeginForm("TRANSFERERATTENTE", "GestionPatient", FormMethod.Post, new { @class = "col-lg-12" }))
+    {
+      
+        <div class="row" style="margin-top:4%">
+            <div class="col-lg-6">
+
+                <div class="form-group">
+                      <input class="form-control" id="AttenteId" name="AttenteId" type="hidden" value="@Model.AttenteId"  />
+
+                      <label class="control-label" for="nomPatient" style = "width:100%;">nomPatient</label>
+                      <input class="form-control" id="nomPatient" name="nomPatient" placeholder="nomPatient" type="text" value="@Model.NomPatient"  style="display:inline; width:100%" @*disabled="disabled"*@/>
+                </div>
+            
+             </div>
+
+            <div class="col-lg-6">
+
+                <div class="form-group">
+                      <input class="form-control" id="AncienSpecialisteID" name="AncienSpecialisteID" type="hidden" value="@Model.AncienSpecialisteID"  />
+                      <label class="control-label" for="NomAncienSpecialiste" style = "width:100%;">Ancien Spécialiste</label>
+                      <input class="form-control" id="NomAncienSpecialiste" name="NomAncienSpecialiste" placeholder="NomAncienSpecialiste" type="text" value="@Model.NomAncienSpecialiste"  style="display:inline; width:100%" @*disabled="disabled"*@/>
+                </div>
+            
+             </div>
+
+        </div>
+
+        
+        <div class="row">
+            <div class="col-lg-6">
+
+                <div class="form-group">
+
+                      <label class="control-label" for="CodePatient" style = "width:100%;">Code Patient</label>
+                      <input class="form-control" id="CodePatient" name="CodePatient" placeholder="CodePatient" type="text" value="@Model.CodePatient"  style="display:inline; width:100%" @*disabled="disabled"*@/>
+                </div>
+            
+             </div>
+
+            <div class="col-lg-6">
+                
+                 <div class="form-group">
+                    <label for="select" style="width:100%">Nouveau Spécialiste </label>                       
+                    @Html.DropDownList("NouveauSpecialisteID", (SelectList)ViewBag.ListeSpecialiste, new {@class="form-control", style="display:inline; width:100%"})             
+                </div>
+            
+             </div>
+
+        </div>
+
+        
+        <div class="row">
+            <div class="col-lg-6">
+                
+                <div class="form-group">
+                      <label class="control-label" for="Horaire" style = "width:100%;">Date d'arrivée</label>
+                      <input class="form-control" id="Horaire" name="Horaire" placeholder="Horaire" type="text" value="@Model.Horaire"  style="display:inline; width:100%" @*disabled="disabled"*@/>
+                </div>
+            
+             </div>
+
+            <div class="col-lg-6">
+                
+                <div class="form-group">
+                      <label class="control-label" for="Motif" style = "width:100%;">Motif de transfert</label>
+                      <textarea class="form-control" id="Motif" name="Motif" placeholder="Motif"  style="display:inline; width:100%" required="required">@Model.Motif</textarea>
+                </div>
+
+             </div>
+
+        </div>
+
+         
+        <div class="row" style="margin-top:8%">
+            <div class="col-lg-2 col-lg-offset-4">
+                 <div class="form-group">           
+                     <input class="btn btn-primary" type="submit" value="Enregistrer" />
+                 </div>
+            </div>
+             <div class="col-lg-2">
+                 <div class="form-group">           
+                     <a href="~/GestionPatient/CONSULTERSALLEATTENTE" class="btn btn-warning" title="Transferer ce patient à un autre spécialiste">Annuler</a>
+                 </div>
+            </div>
+        </div>
+      
+    }
+    
+ </div>
+</div>
+
+
+

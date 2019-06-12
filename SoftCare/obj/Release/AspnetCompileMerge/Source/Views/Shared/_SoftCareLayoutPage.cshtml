@@ -1,0 +1,268 @@
+﻿@using SoftCare.Models
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+
+    <style>
+        .nav > li > a
+        {
+            
+        }
+    </style>
+
+    @Html.Partial("PartialViewHead")
+
+    <title>@ViewBag.Title - SoftCare </title>
+
+    @{
+        ViewBag.Notifications = "Notifications";
+        ViewBag.Aide = "Aide Utilisateur";
+        ViewBag.NomUtilisateur = (ViewBag.NomUtilisateur == null) ? "Profil Utilisateur" : ViewBag.NomUtilisateur;
+    }
+
+</head>
+
+<body>
+    <div class="container softcare_bg">
+
+        <div class="row">
+
+            <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12" style="padding:0;">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="background-color: #009EE0;padding:0em;">
+                    <img src="~/Content/images/logo.png" alt="logo Medicale-Softcare" class="img-responsive" style="  height:100%; width:100%" />
+                </div>
+            </div>
+
+
+            <div class="col-lg-9 col-md-8 col-sm-8 col-xs-12 softcareheader">
+                <div class="col-lg-7">
+                    @ViewBag.Title
+                </div>
+                <div class="col-lg-5">
+                    <nav class="navbar" style="margin-bottom:0">
+                        <ul class="nav navbar-nav pull-right">
+                            <li style="  margin: 0.5em;">
+                                <a href="#" class="" style="background-color: #8bc2f1;border-radius: 20px;padding:4px 6px 4px 5px;" title="@ViewBag.Notifications">
+                                    <span class="glyphicon glyphicon-bell" style="color: #fff;">
+                                        @*@{
+                                               if(true)
+                                               {
+                                                 <sub style="color:red;display: block;position: fixed;top:65px;right:231px;height: 10px;font-weight: 600;" >2</sub>
+                                               }
+                                            }*@
+                                    </span>
+                                </a>
+                            </li>
+
+                            <li style="  margin: 0.44em;">
+                                <a href="#" class="" style="background-color: #8bc2f1;border-radius: 20px;padding:4px 6px 4px 5px;" title="@ViewBag.Aide">
+                                    <span class="glyphicon glyphicon-question-sign" style="color: #fff;"> </span>
+                                </a>
+                            </li>
+
+                            <li style="margin: 0.44em;" class="dropdown">
+                                <a data-toggle="dropdown" href="#" style="background-color: #8bc2f1;border-radius: 20px;padding:4px 6px 4px 5px;" title="@ViewBag.NomUtilisateur">
+                                    <span class="glyphicon glyphicon-user" style="color: #fff;"> </span>
+                                </a>
+                                <ul class="dropdown-menu" style="left: -41px;">
+                                    <li><a href="">HN</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="~/CompteUtilisateur/PROFIL">Profil</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="~/CompteUtilisateur/SeDeconnecter">Déconnexion</a></li>
+                                </ul>
+                            </li>
+
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12 side-bg">
+
+                <nav class="navbar navbar2 navbar-default navbar-default2" style="border-color:none !important;margin-bottom:0px; max-height:45em; overflow-y:auto;">
+                    <div class="container-fluid">
+
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#MainNavBar">
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                        </div>
+
+                        <div class="collapse navbar-collapse" id="MainNavBar" style="padding: 0;">
+                            <ul class="nav navbar-nav navbar-left MainNavBar">
+
+                                <li class="nav-item @Html.IsSelected(controllers: "Home")">
+                                    <a href="~/" class="MainNavBarLink">
+                                        <span class="glyphicon glyphicon-dashboard" style="background-color: #EC7404;border-radius: 20px;padding:6px 6px 4px 6px;color: #fff;"></span>
+                                        &nbsp;&nbsp;  Dashboard
+                                    </a>
+                                </li>
+
+                                <li class="nav-item @Html.IsSelected(controllers: "GestionPatient")">
+                                    <a href="#gestionPatients" data-toggle="collapse" class="MainNavBarLink">
+                                        <span class="glyphicon glyphicon-book" style="background-color: #EC7404;border-radius: 20px;padding:6px 6px 4px 6px;color:#fff;"></span>
+                                        &nbsp;&nbsp;  Consultations
+                                    </a>
+                                    <div id="gestionPatients" class="collapse @Html.IsCollapsedIn(controllers: "GestionPatient")" style="color:#ffffff9c;">
+                                        <ul>
+                                            <li> <a href="~/GestionPatient/CREERDOSSIER"> Créer un nouveau dossier </a> </li>
+                                            <li> <a href="~/GestionPatient/RECHERCHERDOSSIER"> Rechercher un dossier </a> </li>
+                                            <li> <a href="~/GestionPatient/CONSULTERREGISTREMEDICAL"> Consulter le registre médical </a> </li>
+                                            <li> <a href="~/GestionPatient/CONSULTERSALLEATTENTE"> Consulter la salle d’attente </a> </li>
+                                            <li> <a href="~/GestionPatient/CONSULTERRENDEZVOUS"> Consulter les rendez-vous </a> </li>
+                                        </ul>
+                                    </div>
+                                </li>
+
+                                <li class="nav-item @Html.IsSelected(controllers: "GestionLaboratoire")">
+                                    <a href="#laboratoire" data-toggle="collapse" class="MainNavBarLink">
+                                        <span class="glyphicon glyphicon-tasks" style="background-color: #EC7404;border-radius: 20px;padding:6px 6px 4px 6px;color: #fff;"></span>
+                                        &nbsp;&nbsp;  Gestion Laboratoire
+                                    </a>
+                                    <div id="laboratoire" class="collapse @Html.IsCollapsedIn(controllers: "GestionLaboratoire")" style="color:#ffffff9c;">
+                                        <ul>
+                                            <li> <a href="~/GestionLaboratoire/ENREGISTREREXAMEN"> Prescrire Examen Médical </a> </li>
+                                            <li> <a href="~/GestionLaboratoire/RECHERCHEREXAMEN"> Rechercher Examen </a> </li>
+                                            <li> <a href="~/GestionLaboratoire/CONULTERLISTEEXAMEN"> Lister Examens  </a> </li>
+                                            <li> <a href="~/GestionLaboratoire/RECHERCHERMATERIEL"> Rechercher Matériel </a> </li>
+                                            <li> <a href="~/GestionLaboratoire/CONULTERLISTEMATERIEL"> Lister Matériels </a> </li>
+                                            <li> <a href="~/GestionLaboratoire/CONULTERLISTEMATERIEL"> Ajouter Type Examen </a> </li>
+                                            <li> <a href="~/GestionLaboratoire/DASHBOARDLABORATOIRE"> Tableau de Board </a></li>
+
+                                        </ul>
+                                    </div>
+                                </li>
+
+                                <li class="nav-item @Html.IsSelected(controllers: "GestionPharmacie")">
+                                    <a href="#pharmacie" data-toggle="collapse" class="MainNavBarLink">
+                                        <span class="glyphicon glyphicon-glass" style="background-color: #EC7404;border-radius: 20px;padding:6px 6px 4px 6px;color: #fff;"></span>
+                                        &nbsp;&nbsp; Gestion Pharmacie
+                                    </a>
+                                    <div id="pharmacie" class="collapse @Html.IsCollapsedIn(controllers: "GestionPharmacie")" style="color:#ffffff9c;">
+                                        <ul>
+                                            <li> <a href="~/GestionPharmacie/ENREGISTRERLIVRAISONPRODUIT"> Livrer Produit Client </a> </li>
+                                            <li> <a href="~/GestionPharmacie/RECHERCHERPRODUIT"> Rechercher Produit </a> </li>
+                                            <li> <a href="~/GestionPharmacie/CONSULTERLISTEPRODUITS"> Lister Produits Pharmacie </a> </li>
+                                            <li> <a href="~/GestionPharmacie/HISTORIQUELIVRAISONS"> Historiques Livraisons </a> </li>
+                                        </ul>
+                                    </div>
+                                </li>
+
+                                <li class="nav-item @Html.IsSelected(controllers: "GestionCaisse")">
+                                    <a href="#caisse" data-toggle="collapse" class="MainNavBarLink">
+                                        <span class="glyphicon glyphicon-usd" style="background-color: #EC7404;border-radius: 20px;padding:6px 6px 4px 6px;color: #fff;"></span>
+                                        &nbsp;&nbsp;  Gestion Caisse
+                                    </a>
+                                    <div id="caisse" class="collapse @Html.IsCollapsedIn(controllers: "GestionCaisse")" style="color:#ffffff9c;">
+                                        <ul>
+                                            <li> <a href="~/GestionCaisse/RECHERCHERDOSSIER"> Editer Facture </a> </li>
+                                            <li> <a href="~/GestionCaisse/CONSULTERLISTEFACTURES"> Consulter liste Factures </a> </li>
+                                            <li> <a href="~/GestionCaisse/ENREGISTRERREGLEMENT"> Enregistrer Paiement </a> </li>
+                                            <li> <a href="~/GestionCaisse/CONSULTERLISTEREGREMENTS">Consulter liste Paiements</a></li>
+                                            <li> <a href="~/GestionCaisse/ENREGISTRERSORTIECAISSE">Enregistrer Sortie Caisse</a></li>
+                                            <li> <a href="~/GestionCaisse/CONSULTERLISTECAISSES"> Consulter liste Caisses </a> </li>
+                                        </ul>
+                                    </div>
+                                </li>
+
+                                <li class="nav-item @Html.IsSelected(controllers: "GestionStock")">
+                                    <a href="#gestionStock" data-toggle="collapse" class="MainNavBarLink">
+                                        <span class="glyphicon glyphicon-list-alt" style="background-color: #EC7404;border-radius: 20px;padding:6px 6px 4px 6px;color:#fff;"></span>
+                                        &nbsp;&nbsp;  Gestion Stock
+                                    </a>
+                                    <div id="gestionStock" class="collapse @Html.IsCollapsedIn(controllers: "GestionStock")" style="color:#ffffff9c;">
+                                        <ul>
+                                            <li> <a href="~/GestionStock/APPROVISIONNERPRODUITS"> Approvisionner Stock Central </a> </li>
+                                            <li> <a href="~/GestionStock/CONSULTERLISTEPRODUITS"> Lister Produits </a> </li>
+                                            <li> <a href="~/GestionStock/RECHERCHERPRODUIT"> Rechercher Produit </a> </li>
+                                            <li> <a href="~/GestionStock/TRANSFERERSTOCK"> Transferer Stock </a> </li>
+                                            <li> <a href="~/GestionStock/ENREGISTRERPRODUIT"> Ajouter Nouveau Produit </a> </li>
+                                            <li> <a href="~/GestionStock/HISTORIQUEMOUVEMENTSTOCK"> Historique Mouvements Stock </a> </li>
+                                        </ul>
+                                    </div>
+                                </li>
+
+                                <li class="nav-item @Html.IsSelected(controllers: "GroupeCible")">
+                                    <a href="#groupeCible" data-toggle="collapse" class="MainNavBarLink">
+                                        <span class="glyphicon glyphicon-globe" style="background-color: #EC7404;border-radius: 20px;padding:6px 6px 4px 6px;color: #fff;"></span>
+                                        &nbsp;&nbsp;  Programmes SOS
+                                    </a>
+                                    <div id="groupeCible" class="collapse @Html.IsCollapsedIn(controllers: "GroupeCible")" style="color:#ffffff9c;">
+                                        <ul>
+                                            <li> <a href="~/GroupeCible/CONSULTERLISTEGROUPECIBLE">Programmes SOS</a> </li>
+                                            <li> <a href="~/GroupeCible/CREERNOUVEAUGROUPE">Créer un Programme </a> </li>
+                                            @*<li> <a href="~/GroupeCible/CONSULTERLISTEGROUPECIBLE">Consulter les Groupes Cibles</a> </li>*@
+                                            <li> <a href="~/Reglages/CONSULTERLISTEGROUPEMALADIE">Groupes de Maladies </a> </li>
+                                        </ul>
+                                    </div>
+                                </li>
+
+                                <li class="nav-item @Html.IsSelected(controllers: "Statistiques")">
+                                    <a href="#statistiques" data-toggle="collapse" class="MainNavBarLink">
+                                        <span class="glyphicon glyphicon-stats" style="background-color: #EC7404;border-radius: 20px;padding:6px 6px 4px 6px;color: #fff;"></span>
+                                        &nbsp;&nbsp;  Statistiques
+                                    </a>
+                                    <div id="statistiques" class="collapse @Html.IsCollapsedIn(controllers: "Statistiques")" style="color:#ffffff9c;">
+                                        <ul>
+                                            <li> <a href="#"> Naissances </a> </li>
+                                            <li> <a href="~/Statistiques/PATHOLOGIES"> Pathologies </a> </li>
+                                            <li> <a href="~/Statistiques/MATERNITE"> Maternités </a> </li>
+                                            <li> <a href="#"> Finances </a> </li>
+                                            <li> <a href="#"> Laboratoire </a> </li>
+                                            <li> <a href="#"> Pharmacie </a> </li>
+                                            <li> <a href="#"> Pharmacie </a> </li>
+                                            <li> <a href="#"> Médecine </a> </li>
+                                        </ul>
+
+                                    </div>
+                                </li>
+
+                                <li class="nav-item @Html.IsSelected(controllers: "CompteUtilisateur")">
+                                    <a href="#administration" data-toggle="collapse" class="MainNavBarLink">
+                                        <span class="glyphicon glyphicon-briefcase" style="background-color: #EC7404;border-radius: 20px;padding:6px 6px 4px 6px;color: #fff;"></span>
+                                        &nbsp;&nbsp;  Administration
+                                    </a>
+                                    <div id="administration" class="collapse @Html.IsCollapsedIn(controllers: "CompteUtilisateur")" style="color:#ffffff9c;">
+                                        <ul>
+                                            <li> <a href="~/CompteUtilisateur/CREERUTILISATEUR">Créer un utilisateur</a> </li>
+                                            <li> <a href="~/CompteUtilisateur/AJOUTERROLE">Créer un rôle</a> </li>
+                                            <li> <a href="~/CompteUtilisateur/CONSULTERLISTEUTILISATEUR">Consulter les utilisateurs </a> </li>
+                                            <li> <a href="~/CompteUtilisateur/MANAGERLISTEROLE">Consulter les rôles  </a> </li>
+                                        </ul>
+
+                                    </div>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+            <section class="col-lg-9 col-md-8 col-sm-12 col-xs-12" style=" padding-top:0px; min-height: 46em; background-color:#fffffff5;">
+                @RenderBody()
+            </section>
+        </div>
+
+        <footer class="row" style="border:px solid #f00; height:4em; background-color:#ffffffdb;">
+            <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12" style="color:#ffffff9c;padding: 10px 0;text-align: center;background-color: #EC7404;font-size: 13px;font-weight: 500;">
+                <a href="#" style="color:#ffffff9c;"> <span class="glyphicon glyphicon-headphones" style="background-color: #fff;border-radius: 20px;padding:6px 6px 4px 6px;color: #EC7404;"></span> &nbsp; Support </a>
+            </div>
+            <div class="col-lg-9 col-md-8 col-sm-12 col-xs-12" style="    color: #000;font-size: 1.3em;text-align: center;height: 100%;padding: .89% 0;">
+                @Html.Partial("PartialViewFooter")
+            </div>
+        </footer>
+    </div>
+
+
+
+
+
+</body>
+</html>
+

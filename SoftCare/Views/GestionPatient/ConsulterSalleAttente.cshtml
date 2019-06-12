@@ -1,0 +1,100 @@
+﻿@model IEnumerable<SoftCare.ViewModels.AttenteVM2>
+
+@{
+    Layout = "~/Views/Shared/_SoftCareLayoutPage.cshtml";
+    
+    ViewBag.Title = "Salle d'attente journalière";
+}
+
+
+ <div class="row" style="margin:10px">
+
+     
+    <section class="col-lg-12" style="margin:10px">
+     
+        @using (Ajax.BeginForm("CONSULTERSALLEATTENTE", "GestionPatient", new AjaxOptions { InsertionMode = InsertionMode.Replace, UpdateTargetId = "listeAttente"  /*, LoadingElementId = "loader"*/ }, new { @class = "form-inline" }))
+        {
+            <div class="row"> 
+                 
+                <div class="col-lg-3" style="padding:0 5px;">
+                    <div class="form-group softcare-search-attente-by-date" style="width: 100%;">
+                        <label class="control-label sr-only" for="date-salle-attente">Date</label>
+                        <input class="form-control" id="date-salle-attente" name="date" placeholder="Date" type="text"  style="width:100%"/>
+
+                    </div>
+                </div>  
+                <div class="col-lg-3" style="padding:0 5px;">    
+                    <div class="form-group"  style="width:100%">
+                        <label for="select" class="sr-only"> Etat </label>
+                        <select class="form-control" name="etat"  style="width:100%">
+                            <option value="-1"> Etat </option>   
+                            <option value="1"> En attente </option>                     
+                            <option value="0"> Récu </option>                    
+                         </select>  
+                     </div>
+                </div>
+                 
+                <div class="col-lg-3" style="padding:0 5px;">   
+                    <div class="form-group" style="width: 100%;">
+                    <label for="select" class="sr-only"> Sépcialistes </label>
+                    <select class="form-control" name="specialiste"  style="width:100%">
+                        <option value=""> Tous les Spécialistes </option>
+                        @if (ViewBag.ListeSpecialiste != null)
+                        {
+                            foreach (var specialist in (List<SoftCare.ViewModels.SpecialisteVM>)ViewBag.ListeSpecialiste)
+                            { 
+                                <option value="@specialist.Id">@specialist.NomSpecialiste</option>
+                            }
+                        }
+                     </select>  
+                </div>
+                </div>
+ 
+                <div class="col-lg-3" style="padding:0 5px;">    
+                     <div class="form-group" style="width: 100%;">
+                         <button type="submit" class="btn btn-info" style="width:100%"> <span class="glyphicon glyphicon-ok-sign"></span> Affiner la recherche</button>
+                      </div> 
+                </div>
+
+                  
+       
+           </div>
+       }
+
+    </section>
+  
+    
+</div>
+
+<div class="row"> 
+    
+    <section class="col-lg-12 table-responsive" style="max-height: 37em;overflow-x: auto;" id="listeAttente">
+        @Html.Partial("PartialViewSalleAttente")
+    </section>
+    
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+    $(document).ready(function () {
+        var date_input = $('#date-salle-attente'); //our date input has the name "date"
+        var container = $('.col-lg-3 .softcare-search-attente-by-date').length > 0 ? $('.col-lg-3 .softcare-search-attente-by-date').parent() : "body";
+        var options = {
+            format: 'yyyy-mm-dd', //  mm/dd/yyyy
+            container: container,
+            todayHighlight: true,
+            autoclose: true,
+        };
+        date_input.datepicker(options);
+    })                   
+</script>

@@ -1,0 +1,93 @@
+﻿@model IEnumerable<SoftCare.ViewModels.ReglementVM4>
+
+@{
+    int counter = 0;
+}
+
+<div class="row">
+
+    <div class="col-lg-12">
+
+        <table class="table @*table-bordered*@ table-striped table-condensed" style="margin-bottom:0px;">
+
+            @if (Model != null)
+            {
+                <caption style="color:#000"><h6> Résultat de la recherche </h6></caption>
+
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Patient</th>
+                        <th>Réf. Paiement </th>
+                        <th>Réf. Facture</th>
+                        <th>Montant</th>
+                        <th>Reste</th>
+                        <th>Date Paiement</th>
+                        <th>Etat</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var reglement in Model)
+                    {
+                        counter++;
+
+                        if (reglement != null)
+                        {
+                    <tr>
+                        <td>@counter</td>
+                        <td>
+                            <a href="~/GestionPatient/CONSULTERDOSSIER/@SoftCare.Models.CRYPTAGE.StringHelpers.Decrypt(reglement.PatientId)">
+                                @reglement.Patient
+                            </a>
+                        </td>
+                        <td>
+                            <a href="~/GestionCaisse/CONSULTERREGLEMENT/@SoftCare.Models.CRYPTAGE.StringHelpers.Decrypt(reglement.Id)">
+                                @reglement.Reglement
+                            </a>
+                        </td>
+                        <td>
+                            <a href="~/GestionCaisse/CONSULTERFACTURE/@reglement.FactureId">
+                                @reglement.Facture
+                            </a>
+                        </td>
+                        <td> @reglement.Montant  </td>
+                        <td> @reglement.Reste  </td>
+                        <td> @reglement.DateCreation  </td>
+                        <td>
+                            @if (reglement.EstLivre)
+                            {
+                                <span> LIVRE </span>
+                            }
+                            else
+                            {
+                                <span> NON-LIVRE </span>
+                            }
+                        </td>
+                        <td>
+                            @if (reglement.EstLivre)
+                            {
+                                <a href="~/GestionCaisse/CONSULTERFACTURE/@reglement.Id" class="btn btn-primary btn-xs" title="Consulter détails facture">
+                                    <span class="glyphicon glyphicon-gift"></span>
+                                </a>
+                            }
+                            else
+                            {
+                                <a href="/@reglement.Id" class="btn btn-warning btn-xs" title="Annuler ce Paiement">
+                                    <span class="glyphicon glyphicon-floppy-remove"></span>
+                                </a>
+                            }
+                        </td>
+                    </tr>
+                        }
+                    }
+
+
+                </tbody>
+            }
+
+        </table>
+
+
+    </div>
+</div>

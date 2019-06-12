@@ -1,0 +1,111 @@
+﻿@model IEnumerable<SoftCare.ViewModels.RoleVM2>
+
+@{
+    ViewBag.Title = "Liste Rôles";
+    Layout = "~/Views/Shared/_SoftCareLayoutPage.cshtml";
+}
+
+<div class="row">  
+     
+<div class="col-lg-12" style="margin-top:1em">
+     
+    @using (Ajax.BeginForm("RECHERCHERDOSSIER", "GestionPatient", new AjaxOptions { InsertionMode = InsertionMode.Replace, UpdateTargetId = "userList", LoadingElementId = "loader" }, new { @class = "row form-inline" }))
+    {
+        
+       <div class="col-lg-2">
+         <h6> Utilisez un filtre </h6>
+       </div>
+        
+       <div class="col-lg-4">
+         <div class="form-group" style="width: 100%">
+            <label for="select" class="sr-only" style="width:100%">Sexe </label>
+            <select name="sexe" class="form-control" style="width:100%">
+                <option value="-1">Tous les utilisateurs</option>
+                <option value="0">Administrateurs</option>
+                <option value="1">Utilisateurs simple</option>
+            </select>
+         </div>
+       </div>
+        
+       <div class="col-lg-4">
+            <div class="form-group"  style="width: 100%">
+            <label for="select" class="sr-only" style="width:100%">Rôle </label>
+            <select name="sexe" class="form-control" style="width:100%">
+                <option value="-1">Tous les rôles</option>
+                <option value="0">Rôles Admin</option>
+                <option value="1">Rôles Utilisateur</option>
+            </select>
+            </div>
+        </div>
+        
+        <div class="col-lg-2">
+            <div class="form-group" style="width: 100%">
+                <button type="submit" class="btn btn-info" style="width: 100%">Filter</button>
+            </div> 
+        </div>
+        
+          
+    }
+ </div>
+
+ </div>
+
+
+<div class="row" style="margin:2em">       
+    <div class="col-lg-2">
+        <a href="~/CompteUtilisateur/AJOUTERROLE" class="btn btn-primary" ><span class="glyphicon glyphicon-plus"></span> Nouveau Rôle</a>
+    </div>      
+</div>
+
+<div class="row">  
+  
+ <div id="userList" class="col-lg-12 table-responsive" style="max-height:41em;overflow-y: auto;">
+      
+      <div id="loader" class="alert" style="display:none">
+         <img src="~/Content/images/ajax-loader.gif" style="height:200px; width:200px" />
+      </div>
+
+      <table class="table table-bordered table-striped table-condensed">
+        
+           
+    @if (Model != null && Model.Count() != 0)
+    {                         
+        
+        <thead>
+            <tr>  <th> Intitulé du Rôle </th> <th> Date création </th> <th>Nombre d'utilisateurs </th> <th style="text-align:center"> Statut </th> </tr>
+        </thead>
+        <tbody>                        
+            @foreach (var role in Model)
+            {
+                if (role != null)
+                {
+                    <tr>  <td> <a href="~/CompteUtilisateur/MANAGERROLE/@SoftCare.Models.CRYPTAGE.StringHelpers.Decrypt(role.RoleID)"> @role.Intitule  </a> </td> <td> @role.DateCreation </td> <td> @role.taille </td> 
+                        <td style="text-align:center"> 
+                            @if (role.Actif)
+                            {                              
+                              <button class="btn btn-info btn-xs" title="Ce rôle est actif"><span class="glyphicon glyphicon-ok"></span></button> 
+                            }
+                            else{                              
+                              <button class="btn btn-danger btn-xs" title="Ce rôle n'est pas actif"><span class="glyphicon glyphicon-minus-sign"></span></button>
+                            }
+                                
+                        </td>
+
+                    </tr>
+                }
+            }       
+        </tbody>
+        
+    } 
+              
+</table>
+
+</div>
+
+</div>
+
+
+
+
+
+   

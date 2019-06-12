@@ -1,0 +1,116 @@
+﻿@model SoftCare.ViewModels.RendezVousVM3
+
+@{
+    ViewBag.Title = "Reprogrammer le Rendez-vous";
+    Layout = "~/Views/Shared/_SoftCareLayoutPage.cshtml";
+}
+
+<div class="row" > 
+     
+ <div class="col-lg-12">
+    
+    @using (Html.BeginForm("REPROGRAMMERRDV", "GestionPatient", FormMethod.Post, new { @class = "col-lg-12" }))
+    {
+      
+        <div class="row">
+            <div class="col-lg-3">
+
+                <div class="form-group">
+                      <input class="form-control" id="rdvId" name="rdvId" type="hidden" value="@Model.rdvId"  />
+
+                      <label class="control-label" for="nomPatient" style = "width:100%;" >nomPatient</label>
+                      <input class="form-control" id="nomPatient" name="nomPatient" placeholder="nomPatient" type="text" value="@Model.nomPatient"  style="display:inline; width:100%" disabled="disabled"/>
+                </div>
+            
+             </div>
+
+            <div class="col-lg-9">   
+                  <div class="row">                    
+                     <div class="col-lg-4">
+                        <div class="form-group softcare-add-rdv-date">
+                            <label class="control-label" for="AncienHoraire">AncienHoraire</label>
+                            <input class="form-control" id="AncienHoraire2" name="AncienHoraire" value="@Model.AncienHoraire" type="text" disabled="disabled"/>
+                        </div>
+                    </div>
+                    <div class="col-lg-8">
+                        <div class="row">                    
+                            <div class="col-lg-6">
+                                <div class="form-group softcare-add-rdv-date">
+                                     <label class="control-label" for="AncienHoraire">NouvelHoraire</label>
+                                    <input class="form-control" id="NouvelleHoraire" name="NouvelleHoraire" value="" type="text" />
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    <label class="control-label" for="NouvelleHeure">NouvelleHeure</label>
+                                    <input class="form-control" id="NouvelleHeure" name="NouvelleHeure" type="number" min="0" max="59" style="display:inline; width:100%"/>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    <label class="control-label" for="NouvelleMinute">NouvelleMinute</label>
+                                    <input class="form-control" id="NouvelleMinute" name="NouvelleMinute" type="number" min="0" max="59" style="display:inline; width:100%"/>
+                                </div>
+                            </div>
+                        </div>
+                  </div>
+
+            </div>
+        </div>
+
+            <div class="row">
+                    <div class="col-lg-3">
+                        <div class="form-group">
+                            <label for="nomSpecialiste" style="width:100%" >nomSpecialiste </label>                       
+                            <input class="form-control" id="nomSpecialiste" name="nomSpecialiste" value="@Model.nomSpecialiste" style="display:inline; width:100%" disabled="disabled"/>                    
+                       </div>
+                    </div> 
+                    <div class="col-lg-9">
+                        <div class="form-group">                 
+                             <label class="control-label" for="ObjetRDV">ObjetRDV</label>
+                             <Textarea class="form-control" id="ObjetRDV" name="ObjetRDV" placeholder="Objet de rendez-vous" style="display:inline; width:100%" disabled="disabled">@Model.ObjetRDV</Textarea>
+                        </div>
+                  </div>
+            </div>
+     
+            <div class="row" style="margin-top:8%">
+            <div class="col-lg-2 col-lg-offset-4">
+                 <div class="form-group">           
+                     <input class="btn btn-primary" type="submit" value="Enregistrer" />
+                 </div>
+            </div>
+             <div class="col-lg-2">
+                 <div class="form-group">           
+                     <button class="btn btn-warning" type="reset"> <a href="~GestionPatient/CONSULTERDOSSIER/3"> Annuler </a></button>
+                 </div>
+            </div>
+        </div>
+      
+        </div>
+ 
+    }
+    
+ </div>
+</div>
+
+
+
+
+<script>
+$(document).ready(function () {
+    var date_input = $('#NouvelleHoraire'); //our date input has the name "date"
+    var container = $('.col-lg-3 .softcare-add-rdv-date').length > 0 ? $('.col-lg-3 .softcare-add-rdv-date').parent() : "body";
+    var options = {
+        format: 'yyyy-mm-dd', //  mm/dd/yyyy
+        container: container,
+        todayHighlight: true,
+        autoclose: true,
+    };
+    date_input.datepicker(options);
+})                   
+</script>
+        
+
+
+
+

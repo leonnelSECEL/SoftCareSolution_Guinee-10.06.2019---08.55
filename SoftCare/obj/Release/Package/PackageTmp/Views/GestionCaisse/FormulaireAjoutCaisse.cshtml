@@ -1,0 +1,43 @@
+﻿@model SoftCare.ViewModels.CaisseVM
+@{
+    Layout = "../../Views/Shared/_SoftCareLayoutPage.cshtml";
+    ViewBag.Title = "Ajout d'une Caisse";
+}
+
+<div class="row" style="margin:3em">
+
+
+        @using (Html.BeginForm("AJOUTERCAISSE", "GestionCaisse", FormMethod.Post, new { @class = "col-lg-12" }))
+        {
+            <div class="row" style="margin-top:0em">
+                <div class="col-lg-8 col-lg-offset-2">
+                    <div class="form-group">
+                        @Html.LabelFor(Model => Model.NomCaisse)
+                        @Html.TextBoxFor(Model => Model.NomCaisse, new { @class = "form-control", required = "required" })
+                    </div>
+                </div>
+                
+            </div>
+
+            <div class="row" style="margin-top:3em">
+
+                <div class="col-lg-4 col-lg-offset-2">
+                    <div class="form-group">
+                        <input class="btn btn-primary" type="submit" value="Enregistrer" style="width:100%" />
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        <a href="~/GestionCaisse/CONSULTERLISTECAISSES" class="btn btn-warning" style="width:100%">
+                            <span class="glyphicon glyphicon-circle-arrow-left"></span>
+                            Retourner 
+                        </a>
+                    </div>
+                </div>
+            </div>
+        }
+
+
+</div>
+
+

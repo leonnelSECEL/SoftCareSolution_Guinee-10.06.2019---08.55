@@ -1,0 +1,232 @@
+﻿@model SoftCare.ViewModels.ProduitVM
+@{
+    Layout = "../../Views/Shared/_SoftCareLayoutPage.cshtml";
+    ViewBag.Title = "Ajout de Produit ou Service";
+}
+
+<div class="row" style="margin:3em">
+
+    <div class="row">
+
+        @using (Html.BeginForm("ENREGISTRERPRODUIT", "GestionStock", FormMethod.Post, new { @class = "col-lg-12", onsubmit = "return verifForm(this)", }))
+        {
+            <div class="row" style="margin-top:0em">
+                <div class="col-lg-7">
+                    <div class="form-group">
+                        @Html.LabelFor(Model => Model.Nom)
+                        @Html.TextBoxFor(Model => Model.Nom, new { @class = "form-control", required = "required", onblur = "verifNom(this)" })
+                    </div>
+                </div>
+
+                <div class="col-lg-2">
+                    <div class="form-group">
+                        @Html.LabelFor(Model => Model.QuantiteStock)
+                        @Html.TextBoxFor(Model => Model.QuantiteStock, new { @class = "form-control", type="number", required = "required", onblur = "verifQuantite(this)" })
+                    </div>
+                </div>
+
+                <div class="col-lg-3">
+                    <div class="form-group">
+                        @Html.LabelFor(Model => Model.DateExpiration)
+                        @Html.TextBoxFor(Model => Model.DateExpiration, new { @class = "form-control", type = "date", required = "required", onblur = "verifDateExpiration(this)" })
+                    </div>
+                </div>
+
+                <script>
+                    var today = new Date().toISOString().split('T')[0];
+                    document.getElementsByName("DateExpiration")[0].setAttribute('min', today);
+                </script>
+
+            </div>
+
+            <div class="row">
+
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        @Html.LabelFor(Model => Model.PrixAchat)
+                        @Html.TextBoxFor(Model => Model.PrixAchat, new { @class = "form-control", type = "number",  })
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        @Html.LabelFor(Model => Model.PrixVente)
+                        @Html.TextBoxFor(Model => Model.PrixVente, new { @class = "form-control", type = "number" })
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        @Html.LabelFor(Model => Model.SeuilAlert)
+                        @Html.TextBoxFor(Model => Model.SeuilAlert, new { @class = "form-control", type = "number" })
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row">
+
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        <label for="select" style="width:100%" form="fabricant"> Liste des Fabricants </label>
+                        <select class="form-control" name="FabricantID" id="fabricant">
+                            @if (ViewBag.ListeFabricant != null)
+                            {
+                                foreach (var fabricant in (List<SoftCare.ViewModels.FabricantVM>)ViewBag.ListeFabricant)
+                                {
+                                    <option value="@fabricant.Id">@fabricant.Nom</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        <label for="select" style="width:100%" form="stock"> Liste des Stocks </label>
+                        <select class="form-control" name="StockID" id="stock">
+                            @if (ViewBag.ListeStock != null)
+                            {
+                                foreach (var stock in (List<SoftCare.ViewModels.StockVM>)ViewBag.ListeStock)
+                                {
+                                    <option value="@stock.Id">@stock.Nom</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        <label for="select" style="width:100%" form="rayon"> Liste des Rayons </label>
+                        <select class="form-control" name="RayonID" id="rayon">
+                            @if (ViewBag.ListeRayon != null)
+                            {
+                                foreach (var rayon in (List<SoftCare.ViewModels.RayonVM>)ViewBag.ListeRayon)
+                                {
+                                    <option value="@rayon.Id">@rayon.Code</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row">
+
+                <div class="col-lg-5">
+                    <div class="form-group">
+                        @Html.LabelFor(Model => Model.ReferenceExterne)
+                        @Html.TextAreaFor(Model => Model.ReferenceExterne, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="col-lg-7">
+                    <div class="form-group">
+                        @Html.LabelFor(Model => Model.Description)
+                        @Html.TextAreaFor(Model => Model.Description, new { @class = "form-control" })
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row" style="margin-top:3em">
+
+                <div class="col-lg-4 col-lg-offset-2">
+                    <div class="form-group">
+                        <input class="btn btn-primary" type="submit" value="Enregistrer" style="width:100%" />
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        <a href="~/GestionStock/CONSULTERLISTEPRODUITS" class="btn btn-warning" style="width:100%">
+                            <span class="glyphicon glyphicon-circle-arrow-left"></span>
+                            Retourner à la liste des Produits
+                        </a>
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>
+
+</div>
+
+
+
+<script type="text/javascript">
+
+    function verifForm(f) {
+        //var pseudoOk = verifNom(f.pseudo);
+        //var quantiteOk = verifQuantite(f.email);
+        ////var ageOk = verifAge(f.age);
+
+        //if (verifNom && quantiteOk ) {
+        //    alert("Veuillez remplir correctement tous les champs");
+        //    return false;
+        //}
+        //else {
+        //    alert("Veuillez remplir correctement tous les champs");
+        //    return false;
+        //}
+
+        return true;
+    }
+
+
+
+    function surligne(champ, erreur) {
+        if (erreur) {
+            champ.style.backgroundColor = "#fee";
+        }
+        else
+            champ.style.backgroundColor = "";
+    }
+
+    function verifNom(champ) {
+        if (champ.value.length < 3) {
+            surligne(champ, true);
+            return false;
+        }
+        else {
+            surligne(champ, false);
+            return true;
+        }
+    }
+
+    function verifQuantite(quantite) {
+        var quantite = parseInt(champ.value);
+        if (isNaN(quantite) || quantite < 0) {
+            surligne(champ, true);
+            return false;
+        }
+        else {
+            surligne(champ, false);
+            return true;
+        }
+
+    }
+
+
+    function verifPrix(prixAchat, prixVente)
+    {
+        var prixAchat2 = parseInt(prixAchat.value);
+        var prixVente2 = parseInt(prixVente.value);
+
+        if (prixAchat2 != null && prixVente2 != null) {
+
+        }
+
+        if (isNaN(quantite) || quantite < 0) {
+            surligne(champ, true);
+            return false;
+        }
+        else {
+            surligne(champ, false);
+            return true;
+        }
+
+    }
+
+</script>
+
+

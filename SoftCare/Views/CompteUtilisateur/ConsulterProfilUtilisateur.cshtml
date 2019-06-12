@@ -1,0 +1,119 @@
+﻿@model SoftCare.ViewModels.UtilisateurVM3
+
+@{
+    ViewBag.Title = "Mon Compte";
+    Layout = "~/Views/Shared/_SoftCareLayoutPage.cshtml";
+    
+}
+
+
+
+
+<div class="row"> 
+     
+ <div class="col-lg-12">
+    
+    @using (Html.BeginForm("PROFIL", "CompteUtilisateur", FormMethod.Post, new { @class = "col-lg-12" }))
+    {
+       
+        <input class="form-control" id="Id" name="Id" value="@Model.Id"  type="hidden" /> 
+        <input class="form-control" id="InfosPersonne.Id" name="InfosPersonne.Id" value="@Model.InfosPersonne.Id"  type="hidden" /> 
+        <input class="form-control" id="Role.RoleID" name="Role.RoleID" value="@Model.Role.RoleID"  type="hidden" />
+        <input class="form-control" id="InfosConnexion.Actif" name="InfosConnexion.Actif" value="@Model.InfosConnexion.Actif"  type="hidden" />
+      
+        <div class="row" style="margin-top:2em">
+            <div class="col-lg-6">
+                <div class="form-group">
+                    @Html.LabelFor(model => Model.InfosPersonne.Nom) <span class="requiredInput">*</span>
+                    @Html.TextBoxFor(model => Model.InfosPersonne.Nom, new { @class = "form-control", required="required" })
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="form-group">
+                   @Html.LabelFor(model => Model.InfosPersonne.Prenom)  <span class="blankInput">*</span>
+                   @Html.TextBoxFor(model => Model.InfosPersonne.Prenom, new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+
+         <div class="row">
+            <div class="col-lg-3">
+                <div class="form-group">
+                   @Html.LabelFor(model => Model.InfosPersonne.TelephonePrincipal) <span class="requiredGroupInput">*</span>
+                    @Html.TextBoxFor(model => Model.InfosPersonne.TelephonePrincipal, new { @class = "form-control" })
+                </div>
+            </div>
+             <div class="col-lg-3">
+                <div class="form-group">
+                   @Html.LabelFor(model => Model.InfosPersonne.TelephoneSecondaire) <span class="requiredGroupInput">*</span>
+                    @Html.TextBoxFor(model => Model.InfosPersonne.TelephoneSecondaire, new { @class = "form-control" })
+                </div>
+             </div>
+             <div class="col-lg-6">
+                <div class="form-group">
+                   @Html.LabelFor(model => Model.InfosPersonne.Email) <span class="requiredGroupInput">*</span>
+                    @Html.TextBoxFor(model => Model.InfosPersonne.Email, new { @class = "form-control" })
+                </div>
+            
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="form-group">
+                   @Html.LabelFor(model => Model.InfosConnexion.Login) <span class="requiredGroupInput">*</span>
+                    @Html.TextBoxFor(model => Model.InfosConnexion.Login, new { @class = "form-control" })
+                </div>
+            </div>
+             <div class="col-lg-4">
+                <div class="form-group">
+                    @Html.LabelFor(model => Model.InfosConnexion.Password) <span class="requiredGroupInput">*</span>
+                    @Html.PasswordFor(model => Model.InfosConnexion.Password, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="form-group">
+                   @Html.LabelFor(model => Model.InfosConnexion.Fonction)
+                    @Html.TextBoxFor(model => Model.InfosConnexion.Fonction, new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+        
+         <div class="row">
+            <div class="col-lg-12">
+                <div class="form-group">
+                    @Html.LabelFor(model => Model.Role.Intitule)
+           @*         @Html.TextBoxFor(model => SoftCare.Models.CRYPTAGE.StringHelpers.Decrypt(Model.Role.Intitule), new { @class = "form-control" })*@
+                    <input class="form-control" id="" name="Role.RoleID" value="@SoftCare.Models.CRYPTAGE.StringHelpers.Decrypt(Model.Role.Intitule)"  type="text" readonly="readonly"/>
+                 </div>
+            </div>
+        </div>
+        
+         <div class="row">
+            <div class="col-lg-2 col-lg-offset-4">
+                 <div class="form-group">           
+                     <input class="btn btn-primary" type="submit" value="Enregistrer" />
+                 </div>
+            </div>
+             <div class="col-lg-2">
+                 <div class="form-group">           
+                     <button class="btn btn-warning" type="reset"> Annuler </button>
+                 </div>
+            </div>
+        </div>
+        
+        <div class="row" >
+            <p class="col-lg-12" > 
+                <span class="requiredInput">*</span> <span style="font-size:1.5em;"> : Remplir obligatoirement le champ. </span>
+            </p>
+
+           <p class="col-lg-12"> 
+                <span class="requiredGroupInput">*</span> <span style="font-size:1.5em;">: Remplir obligatoirement au moins un des champs. </span>
+            </p>
+        </div>
+
+    }
+ </div>
+
+</div>
+

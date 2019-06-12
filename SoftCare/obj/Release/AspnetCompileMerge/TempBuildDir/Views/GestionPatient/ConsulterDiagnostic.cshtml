@@ -1,0 +1,89 @@
+﻿@model SoftCare.ViewModels.DiagnosticVM2
+
+@{
+    Layout = "../../Views/Shared/_SoftCareLayoutPage.cshtml";
+    ViewBag.Title = "Fiche Diagnostic";
+}
+
+
+<div class="row" style="margin-top: 3%;">  
+     
+ <section class="col-lg-6">
+    
+     <form class="col-lg-12">
+     
+          <input type="hidden" name="DossierID" value="@Model.Diagnostic" />
+        
+        <div class="form-group">
+          <label for="txtdiagnostic">Diagnostic émis </label>
+          <textarea id="txtdiagnostic" class="form-control" disabled style="height:10em;">@Model.Diagnostic</textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="txtSpecialist">Par</label>
+          <input id="txtSpecialist" type="text" class="form-control" value="@Model.Specialiste" disabled />
+        </div>
+
+        <div class="form-group">
+          <label for="txtDate">Date</label>
+          <input id="txtDate" type="text" class="form-control" value="@Model.DateDiagnostic" disabled />
+        </div>
+
+    </form>
+    
+ </section>
+
+ <section class="col-lg-5 table-responsive" style="max-height: 53em;overflow-y: auto;">
+            <table class="table table-bordered table-striped table-condensed" style="margin-bottom:0px;">
+                   <caption><h6>Traitements recommandés </h6></caption>
+               
+                @if (Model.Traitements.Count == 0)
+                {                         
+                        <caption style="color:#000"><h6>Il n'y aucun traitement enregistré </h6></caption>
+                        
+                }else {
+                                               
+                <thead>
+                    <tr>  <th> Date </th> <th> Traitement </th> <th>Specialiste </th> </tr>                    
+                </thead>
+                <tbody>                        
+                    @foreach (var traitement in Model.Traitements)
+                    {                          
+                        <tr>  <td> <a href="~/GestionPatient/CONSULTERTRAITEMENT/@SoftCare.Models.CRYPTAGE.StringHelpers.Decrypt(traitement.Id)" > @traitement.DateTraitement.ToShortDateString() </a> </td> <td> @traitement.Traitement </td> <td> @traitement.Specialiste  </td> </tr>
+                    }  
+                       
+                </tbody>
+                }
+
+            </table>
+        </section>
+
+ <div class="col-lg-1">
+       <a href="~/GestionPatient/IMPRIMERDIAGNOSTIC/@SoftCare.Models.CRYPTAGE.StringHelpers.Decrypt(Model.Id)" class="btn btn-warning" title="Imprimer ce diagnostic"><span class="glyphicon glyphicon-print"></span></a>
+ </div>
+</div>
+
+@if(!@Model.isArchived)
+{
+<div class="row" style=" margin:20px">  
+
+    <div class="col-lg-4">
+        <a href="~/GestionPatient/AJOUTDIAGNOSTIC/@SoftCare.Models.CRYPTAGE.StringHelpers.Decrypt(Model.DossierID)" >
+           <button class="btn btn-primary" type="submit"><span class="glyphicon glyphicon-plus"></span> Nouveau Diagnostic </button>
+        </a>
+    </div>
+    <div class="col-lg-4">
+        <a href="~/GestionPatient/AJOUTTRAITEMENT/@SoftCare.Models.CRYPTAGE.StringHelpers.Decrypt(Model.Id)" >
+           <button class="btn btn-primary" type="submit"><span class="glyphicon glyphicon-plus"></span> Nouveau Traitement </button>
+        </a>
+    </div>
+    <div class="col-lg-4">
+        <a href="~/GestionPatient/CONSULTERDOSSIER/@SoftCare.Models.CRYPTAGE.StringHelpers.Decrypt(Model.DossierID)" >
+           <button class="btn btn-primary" type="submit"><span class="glyphicon glyphicon-circle-arrow-left"></span> Retourner au Dossier Patient </button>
+        </a>
+    </div>
+    
+    
+</div>
+}
+

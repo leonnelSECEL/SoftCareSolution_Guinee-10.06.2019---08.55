@@ -1,0 +1,116 @@
+﻿@model SoftCare.ViewModels.UtilisateurVM3
+
+@{
+    ViewBag.Title = "Création Compte utilisateur";
+    Layout = "~/Views/Shared/_SoftCareLayoutPage.cshtml";
+}
+
+
+<style>
+    .form-group {
+        margin-bottom: 5px;
+    }
+</style>
+
+
+<div class="row"> 
+     
+ <div class="col-lg-12">
+    
+    @using (Html.BeginForm("CREERUTILISATEUR", "CompteUtilisateur", FormMethod.Post, new { @class = "col-lg-12" }))
+    {
+       
+      
+        <div class="row" style="margin-top:1em">
+            <div class="col-lg-6">
+                <div class="form-group">
+                    @Html.LabelFor(Model => Model.InfosPersonne.Nom) <span class="requiredInput">*</span>
+                    @Html.TextBoxFor(Model => Model.InfosPersonne.Nom, new { @class = "form-control", required="required" })
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="form-group">
+                   @Html.LabelFor(Model => Model.InfosPersonne.Prenom)  <span class="blankInput">.</span>
+                   @Html.TextBoxFor(Model => Model.InfosPersonne.Prenom, new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+
+         <div class="row">
+            <div class="col-lg-6">
+                <div class="form-group">
+                   @Html.LabelFor(Model => Model.InfosPersonne.TelephonePrincipal) <span class="requiredGroupInput">*</span>
+                    @Html.TextBoxFor(Model => Model.InfosPersonne.TelephonePrincipal, new { @class = "form-control" })
+                </div>
+            </div>
+             <div class="col-lg-6">
+                <div class="form-group">
+                   @Html.LabelFor(Model => Model.InfosPersonne.TelephoneSecondaire) <span class="requiredGroupInput">*</span>
+                    @Html.TextBoxFor(Model => Model.InfosPersonne.TelephoneSecondaire, new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+        
+         <div class="row">
+            <div class="col-lg-6">
+                <div class="form-group">
+                   @Html.LabelFor(Model => Model.InfosPersonne.Email) <span class="requiredGroupInput">*</span>
+                    @Html.TextBoxFor(Model => Model.InfosPersonne.Email, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <label for="select" style="width:100%">Liste des rôles <span class="requiredInput">*</span> </label>                       
+                        <select class="form-control" name="Role.RoleID">
+
+                        @if (ViewBag.ListeRole != null)
+                        {
+                            foreach (var role in (List<SoftCare.ViewModels.RoleVM>)ViewBag.ListeRole) 
+                            { 
+                                <option value="@role.RoleID">@role.Intitule</option>
+                            }                             
+                        }
+                    </select>                    
+                </div>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="form-group">
+                   @Html.LabelFor(Model => Model.InfosConnexion.Login) <span class="requiredInput">*</span>
+                    @Html.TextBoxFor(Model => Model.InfosConnexion.Login, new { @class = "form-control", required="required"})
+                </div>
+            </div>
+             <div class="col-lg-6">
+                <div class="form-group">
+                    @Html.LabelFor(Model => Model.InfosConnexion.Password) <span class="requiredInput">*</span>
+                    @Html.TextBoxFor(Model => Model.InfosConnexion.Password, new { @class = "form-control", required="required" })
+                </div>
+            </div>
+        </div>
+        
+         <div class="row" style="margin-top:2em">
+            <div class="col-lg-2 col-lg-offset-4">
+                 <div class="form-group">           
+                     <input class="btn btn-primary" type="submit" value="Enregistrer" />
+                 </div>
+            </div>
+             <div class="col-lg-2">
+                 <div class="form-group">           
+                     <button class="btn btn-warning" type="reset"> Annuler </button>
+                 </div>
+            </div>
+        </div>
+        
+       <div class="row" >
+           <div class="form-group"> 
+               @Html.Partial("../Shared/PartialViewRequiredAndGroupInputInfos")                 
+          </div>
+       </div>
+
+    }
+ </div>
+
+</div>
+

@@ -1,0 +1,59 @@
+﻿@model IEnumerable<SoftCare.ViewModels.ProduitVM2>
+
+@{ 
+    int counter = 0; 
+}
+
+<div class="row">
+
+    <div class="col-lg-12">
+
+        <table class="table @*table-bordered*@ table-striped table-condensed" style="margin-bottom:0px;">
+
+            @if (Model != null)
+            {
+                <caption style="color:#000"><h6> Résultat de la recherche </h6></caption>
+
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Réf. </th>
+                        <th>Intitulé</th>
+                        <th>Emplacement</th>
+                        <th>Qté Stock</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var produit in Model)
+                    {
+                        counter++;
+
+                        if (produit != null)
+                        {
+                            <tr>
+                                <td>@counter</td>
+                                <td>
+                                    <a href="~/GestionStock/CONSULTERPRODUIT/@produit.ProduitID">
+                                        @produit.ReferenceProduit
+                                    </a>
+                                </td>
+                                <td>
+                                    @produit.NomProduit
+                                </td>
+                                <td> @produit.NomStock (@produit.NomRayon) </td>
+                                <td>
+                                    @produit.QuantiteStock
+                                </td>
+                            </tr>
+                        }
+                    }
+
+
+                </tbody>
+            }
+
+        </table>
+
+
+    </div>
+</div>

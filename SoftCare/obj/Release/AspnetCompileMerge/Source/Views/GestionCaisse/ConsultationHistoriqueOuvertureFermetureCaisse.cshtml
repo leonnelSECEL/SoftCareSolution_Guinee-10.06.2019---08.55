@@ -1,0 +1,63 @@
+﻿@model IEnumerable<SoftCare.Models.CAISSEOUVERTUREFERMETURE>
+
+@{
+    Layout = "~/Views/Shared/_SoftCareLayoutPage.cshtml";
+    ViewBag.Title = "Opérations des Caisses ";
+}
+
+
+<div class="row" style="margin-top:2em">
+    <div class="col-lg-3">
+        <a href="" class="btn btn-primary" title="Créer une nouvelle Caisse" style="width:100%">
+            <span class="glyphicon glyphicon-plus"></span> Retourner
+        </a>
+    </div>
+</div>
+
+<div class="row" style="margin-top:1em">
+    <section class="col-lg-12 bloc-scrollable table-responsive table-scrollable">
+        <table class="table table-bordered_ table-striped table-condensed">
+
+            @if (Model == null)
+            {
+                <caption style="color:#000"><h5>Il n'y aucune Opération effectuée sur cette Caisse. </h5></caption>
+            }
+            else
+            {
+                <caption style="color:#000"><h5> Histoire d'ouverture et fermeture de Caisse </h5></caption>
+                <thead>
+                    <tr>
+                        <th>Reference</th>
+                        <th> Caisse</th>
+                        <th> Type d'operation </th>
+                        <th> Montant </th>
+                        <th> Raison </th>
+                        <th> Date </th>
+                        <th> Etat  </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var historique in Model)
+                    {
+                    <tr>
+                        <td> @historique.Caisse.Nom </td>
+                        <td> @historique.Utilisateur.Personne.Nom </td>
+                        <td> @historique.DateOuverture</td>
+                        <td> @historique.SoldeOuverture </td>
+                        <td> @historique.DateFermeture </td>
+                        <td> @historique.SoldeFermeture </td>
+                        <td> @historique.SoldeAttendu </td>
+                        <td> @historique.CommentaireOuverture </td>
+                        <td> @historique.CommentaireFermeture </td>
+                        <td> @historique.SoldeManquant </td>
+                        <td> @historique.TypeManquant </td>
+                    </tr>
+                    }
+
+                </tbody>
+            }
+
+        </table>
+    </section>
+</div>
+

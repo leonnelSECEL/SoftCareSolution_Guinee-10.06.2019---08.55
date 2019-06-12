@@ -1,0 +1,113 @@
+﻿
+ 
+<div class="modal" id="ModalConsulterUtilisateur"> 
+        
+		<div class="modal-dialog">
+			  
+			  <div class="modal-content">
+				<div class="modal-header">
+					  <button type="button" class="close" data-dismiss="modal">x</button>
+					  <h4 class="modal-title"> 
+                          Gestion Compte Utilisateur 
+					  </h4>
+				</div>
+				
+				<div class="modal-body">
+					
+                    @using (Html.BeginForm("MANAGEACCOUNT", "CompteUtilisateur", FormMethod.Post, new { @class = "col-lg-12" }))
+                    {
+                        <div class="row" style="margin-top:2em">
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    Label <span class="requiredInput">*</span>
+                                    <input type="text" />
+                                </div>
+                            </div>
+                         </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    Label <span class="requiredInput">*</span>
+                                    <input type="text" />
+                                </div>
+                            </div>
+                        </div>
+
+                         <div class="row">
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <label class="control-label" for="Role" style = "width:100%;">Rôle utilisateur <span class="requiredInput">*</span></label>
+                    
+                                    <select class="form-control" name="Role" style="display:inline; width:100%">
+                             
+                                        @*@if (ViewBag.ListeRole != null)
+                                        {
+                                            String TypeSelected = "";
+                                            foreach (var role in (List<SoftCare.ViewModels.RoleVM>)ViewBag.ListeRole)
+                                            {
+                                                TypeSelected = "";
+
+                                                if (Model.RoleID == role.RoleID)
+                                                {
+                                                    TypeSelected = "selected=\"selected\" ";
+                                                }
+                                 
+                                       *@
+                                        <option value=""  >Option</option>
+                                        <option value=""  >Option</option>
+                                        <option value=""  >Option</option>
+                                        
+                                    </select>  
+
+                                 </div>
+                            </div>
+                        </div>
+        
+                         <div class="row">
+                            <div class="col-lg-2 col-lg-offset-4">
+                                 <div class="form-group">           
+                                     <input class="btn btn-primary" type="submit" value="Enregistrer" />
+                                 </div>
+                            </div>
+                             <div class="col-lg-2">
+                                 <div class="form-group">           
+                                     <button class="btn btn-warning" type="reset"> Annuler </button>
+                                 </div>
+                            </div>
+                        </div>
+        
+                        <div class="row" >
+                           <div class="form-group"> 
+                               @Html.Partial("../Shared/PartialViewRequiredInputInfos")                 
+                          </div>
+                       </div>
+                    }
+                 
+				</div>
+
+				<div class="modal-footer">
+                    <button class="btn btn-danger" id="" data-dismiss="modal">Annuler</button>
+				</div>
+
+			 </div>
+        </div>
+      </div>
+	  
+    <script>
+        $(function () {
+            $("#ModalConsulterUtilisateur").submit(function (e) {
+                e.preventDefault();
+                var $form = $(this);
+                $.post($form.attr("action"), $form.serialize())
+                .done(function (data) {
+                    location.reload();
+                    //$("#result").html(data);
+                    $("#ModalConsulterUtilisateur").modal("hide");
+                    //window.location.href = "./files/programme_de_formation_secel_2015.pdf"; 
+                })
+                .fail(function () {
+                    alert("Une erreur s'est produite. Verifiez les données");
+                });
+            });
+        });
+    </script>

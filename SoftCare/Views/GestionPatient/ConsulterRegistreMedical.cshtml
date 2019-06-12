@@ -1,0 +1,101 @@
+﻿@model IEnumerable<SoftCare.ViewModels.SearchDossier>
+
+@{
+    Layout = "../../Views/Shared/_SoftCareLayoutPage.cshtml";
+    ViewBag.Title = "Régistre Medical";
+    ViewBag.Btndisabled = "disabled=\"disabled\";";
+}
+
+<div class="row" style="margin:20px 0" > 
+  
+          @* @using (Html.BeginForm("", "", FormMethod.Post, new { @class = "col-lg-5", style="padding:0;" }))
+            {
+                <div class="form-group">
+                    <div class="input-group">
+                        <input type="text" id="" name="nom" class="form-control" placeholder="Recherche dossier" />
+                        <input type="hidden" id="" name="sexe" value="-1" class="form-control" />
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>
+                    </div>
+                </div>            
+            }*@
+
+            <div class="col-lg-4">
+                <a href="~/GestionPatient/CREERDOSSIER" class="btn btn-primary" ><span class="glyphicon glyphicon-plus"></span> Ajouter un Dossier Médical </a>
+            </div>
+
+            @*<div class="col-lg-2">
+                <a href="~/GestionPatient/CONSULTERARCHIVES" class="btn btn-success" ><span class="glyphicon glyphicon-inbox"></span> Consulter les archives </a>    
+            </div>*@
+   
+            @using (Html.BeginForm("CONSULTERREGISTREMEDICAL", "GestionPatient", FormMethod.Post, new { @class = "col-lg-4 form-inline pull-right" }))
+            {   
+                <div class="row">
+                   <div class="col-lg-4 col-lg-offset-4" style="padding: 2% 1%;text-align: right;">
+                        <strong>@ViewBag.PlageAffichee sur @ViewBag.NombreDossierDB</strong>
+                   </div>
+                   <div class="col-lg-4 btn-group"  style="padding:0;"> 
+                        <button class="btn btn-default" type="submit" name="sens" value="false" @if (!(Boolean)ViewBag.AfficheDebut){@ViewBag.Btndisabled} ><span class="glyphicon glyphicon-chevron-left"></span>&nbsp;</button>
+                        <input type="hidden" name="id" value="@ViewBag.LastId" />
+                        <input type="hidden" name="position" value="@ViewBag.Position" /> 
+                        <button class="btn btn-default" type="submit" name="sens" value="true" @if (!(Boolean)ViewBag.AfficheFin)
+                                                                                               {@ViewBag.Btndisabled} ><span class="glyphicon glyphicon-chevron-right"></span>&nbsp;</button> 
+                   </div> 
+                </div>
+            }
+</div>
+
+
+<div class="row"> 
+    
+    <section class="col-lg-12 table-responsive" style="max-height: 37em;overflow-x: auto;">
+         @using (Html.BeginForm("ARCHIVERDOSSIER", "GestionPatient", FormMethod.Post, new { @class = "col-lg-12" }))
+         { 
+            @*if (Model != null)
+            {  
+                <button class="btn btn-default" type="submit" title="Archiver les dossiers séléctionnés"><span class="glyphicon glyphicon-download-alt"></span></button>
+            }*@
+                                   
+        <table class="table @*table-bordered*@ table-striped table-condensed" style="margin-bottom:0px;">               
+                                       
+            @if (Model == null)
+            {                         
+                <caption style="color:#000"><h6> Aucun résultat </h6></caption>
+            }else{               
+                    <thead>
+                        <tr> 
+                            <th>Code Dossier</th> <th>Patient</th> <th>Téléphone</th> <th>Dernière visite</th> 
+                        </tr> 
+                   </thead>
+                    <tbody>   
+                     @{
+                    int i = 0;
+                    String[] IdsDossiersAArchiver = new String[Model.Count()];
+                         }                     
+                    @foreach (var patient in Model)
+                    {
+                       if(patient!=null)
+                        {
+                            IdsDossiersAArchiver[i] = patient.DossierId;
+                            <tr>
+                        
+                        @*<td>
+                                <input type="checkbox" name="IdsDossiersAArchiver[@i]" value="@IdsDossiersAArchiver[i]"> 
+                                <input name="IdsDossiersAArchiver[@i]" type="hidden" value="false" /> 
+                        </td>*@
+                        
+                        <td><a href="~/GestionPatient/CONSULTERDOSSIER/@SoftCare.Models.CRYPTAGE.StringHelpers.Decrypt(patient.DossierId)">@patient.Code</a></td><td>@patient.Nom</td><td>@patient.Tel</td><td>@patient.LastVisit</td></tr>
+                            i = i+1;
+                        }
+                        
+                    }  
+
+                            
+                </tbody>
+            }   
+        </table>
+         
+         }
+
+    </section>
+    
+</div>

@@ -1,0 +1,86 @@
+﻿@model IEnumerable<SoftCare.ViewModels.StockVM2>
+
+@{
+    Layout = "../../Views/Shared/_SoftCareLayoutPage.cshtml";
+    ViewBag.Title = "Conslter Liste des Stocks";
+
+    ViewBag.Btndisabled = "disabled=\"disabled\";";
+
+    int counter = 0; 
+}
+
+<div class="row" style="margin:20px 0">
+
+    <div class="col-lg-3">
+        <a href="~/GestionStock/ENREGISTRERSTOCK" class="btn btn-primary">
+            <span class="glyphicon glyphicon-plus"></span> 
+            Ajouter Stock 
+        </a>
+    </div>
+
+</div>
+
+
+<div class="row">
+
+    <section class="col-lg-12 table-responsive" style="max-height: 37em;overflow-x: auto;">
+       
+            <table class="table @*table-bordered*@ table-striped table-condensed" style="margin-bottom:0px;">
+
+                @if (Model == null)
+                {
+                    <caption style="color:#000"><h6> Aucun Stock enregistré </h6></caption>
+                }
+                else
+                {
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Nom Stock </th>
+                            <th>Responsable Stock </th>
+                            <th>Type Stock </th>
+                            <th>Date Création </th>
+                            <th> Stock Principal ?</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                        @foreach (var Stock in Model)
+                        {
+                            counter++;
+                            if (Stock != null)
+                            {
+                                <tr>
+                                    <td>@counter</td>
+                                    <td><a href="~/GestionStock/CONSULTERSTOCK/@SoftCare.Models.CRYPTAGE.StringHelpers.Decrypt(Stock.Id)"> @Stock.Nom </a></td>
+                                    <td>@Stock.ResponsableStock</td>
+                                    <td>@Stock.TypeStock</td>
+                                    <td>@Stock.DateCreation</td>
+                                    <td>
+                                        @if (Stock.IsStocktCentral)
+                                        {
+                                            <span> OUI </span>
+                                        }
+                                        else
+                                        {
+                                            <span> NON </span>
+                                        }
+                                    </td>
+                                    <td >
+                                        <a href="~/GestionStock/MODIFIERSTOCK" class="btn btn-info btn-xs" title="Modifier cette ligne">
+                                            <span class="glyphicon glyphicon-pencil"></span> 
+                                        </a>
+                                        <a href="~/GestionStock/SUPPRIMERSTOCK" class="btn btn-danger btn-xs" title="Supprimer cette ligne">
+                                            <span class="glyphicon glyphicon-trash"></span> 
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                }
+            </table>
+    </section>
+
+</div>

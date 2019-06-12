@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+ <html lang="fr">
+   <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <meta charset="utf-8" />
+        <link href="~/Content/images/icon.gif" rel="shortcut icon" type="image/x-icon" />
+        <meta name="viewport" content="width=device-width" />
+
+        <link rel="stylesheet" href="~/Content/styles/Hn_inc_core.css"/>
+        <link rel="stylesheet" href="~/Content/styles/SoftCareStyle.css"/>
+      
+</head>
+           
+<body>   
+       <div class="">
+           
+                
+           <div class="row">
+         
+               <section class="col-lg-10 col-md-12 col-sm-12 col-xs-12 col-lg-offset-1" style="">
+                    @RenderBody()
+               </section>
+
+           </div>
+        
+           <footer class="row" style="">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="text-align:center">                 
+                     @Html.Partial("PartialViewFooter")
+                </div>
+           </footer>
+       </div>
+        
+
+
+           
+
+  </body>
+</html>
+ 

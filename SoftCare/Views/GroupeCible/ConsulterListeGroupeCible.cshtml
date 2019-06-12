@@ -1,0 +1,64 @@
+﻿@model IEnumerable<SoftCare.ViewModels.GroupeCibleVM3>
+
+@{
+    Layout = "~/Views/Shared/_SoftCareLayoutPage.cshtml";
+    ViewBag.Title = "Consulter liste Programmes";
+}
+
+
+    <div class="row" style="margin-top:2em">       
+        <div class="col-lg-2">
+            <a href="~/GroupeCible/CREERNOUVEAUGROUPE"  class="btn btn-primary" title="Créer un nouveau groupe">
+                <span class="glyphicon glyphicon-plus"></span> Ajouter un Programme 
+            </a>
+        </div>
+        
+    </div>
+
+   <div class="row" style="margin-top:1em">  
+       <section class="col-lg-12 bloc-scrollable table-responsive table-scrollable">
+          <table class="table table-bordered_ table-striped table-condensed">                     
+
+                @if (Model == null)
+                {                         
+                   <caption style="color:#000"><h5>Il n'y aucun Programme enregistré. Pensez à en créer un si possible... </h5></caption>                        
+                }
+                else 
+                {
+                   <caption style="color:#000"><h5> Liste des Programmes</h5></caption> 
+                <thead>
+                    <tr> 
+                        <th>Code</th> 
+                        <th>Nom du Groupe</th> 
+                        <th>Type Programme</th> 
+                        @*<th>Date Création</th> 
+                        <th>Administrateur</th>*@ 
+                        <th>Nombre Patient</th> 
+                        <th>Date Clôture</th>  
+                    </tr>
+                </thead>
+                <tbody>                        
+                    @foreach (var Programme in Model)   //DatePrise.ToShortDateString()
+                    {
+                           <tr>  
+                                <td> 
+                                    <a href="~/GroupeCible/CONSULTERINFOSGROUPECIBLE/@SoftCare.Models.CRYPTAGE.StringHelpers.Decrypt(Programme.Id)"> 
+                                        @Programme.Code 
+                                    </a> 
+                                </td> 
+                                <td style="font-weight:600;"> @Programme.Intitule </td> 
+                                <td> @Programme.Type </td> 
+                                @*<td> @Programme.DateCreationGroupe  </td> 
+                                <td> @Programme.Administrateur  </td>*@ 
+                                <td style="text-align:center;"> @Programme.Taille </td> 
+                                <td> @Programme.DateClotureGroupe  </td> 
+                           </tr>
+                    }  
+                       
+                </tbody>
+                }
+  
+         </table>
+      </section>
+  </div>
+    

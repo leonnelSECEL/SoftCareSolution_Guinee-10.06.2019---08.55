@@ -1,0 +1,169 @@
+﻿@model SoftCare.ViewModels.DossierVM
+
+@{
+    Layout = "../../Views/Shared/_SoftCareLayoutPage.cshtml";
+    ViewBag.Title = "Dossier patient archivé le "+@Model.Dossier.DateArchivage;
+
+    String optionSelected = "selected = \"selected\" ";
+}
+
+
+
+
+    <div class="row" style="margin-top:2%;">
+     
+         <div class="col-lg-6" >
+
+                 <div id="profilPatient" class="col-lg-7" style="border-right: 1px solid #000; padding-right: 5px;">
+
+                    @if(Model.Dossier != null)
+                    {
+                     <h4> <strong> @if (@Model.Dossier.Code != null) {@Model.Dossier.Code} </strong>      </h4>
+                     <h4> @if(Model.Dossier.Patient.Nom != null) {@Model.Dossier.Patient.Nom }   @if(Model.Dossier.Patient.Prenom != null) {@Model.Dossier.Patient.Prenom}           </h4>
+                      <h6> @if (ViewBag.DateNaissance != null)
+                           {@ViewBag.DateNaissance }        </h6>
+                         <h6> @if (Model.Dossier.Patient.LieuNaissance != null)
+                              {@Model.Dossier.Patient.LieuNaissance }        </h6>
+                        <h6> @if (Model.Dossier.Patient.Adresse != null)
+                             {@Model.Dossier.Patient.Adresse }   </h6>
+                     <h6> @if (Model.Dossier.Patient.TelephonePrincipal != null)
+                          {@Model.Dossier.Patient.TelephonePrincipal } @if (Model.Dossier.Patient.TelephoneSecondaire != null)
+                                                                       { <i> / </i>@Model.Dossier.Patient.TelephoneSecondaire }</h6>
+                     <h6> @if (Model.Dossier.Patient.Email != null)
+                          {@Model.Dossier.Patient.Email }        </h6>
+                     <h6>  
+                         @if (Model.Dossier.Patient.Sexe != null)
+                         {
+                             if (Model.Dossier.Patient.Sexe == 0)
+                             {
+                                 <span> Homme </span>
+                             }
+                             else if (Model.Dossier.Patient.Sexe == 1)
+                             {
+                                 <span> Femme </span>
+                             }
+
+                         }
+                     </h6>
+                    }
+                 </div>
+
+                @if (Model.Dossier.PenseBete != null)
+                {
+                 <div class="col-lg-5" style="border-left: px solid #000;"> 
+                      <h4 style="border-bottom: 1px solid #000;margin-bottom: 0;"> Infos utiles </h4>                
+                    <div class="col-lg-12" style="padding:0;line-height:1.5">
+                        <h5 style="">  </h5>  
+                        <p> @if (Model.Dossier.PenseBete != null)
+                            {@Model.Dossier.PenseBete} </p>
+                    </div>                    
+                </div>
+                }
+    
+         </div>
+       
+         <div class="col-lg-6 bloc-scrollable" >
+            <section class="col-lg-12 table-responsive table-scrollable">
+                <table class="table table-bordered table-striped table-condensed">
+                     
+
+                        @if (Model.Parametres == null | Model.Parametres.Count == 0)
+                        {                         
+                             <caption style="color:#000"><h6>Il n'y aucun paramètre enregistré </h6></caption>
+                        
+                        }
+                        else
+                        {
+                             <caption style="color:#000"><h5>Parametres</h5></caption> 
+                        <thead>
+                          <tr> <th>Date</th> <th>T(°C)</th> <th>Pouls</th> <th>Tension</th> <th>Poids</th> <th>Avis</th>  </tr>
+                       </thead>
+                       <tbody>                        
+                            @foreach (var parametre in Model.Parametres)
+                            {
+                                  <tr>  <td> <a href="~/GestionPatient/CONSULTERPARAMETRE/@SoftCare.Models.CRYPTAGE.StringHelpers.Decrypt(parametre.ParametreID)" >    @parametre.DatePrise.ToShortDateString() </a> </td> <td> @parametre.Temperature </td> <td> @parametre.Pouls  </td> <td> @parametre.Tension  </td> <td> @parametre.Poids </td> <td> @parametre.Avis  </td> </tr>
+                            }  
+                       
+                       </tbody>
+                        }
+  
+                </table>
+            </section>
+        </div>
+    
+    </div>
+
+    <div class="row" style="margin-top:;">  
+     
+          <div class="col-lg-6 bloc-scrollable" >
+            <section class="col-lg-12 table-responsive table-scrollable">
+                <table class="table table-bordered table-striped table-condensed">
+                    <caption style="color:#000"><h5>Diagnostics</h5></caption>
+
+                    @if (Model.Diagnostics == null)
+                    {                         
+                         <caption style="color:#000"><h6>Il n'y aucun diagnostic enregistré </h6></caption>
+                        
+                    }
+                    else
+                    {
+                                               
+                    <thead>
+                      <tr>  <th>Date </th> <th>Diagnostic</th> <th>Spécialiste</th> </tr>
+                   </thead>
+                   <tbody>
+                        
+                       @foreach (var diagnostic in Model.Diagnostics)
+                       {
+                              <tr> <td> <a href="~/GestionPatient/CONSULTERDIAGNOSTIC/@SoftCare.Models.CRYPTAGE.StringHelpers.Decrypt(diagnostic.Id)" > @diagnostic.DateDiagnostic.ToShortDateString() </a>  </td> <td> @diagnostic.Avis  </td> <td> @diagnostic.Specialiste </td> </tr>
+                       }  
+                       
+                   </tbody>
+                    }
+
+                </table>
+            </section>
+        </div>
+
+           <div class="col-lg-6 bloc-scrollable" >
+             <section class="col-lg-12 table-responsive table-scrollable">
+                <table class="table table-bordered table-striped table-condensed">                      
+                    <caption style="color:#000"><h5>Traitements</h5></caption>
+
+                    @if (Model.Traitements == null)
+                    {                         
+                         <caption style="color:#000"><h6>Il n'y aucun traitement enregistré </h6></caption>
+                        
+                    }
+                    else
+                    {
+                                               
+                    <thead>
+                      <tr>  <th>Date </th> <th>Traitement </th> <th>Spécialiste</th> </tr>
+                   </thead>
+                   <tbody>
+                        
+                       @foreach (var traitement in Model.Traitements)
+                       {
+                              <tr>  <td> <a href="~/GestionPatient/CONSULTERTRAITEMENT/@SoftCare.Models.CRYPTAGE.StringHelpers.Decrypt(traitement.Id)" > @traitement.DateTraitement.ToShortDateString() </a> </td> <td> @traitement.Traitement </td> <td> @traitement.Specialiste  </td>  </tr>
+                       }  
+                       
+                   </tbody>
+                    }
+                </table>
+            </section>
+        </div>
+    
+    </div>
+
+
+
+
+
+
+
+
+    
+	  
+    
+

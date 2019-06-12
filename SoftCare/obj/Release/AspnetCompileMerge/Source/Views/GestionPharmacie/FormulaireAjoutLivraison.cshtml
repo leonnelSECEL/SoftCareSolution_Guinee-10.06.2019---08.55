@@ -1,0 +1,65 @@
+﻿@model SoftCare.Models.LIVRAISON
+@{
+    Layout = "../../Views/Shared/_SoftCareLayoutPage.cshtml";
+    ViewBag.Title = "Livraison Produits Pharmaceutiques";
+}
+
+
+<div class="row">
+
+
+    <section class="col-lg-12" style="margin:1em 0">
+
+        @using (Ajax.BeginForm("", "", new AjaxOptions { InsertionMode = InsertionMode.Replace, UpdateTargetId = "patientList", LoadingElementId = "loader" }, new { @class = "row", style="border:px solid #ddd" }))
+        {
+
+            <div class="col-lg-3" style="padding:0 4px;">
+                <div class="form-group" style="margin: 2px">
+                    <label class="sr-only" for="text"> Code Dossier Patient </label>
+                    <input type="text" class="form-control" id="ReferenceExamen" name="ReferenceExamen" placeholder="Code Dossier Patient">
+                </div>
+            </div>
+
+            <div class="col-lg-3" style="padding:0 4px;">
+                <div class="form-group" style="margin: 2px">
+                    <label class="sr-only" for="text"> Réf. Paiement  </label>
+                    <input type="text" class="form-control" id="ReferenceExamen" name="ReferenceExamen" placeholder="Réf. Paiement">
+                </div>
+            </div>
+
+            <div class="col-lg-3" style="padding:0 4px;">
+                <div class="form-group" style="margin: 2px">
+                    <label class="sr-only" for="text"> Réf. Facture  </label>
+                    <input type="text" class="form-control" id="ReferenceExamen" name="ReferenceExamen" placeholder="Réf. Facture">
+                </div>
+            </div>
+
+            <div class="col-lg-2" style="padding:0 4px;">
+                <div class="form-group" style="margin: 2px">
+                    <label class="sr-only" for="text"> Date Paiement  </label>
+                    <input type="date" class="form-control" id="DatePaiement" name="DatePaiement" placeholder=" Date Paiement">
+                </div>
+            </div>
+
+            <div class="col-lg-1" style="padding:0 4px;">
+                <div class="form-group" style="margin: 2px">
+                    <button type="submit" class="btn btn-info" style="width:100%"><span class="glyphicon glyphicon-search"></span></button>
+                </div>
+            </div>
+        }
+    </section>
+
+
+    <section id="patientList" class="col-lg-12 table-responsive" style="max-height:41em;overflow-y: auto;">
+
+        <div id="loader" class=" aletr" style="display:none">
+            <img src="~/Content/images/ajax-loader.gif" style="height:200px; width:200px" />
+        </div>
+
+        @Html.Partial("PartialViewSearchDossier")
+    </section>
+
+
+
+
+</div>

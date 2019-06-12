@@ -1,0 +1,450 @@
+﻿@model SoftCare.ViewModels.DossierVM
+
+
+@{
+    Layout = "../../Views/Shared/_SoftCareLayoutPage.cshtml";
+    ViewBag.Title = "Dossier Médical d'un Patient";
+
+
+    String optionSelected = "selected = \"selected\" ";
+
+}
+
+<style>
+    .padding-zero-block {
+        padding: 0 !important;
+    }
+</style>
+
+
+<div class="row" style="margin:2em 0">
+
+
+    <div class="col-lg-2" style="padding: 0 5px; ">
+        <a href="~/GestionPatient/AJOUTPARAMETRE/@SoftCare.Models.CRYPTAGE.StringHelpers.Decrypt(Model.Dossier.DossierID)" class="btn btn-primary" title="Prendre des nouveaux paramètres médicaux de ce Patient" style="width:100%">
+            <span class="glyphicon glyphicon-plus"></span> Paramètres
+        </a>
+    </div>
+
+    <div class="col-lg-2" style="padding: 0 5px; ">
+        <a href="~/GestionPatient/AJOUTDIAGNOSTIC/@SoftCare.Models.CRYPTAGE.StringHelpers.Decrypt(Model.Dossier.DossierID)" class="btn btn-primary" title="Faire une nouvelle consultation à ce Patient." style="width:100%">
+            <span class="glyphicon glyphicon-plus"></span>
+            Consultation
+        </a>
+    </div>
+
+    <div class="col-lg-2" style="padding: 0 5px; ">
+        <a href="~/GestionPatient/NOUVELEXAMEN/@SoftCare.Models.CRYPTAGE.StringHelpers.Decrypt(Model.Dossier.DossierID)" class="btn btn-primary" title="Prescrire un Examen Médical à ce Patient." style="width:100%">
+            Examen Médical
+        </a>
+    </div>
+
+
+    <div class="col-lg-2" style="padding: 0 5px; ">
+        <a href="~/GestionPatient/NOUVEAUTRAITEMENT/@SoftCare.Models.CRYPTAGE.StringHelpers.Decrypt(Model.Dossier.DossierID)" class="btn btn-primary" title="Prescrire un nouveau traitement à ce Patient." style="width:100%">
+            <span class="glyphicon glyphicon-plus"></span>
+            Traitement
+        </a>
+    </div>
+    <div class="col-lg-2" style="padding: 0 5px; ">
+        <a href="~/GestionPatient/CONSULTERLISTERDV/@SoftCare.Models.CRYPTAGE.StringHelpers.Decrypt(Model.Dossier.DossierID)" class="btn btn-primary" title="Fixer un nouveau rendez-vous de révision de ce Patient." style="width:100%">
+            <span class="glyphicon glyphicon-list"></span>
+            Rendez-vous
+        </a>
+    </div>
+
+    <div class="col-lg-2" style="padding: 0 5px; ">
+        <a href="~/GestionCaisse/GENERERFACTURECONSULTATION/@SoftCare.Models.CRYPTAGE.StringHelpers.Decrypt(Model.Dossier.DossierID)" class="btn btn-warning" title="Générer une facture pour une nouvelle consultation." style="width:100%">
+            Générer Facture
+        </a>
+    </div>
+
+    @*<div class="col-lg-1 col-lg-offset-3">
+             <a href="~/GestionPatient/IMPRIMERDOSSIERMEDICAL/@SoftCare.Models.CRYPTAGE.StringHelpers.Decrypt(Model.Dossier.DossierID)" class="btn btn-warning" title="Imprimer ce dossier"> <span class="glyphicon glyphicon-print"></span></a>
+        </div>*@
+
+</div>
+
+<div class="row">
+
+    <div class="col-lg-6 padding-zero-block">
+
+        <div id="profilPatient" class="col-lg-7" style="border-right: 1px solid #000; padding-right: 5px;">
+
+            <a href="#ModalModificationProfilPatient" data-toggle="modal" data-backdrop="false" id="profilPatientUpdateLink" class="btn btn-link" style="position: absolute;top: -15px;right: 5px;" title="Modifier ce profil"><span class="glyphicon glyphicon-pencil"></span></a>
+
+            @if (Model.Dossier != null)
+            {
+                <h4>
+                    <strong>
+                        @if (@Model.Dossier.Code != null)
+                        {@Model.Dossier.Code}
+                    </strong>
+                </h4>
+                <h4>
+                    @if (Model.Dossier.Patient.Nom != null)
+                    {@Model.Dossier.Patient.Nom}   @if (Model.Dossier.Patient.Prenom != null)
+                    {@Model.Dossier.Patient.Prenom}
+                </h4>
+                <h6>
+                    @if (ViewBag.DateNaissance != null)
+                    {@ViewBag.DateNaissance}
+                </h6>
+                <h6>
+                    @if (Model.Dossier.Patient.LieuNaissance != null)
+                    {@Model.Dossier.Patient.LieuNaissance}
+                </h6>
+                <h6>
+                    @if (Model.Dossier.Patient.Adresse != null)
+                    {@Model.Dossier.Patient.Adresse}
+                </h6>
+                <h6>
+                    @if (Model.Dossier.Patient.TelephonePrincipal != null)
+                    {@Model.Dossier.Patient.TelephonePrincipal} @if (Model.Dossier.Patient.TelephoneSecondaire != null)
+                    {<i> / </i>@Model.Dossier.Patient.TelephoneSecondaire}
+                </h6>
+                <h6>
+                    @if (Model.Dossier.Patient.Email != null)
+                    {@Model.Dossier.Patient.Email}
+                </h6>
+                <h6>
+                    @if (Model.Dossier.Patient.Sexe == 0 || Model.Dossier.Patient.Sexe == 1)
+                    {
+                        if (Model.Dossier.Patient.Sexe == 0)
+                        {
+                            <span> Homme </span>
+                        }
+                        else if (Model.Dossier.Patient.Sexe == 1)
+                        {
+                            <span> Femme </span>
+                        }
+
+                    }
+                </h6>
+                <h6>
+                    Programme(s) SOS :
+                    <a href="~/GroupeCible/CONSULTERLISTEGROUPECIBLE" style="color:#eea236;">
+                        @ViewBag.NombreProgrammeIntegre
+                        @if (ViewBag.NombreProgrammeIntegre <= 1)
+                        {<span>integré</span> }
+                        else
+                        { <span>integrés</span>}
+                    </a>
+                </h6>
+            }
+        </div>
+
+        @*@if (Model.Dossier.PenseBete != null)
+            {*@
+        <div class="col-lg-5" style="border-left: px solid #000;">
+            <h6 style="border-bottom: 1px solid #000;margin-bottom: 0;"> Infos utiles sur ce Patient </h6>
+            <div class="col-lg-12" style="padding:0;line-height:1.5">
+                <h5 style="">  </h5>
+                <p>
+                    @if (Model.Dossier.PenseBete != null)
+                    {@Model.Dossier.PenseBete}
+                </p>
+            </div>
+        </div>
+        @*}*@
+
+    </div>
+
+    <div class="col-lg-6 padding-zero-block bloc-scrollable">
+        <section class="col-lg-12 table-responsive table-scrollable">
+            <table class="table table-bordered table-striped table-condensed">
+
+
+                @if (Model.Parametres == null | Model.Parametres.Count == 0)
+                {
+                    <caption style="color:#000"><h6>Il n'y aucun paramètre enregistré </h6></caption>
+
+                }
+                else
+                {
+                    <caption style="color:#000"><h5>Parametres  <a href="~/GestionPatient/VISUALISERPARAMETRE/@SoftCare.Models.CRYPTAGE.StringHelpers.Decrypt(Model.Dossier.DossierID)" title="Consulter le graphe"><span class="glyphicon glyphicon-stats"></span> </a></h5> </caption>
+                    <thead>
+                        <tr> <th>Date</th> <th>T(°C)</th> <th>Pouls</th> <th>Tension</th> <th>Poids</th> <th>Avis</th>  </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var parametre in Model.Parametres)
+                        {
+                            <tr>  
+                                <td> 
+                                    <a href="~/GestionPatient/CONSULTERPARAMETRE/@SoftCare.Models.CRYPTAGE.StringHelpers.Decrypt(parametre.ParametreID)">
+                                        @parametre.DatePrise.ToShortDateString()  @parametre.DatePrise.ToShortTimeString()
+                                    </a> 
+                                </td> 
+                                <td> @parametre.Temperature </td> 
+                                <td> @parametre.Pouls  </td> 
+                                <td> @parametre.Tension  </td>
+                                <td> @parametre.Poids </td> 
+                                <td> @parametre.Avis  </td> 
+                            </tr>
+                        }
+
+                    </tbody>
+                }
+
+            </table>
+        </section>
+    </div>
+
+</div>
+
+<div class="row" style="">
+
+    <div class="col-lg-4 padding-zero-block bloc-scrollable">
+        <section class="col-lg-12 table-responsive table-scrollable">
+            <table class="table table-bordered table-striped table-condensed">
+                <caption style="color:#000"><h5>Diagnostics</h5></caption>
+
+                @if (Model.Diagnostics == null)
+                {
+                    <caption style="color:#000"><h6>Il n'y aucun diagnostic enregistré </h6></caption>
+
+                }
+                else
+                {
+
+                    <thead>
+                        <tr>  <th>Date </th> <th>Diagnostic</th> @*<th>Spécialiste</th>*@ </tr>
+                    </thead>
+                    <tbody>
+
+                        @foreach (var diagnostic in Model.Diagnostics)
+                        {
+                            <tr> <td> <a href="~/GestionPatient/CONSULTERDIAGNOSTIC/@SoftCare.Models.CRYPTAGE.StringHelpers.Decrypt(diagnostic.Id)"> @diagnostic.DateDiagnostic.ToShortDateString() </a>  </td> <td> @diagnostic.Avis  </td> @*<td> @diagnostic.Specialiste </td>*@ </tr>
+                        }
+
+                    </tbody>
+                }
+
+            </table>
+        </section>
+    </div>
+
+    <div class="col-lg-4 padding-zero-block bloc-scrollable">
+        <section class="col-lg-12 table-responsive table-scrollable">
+            <table class="table table-bordered table-striped table-condensed">
+                <caption style="color:#000"><h5>Examens Médicaux</h5></caption>
+
+                @if (Model.ExamenDetailsVM == null)
+                {
+                    <caption style="color:#000"><h6>Il n'y aucun examen enregistré </h6></caption>
+
+                }
+                else
+                {
+
+                    <thead>
+                        <tr> <th> Code Examen </th>  <th> Résultat </th> </tr>
+                    </thead>
+                    <tbody>
+
+                        @foreach (var examDetails in Model.ExamenDetailsVM)
+                        {
+                        <tr>
+                            <td>
+                                <a href="~/GestionLaboratoire/CONSULTEREXAMEN/@SoftCare.Models.CRYPTAGE.StringHelpers.Decrypt(examDetails.ExamId)">
+                                    @examDetails.Code
+                                </a>
+                            </td>
+                            <td>
+                                @if (examDetails.EstNegatif)
+                                {
+                                    <span> Négatif </span>
+                                }
+                                else
+                                {
+                                    <span> Positif </span>
+                                }
+                            </td>
+                        </tr>
+                        }
+
+                    </tbody>
+                }
+            </table>
+        </section>
+    </div>
+    
+    <div class="col-lg-4 padding-zero-block bloc-scrollable">
+        <section class="col-lg-12 table-responsive table-scrollable">
+            <table class="table table-bordered table-striped table-condensed">
+                <caption style="color:#000"><h5>Traitements</h5></caption>
+
+                @if (Model.Traitements == null)
+                {
+                    <caption style="color:#000"><h6>Il n'y aucun traitement enregistré </h6></caption>
+
+                }
+                else
+                {
+
+                    <thead>
+                        <tr>  <th>Date </th> <th>Traitement </th> @*<th>Spécialiste</th>*@ </tr>
+                    </thead>
+                    <tbody>
+
+                        @foreach (var traitement in Model.Traitements)
+                        {
+                            <tr>  <td> <a href="~/GestionPatient/CONSULTERTRAITEMENT/@SoftCare.Models.CRYPTAGE.StringHelpers.Decrypt(traitement.Id)"> @traitement.DateTraitement.ToShortDateString() </a> </td> <td> @traitement.Traitement </td> @*<td> @traitement.Specialiste  </td>*@  </tr>
+                        }
+
+                    </tbody>
+                }
+            </table>
+        </section>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+<div class="modal" id="ModalModificationProfilPatient">
+
+    <div class="modal-dialog">
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">x</button>
+                <h4 class="modal-title">
+                    Modification profil
+                    @if (Model.Dossier.Patient.Nom != null)
+                    {@Model.Dossier.Patient.Nom}   @if (Model.Dossier.Patient.Prenom != null)
+                    {@Model.Dossier.Patient.Prenom}
+                </h4>
+            </div>
+
+            <div class="modal-body">
+
+                @using (Html.BeginForm("CREERDOSSIER", "GestionPatient", FormMethod.Post, new { Id = "formulaireModificationProfilPatient", @class = "row" }))
+                {
+                    <div class="col-lg-12">
+
+                        <div class="row">
+
+                            <input class="form-control" id="Id" name="Id" type="hidden" value="@Model.Dossier.DossierID" />
+
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label class="control-label" for="Nom" style="width:100%;">Nom du Patient</label>
+                                    <input class="form-control" id="Nom" name="Nom" type="text" value="@Model.Dossier.Patient.Nom" style="display:inline; width:100%" />
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label class="control-label" for="Prenom" style="width:100%;">Prénom</label>
+                                    <input class="form-control" id="Prenom" name="Prenom" type="text" value="@Model.Dossier.Patient.Prenom" style="display:inline; width:100%" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label class="control-label" for="TelephonePrincipal" style="width:100%;">Téléphone Principal</label>
+                                    <input class="form-control" id="TelephonePrincipal" name="TelephonePrincipal" type="text" value="@Model.Dossier.Patient.TelephonePrincipal" style="display:inline; width:100%" />
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label class="control-label" for="TelephoneSecondaire" style="width:100%;">Téléphone Sécondaire</label>
+                                    <input class="form-control" id="TelephoneSecondaire" name="TelephoneSecondaire" type="text" value="@Model.Dossier.Patient.TelephoneSecondaire" style="display:inline; width:100%" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col-lg-12">
+                                <div class="row">
+
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="select" style="width:100%">Sexe </label>
+                                            <select class="form-control" name="Sexe">
+                                                <option value="0" @if (Model.Dossier.Patient.Sexe == 0) { @optionSelected }>
+                                                    Masculin
+                                                </option>
+                                                <option value="1" @if (Model.Dossier.Patient.Sexe == 1) { @optionSelected }>
+                                                    Feminin
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label class="control-label" for="Email" style="width:100%;">Email</label>
+                                            <input class="form-control" id="Email" name="Email" type="text" value="@Model.Dossier.Patient.Email" style="display:inline; width:100%" />
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <label class="control-label" for="Adresse" style="width:100%;">Adresse</label>
+                                    <input class="form-control" id="Adresse" name="Adresse" type="text" value="@Model.Dossier.Patient.Adresse" style="display:inline; width:100%" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <label class="control-label" for="PenseBete" style="width:100%;">Infos utiles</label>
+                                    <textarea class="form-control" id="PenseBete" name="PenseBete" style="display:inline; width:100%">@Model.Dossier.PenseBete</textarea>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <button class="btn btn-primary" id="" type="submit">Appliquer les modifications</button>
+
+                    </div>
+                }
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-danger" id="" data-dismiss="modal">Annuler</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $("#formulaireModificationProfilPatient").submit(function (e) {
+            e.preventDefault();
+            var $form = $(this);
+            $.post($form.attr("action"), $form.serialize())
+                .done(function (data) {
+                    location.reload();
+                    //$("#result").html(data);
+                    $("#ModalModificationProfilPatient").modal("hide");
+                    //window.location.href = "./files/programme_de_formation_secel_2015.pdf";
+                })
+                .fail(function () {
+                    alert("Une erreur s'est produite. Verifiez les données");
+                });
+        });
+    });
+</script>
+

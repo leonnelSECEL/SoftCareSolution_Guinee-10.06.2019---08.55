@@ -1,0 +1,161 @@
+﻿@model SoftCare.ViewModels.TransfertStockVM
+@{
+    Layout = "../../Views/Shared/_SoftCareLayoutPage.cshtml";
+    ViewBag.Title = "Transfert de Stock";
+
+    int counter = 0;
+    String selected = "selected=\"selected\"";
+    var ListeProduit = Model.Produits;
+}
+
+<div class="row" style="margin:3em">
+
+
+    @using (Html.BeginForm("TRANSFERERSTOCK", "GestionStock", FormMethod.Post, new { @class = "col-lg-12", name = "demoForm" }))
+    {
+        <input type="hidden" name="MagasinierId" value="@Model.MagasinierId" />
+
+        <div class="row" style="margin-top:0em">
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <label for="StockFromId" style="width:100%"> Stock de départ </label>
+                    <select class="form-control" name="StockFromId" id="StockFromId">
+                        @if (ViewBag.ListeStock != null)
+                        {
+                            foreach (var stock in (List<SoftCare.Models.STOCK>)ViewBag.ListeStock)
+                            {
+                                <option value="@SoftCare.Models.CRYPTAGE.StringHelpers.Decrypt(@stock.StockID)"  @if(stock.IsStocktCentral) { @selected }>
+                                        @SoftCare.Models.CRYPTAGE.StringHelpers.Decrypt(stock.Nom)
+                                </option>
+                            }
+                        }
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <label for="StockToId" style="width:100%"> Stock de Destination </label>
+                    <select class="form-control" name="StockToId" id="StockToId">
+                        @if (ViewBag.ListeStock != null)
+                        {
+                            foreach (var stock in (List<SoftCare.Models.STOCK>)ViewBag.ListeStock)
+                            {
+                                <option value="@SoftCare.Models.CRYPTAGE.StringHelpers.Decrypt(@stock.StockID)">
+                                    @SoftCare.Models.CRYPTAGE.StringHelpers.Decrypt(stock.Nom)
+                                </option>
+                            }
+                        }
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+
+            <h5 style="color:#000"> Selectionner la Liste des Produits à Transferer </h5>
+
+            <section class="col-lg-12 bloc-scrollable table-responsive table-scrollable" style="max-height:23em;">
+
+                <table class="table table-striped table-condensed">
+
+                    <thead>
+                        <tr>
+                            <th>  </th>
+                            <th> Réf. </th>
+                            <th> Intitulé</th>
+                            <th> Qté en Stock</th>
+                            <th style="width:20%"> Qté Appro. </th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        @{
+                            int i = 0;
+                            String[] IdsProduitATransferer = new String[Model.Produits.Count()];
+                            String[] QuantiteATransferer = new String[Model.Produits.Count()];
+                        }
+
+                        @foreach (var Produit in Model.Produits)
+                        {
+                            counter++;
+                            if (Produit != null)
+                            {
+                                IdsProduitATransferer[i] = Produit.ProduitID;
+
+                                <tr>
+                                    <td>
+                                        <input type="checkbox" name="IdsProduitATransferer[@i]" value="@IdsProduitATransferer[i]" onclick="CheckQuantity(this,@i)">
+                                        <input name="IdsProduitATransferer[@i]" type="hidden" value="false" />
+                                    </td>
+                                    <td><a href="~/GestionStock/CONSULTERPRODUIT/@Produit.ProduitID"> @Produit.Reference </a></td>
+                                    <td>@Produit.Nom</td>
+                                    <td>@Produit.QuantiteStock</td>
+
+                                    <td>
+                                        <div class="form-group" style="margin-bottom:0;">
+                                            <input type="number" min="1" max="@Produit.QuantiteStock" class="form-control" name="QuantiteATransferer[@i]" id="QuantiteATransferer[@i]" style="width:10em; height:2em; display:none;" />
+                                        </div>
+                                    </td>
+
+                                </tr>
+                            }
+                            i += 1;
+                        }
+                    </tbody>
+
+
+                </table>
+            </section>
+
+        </div>
+
+        <div class="row" style="margin-top:3em">
+
+            <div class="col-lg-4 col-lg-offset-2">
+                <div class="form-group">
+                    <a href="" class="btn btn-warning" style="width:100%">
+                        <span class="glyphicon glyphicon-circle-arrow-left"></span>
+                        Annuler
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="form-group">
+                    <input class="btn btn-primary" type="submit" value="Transferer" style="width:100%" />
+                </div>
+            </div>
+
+        </div>
+    }
+
+</div>
+
+
+
+
+<script>
+    var today = new Date().toISOString().split('T')[0];
+    document.getElementsByClassName("DateExpiration")[0].setAttribute('min', today);
+
+    function CheckQuantity(champ, id)
+    {
+        if (champ.checked == 1)
+        {
+            var qte = document.getElementById('QuantiteATransferer[' + id + ']');
+            qte.style.display = "inline";
+        }
+        else
+        {
+            var qte = document.getElementById('QuantiteATransferer[' + id + ']');
+            qte.style.display = "none";
+        }
+    }
+
+</script>
+
+
+
+

@@ -1,0 +1,199 @@
+﻿@model SoftCare.ViewModels.ReglementVM
+@{
+    Layout = "../../Views/Shared/_SoftCareLayoutPage.cshtml";
+    ViewBag.Title = "Enregistrement d'un Paiement";
+}
+
+<div class="row" style="margin:3em">
+
+    @using (Html.BeginForm("ENREGISTRERREGLEMENT", "GestionCaisse", FormMethod.Post, new { @class = "col-lg-12" }))
+    {
+
+        @Html.TextBoxFor(model => model.FactureId, new { type = "hidden", value = Model.FactureId })
+        @Html.TextBoxFor(model => model.CaissierId, new { type = "hidden", value = Model.CaissierId })
+        @Html.TextBoxFor(model => model.CaisseId, new { type = "hidden", value = Model.CaisseId })
+
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Patient)
+                    @Html.TextBoxFor(model => model.Patient, new { @class = "form-control", disabled = "disabled" })
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ReferenceFacture)
+                    @Html.TextBoxFor(model => model.ReferenceFacture, new { @class = "form-control", disabled = "disabled" })
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+
+
+            <div class="col-lg-4">
+                <div class="form-group">
+                    <label class="control-label" for="ModePaiementId" style="width:100%;">
+                        Mode Paiement
+                        <a href="~/GestionCaisse/ENREGISTRERMODEPAIEMENT" title="Ajouter un mode de Paiement." class="">
+                            <span class="glyphicon glyphicon-plus-sign"></span>
+                        </a>
+                    </label>
+                    <select class="form-control" name="ModePaiementId" id="ModePaiementId">
+                        @if (ViewBag.ListeModePaiement != null)
+                        {
+                            foreach (var mode in (List<SoftCare.Models.MODEPAIEMENT>)ViewBag.ListeModePaiement)
+                            {
+                                <option value="@mode.ModePaiementID">@mode.Nom</option>
+                            }
+                        }
+                    </select>
+                </div>
+            </div>
+
+
+            <div class="col-lg-4">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Caisse)
+                    @Html.TextBoxFor(model => model.Caisse, new { @class = "form-control", disabled = "disabled" })
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Caissier)
+                    @Html.TextBoxFor(model => model.Caissier, new { @class = "form-control", disabled = "disabled" })
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+
+            <div class="col-lg-4">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Montant)
+                    @Html.TextBoxFor(model => model.Montant, new { @class = "form-control", disabled = "disabled" })
+                    @Html.TextBoxFor(model => model.Montant, new { type = "hidden", value = Model.Montant })
+                </div>
+            </div>
+
+
+            <div class="col-lg-4">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Reste)
+                    @Html.TextBoxFor(model => model.Reste, new { @class = "form-control", disabled = "disabled" })
+                </div>
+            </div>
+
+
+            <div class="col-lg-4">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.MontantRecu)
+                    @Html.TextBoxFor(model => model.MontantRecu, new { @class = "form-control", type = "number", max = Model.Reste })
+                </div>
+            </div>
+
+            @*<div class="col-lg-3">
+            <div class="form-group">
+                @Html.LabelFor(model => model.MontantRembourse)
+                @Html.TextBoxFor(model => model.MontantRembourse, new { @class = "form-control", })
+            </div>
+        </div>*@
+
+        </div>
+
+        @*<div class="row">
+
+
+            <div class="col-lg-6">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.MontantARembourse)
+                    @Html.TextBoxFor(model => model.MontantARembourse, new { @class = "form-control", disabled = "disabled" })
+                    @Html.TextBoxFor(model => model.MontantARembourse2, new { type = "hidden", })
+                </div>
+            </div>
+
+            @*<div class="col-lg-6">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Reste)
+                    @Html.TextBoxFor(model => model.Reste, new { @class = "form-control", disabled = "disabled" })
+                    @Html.TextBoxFor(model => model.Reste2, new { type = "hidden",  })
+                </div>
+            </div>
+
+
+        </div>*@
+
+        <div class="row" style="margin-top:3em">
+
+            <div class="col-lg-4 col-lg-offset-2">
+                <div class="form-group">
+                    <input class="btn btn-primary" type="submit" value="Enregistrer" style="width:100%" />
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="form-group">
+                    <a href="~/GestionCaisse/CONSULTERLISTEFACTURES" class="btn btn-warning" style="width:100%">
+                        <span class="glyphicon glyphicon-circle-arrow-left"></span>
+                        Retourner
+                    </a>
+                </div>
+            </div>
+        </div>
+    }
+
+</div>
+
+
+
+
+<script type="text/Javascript">
+
+			function GestionCaisse()
+			{
+                var MontantAPayer = document.getElementById("Montant").value;
+                var MontantRecu = document.getElementById("MontantRecu").value;
+
+                var Difference = MontantRecu - MontantAPayer;
+                
+
+                if (Difference == 0) {
+                    document.getElementById("MontantARembourse").value = Difference;
+                    document.getElementById("MontantRembourse").value = 0;
+                    document.getElementById("MontantRembourse").style.display = "none";
+                    document.getElementById("Reste").value = 0;
+                }
+                else if (Difference > 0) {
+                    document.getElementById("MontantARembourse").value = Difference;
+                    document.getElementById("MontantARembourse2").value = Difference;
+                    document.getElementById("Reste").value = 0;
+                }
+                else
+                {
+                    document.getElementById("MontantARembourse").value = 0;
+                    document.getElementById("MontantRembourse").style.display = "none";
+                    document.getElementById("Reste").value = Difference;
+                    document.getElementById("Reste2").value = Difference;
+                }
+			
+			}
+
+			function GestionCaisse1()
+			{
+            	var MntRecu = document.getElementById("MontantRecu").value;
+				var Mnt = document.getElementById("Montant").value;
+				var Difference = MntRecu-Mnt;
+				var Reste2;
+
+					if(document.getElementById("MontantRembourser").value < Difference)
+					{
+						Reste2 = document.getElementById("MontantRembourser").value - Difference;
+						document.getElementById("Reste").value = Reste2;
+					}
+
+			}
+
+
+</script>

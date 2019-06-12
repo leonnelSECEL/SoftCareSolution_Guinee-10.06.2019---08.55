@@ -1,0 +1,80 @@
+﻿@model IEnumerable<SoftCare.ViewModels.ReglementVM3>
+
+@{
+    Layout = "~/Views/Shared/_SoftCareLayoutPage.cshtml";
+    ViewBag.Title = "Paiements en Caisse";
+    int counter = 0; 
+}
+
+
+<div class="row" style="margin-top:1em">
+
+    <section class="col-lg-12 bloc-scrollable table-responsive table-scrollable">
+        <table class="table table-bordered_ table-striped table-condensed">
+
+            @if (Model == null)
+            {
+                <caption style="color:#000"><h5>Il n'y aucun Paiement enregistré. </h5></caption>
+            }
+            else
+            {
+                <caption style="color:#000"><h5> Liste des Paiements en Caisse </h5></caption>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th> Réf. Paiement</th>
+                        <th> Facture </th>
+                        <th> Montant </th>
+                        <th> Date Paiement </th>
+                        <th> Livré ? </th>
+                        <th> Actions </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var Paiement in Model)
+                    {
+                        counter++; 
+                    <tr>
+                        <td> @counter</td>
+                        <td> 
+                          <a href="~/GestionCaisse/CONSULTERREGLEMENT/@SoftCare.Models.CRYPTAGE.StringHelpers.Decrypt(Paiement.Id)"> 
+                            @Paiement.Reference
+                          </a>
+                        </td>
+                        <td> @Paiement.Facture</td>
+                        <td> @Paiement.Montant</td>
+                        <td> @Paiement.DateCreation </td>
+                        <td>
+                            @if (Paiement.EstLivre)
+                            {
+                                <span> LIVRE </span>
+                            }
+                            else
+                            {
+                                <span> NON-LIVRE </span>
+                            }
+                        </td>
+                        <td>
+                            @if (Paiement.EstLivre)
+                            {
+                                <a href="~/GestionCaisse/CONSULTERFACTURE/@Paiement.Id" class="btn btn-primary btn-xs" title="Consulter détails facture">
+                                    <span class="glyphicon glyphicon-gift"></span>
+                                </a>
+                            }
+                            else
+                            {
+                                <a href="/@Paiement.Id" class="btn btn-warning btn-xs" title="Annuler ce Paiement">
+                                    <span class="glyphicon glyphicon-floppy-remove"></span>
+                                </a>
+                            }
+                         </td>
+                    </tr>
+                    }
+
+                </tbody>
+            }
+
+        </table>
+    </section>
+</div>
+

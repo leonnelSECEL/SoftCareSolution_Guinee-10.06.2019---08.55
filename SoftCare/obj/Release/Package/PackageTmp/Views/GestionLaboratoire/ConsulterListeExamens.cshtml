@@ -1,0 +1,77 @@
+﻿@model IEnumerable<SoftCare.ViewModels.ExamenVM2>
+
+@{
+    Layout = "../../Views/Shared/_SoftCareLayoutPage.cshtml";
+    ViewBag.Title = "Liste des Examens Médicaux Prescrits";
+
+    ViewBag.Btndisabled = "disabled=\"disabled\";";
+    int counter = 0; 
+}
+
+
+<div class="row" style="margin:1em 0.5em; padding-bottom:1em;">
+
+    <div class="col-lg-4"> 
+        <a href="~/GestionPatient/CONSULTERREGISTREMEDICAL" class="btn btn-primary">
+            <span class="glyphicon glyphicon-plus"></span>
+            Prescrire Examen Médical
+        </a>
+    </div>
+
+    <section class="col-lg-12 table-responsive" style="max-height: 37em;overflow-x: auto; margin-top:1em">
+
+        <table class="table table-striped table-condensed" style="margin-bottom:0px;">
+
+            @if (Model == null)
+            {
+                <caption style="color:#000"><h6> Aucun Examen enregistré </h6></caption>
+            }
+            else
+            {
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Réf. Examen</th>
+                        <th>Patient </th>
+                        <th>Médecin</th>
+                        <th>Type Examen</th>
+                        <th>Date Examen</th>
+                        <th>Actions </th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (var Examen in Model)
+                    {
+                        if (Examen != null)
+                        {
+                            <tr>
+                                <td>@(++counter)</td>
+                                <td>
+                                    <a href="~/GestionLaboratoire/CONSULTEREXAMEN/@Examen.Id">
+                                        @Examen.Reference
+                                    </a>
+                                </td>
+                                <td>@Examen.Patient</td>
+                                <td>@Examen.Medecin</td>
+                                <td>@Examen.ExamenType</td>
+                                <td>@Examen.DateExamen.ToShortDateString()</td>
+                                <td>
+                                    @if (Examen.EstRealise)
+                                    {
+                                        <a href="~/GestionLaboratoire/CONSULTERRESULTAT/@Examen.Id"> Voir Résultats </a>
+                                    }
+                                    else
+                                    {
+                                        <a href="~/GestionLaboratoire/ENREGISTRERRESULTAT/@Examen.Id"> Enregirstrer Résultats </a>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            }
+        </table>
+    </section>
+
+</div>

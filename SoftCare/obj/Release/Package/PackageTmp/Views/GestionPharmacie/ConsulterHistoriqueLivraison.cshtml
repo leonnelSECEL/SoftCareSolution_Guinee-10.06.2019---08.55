@@ -1,0 +1,59 @@
+﻿@model IEnumerable<SoftCare.Models.CAISSEMOUVEMENT>
+
+@{
+    Layout = "~/Views/Shared/_SoftCareLayoutPage.cshtml";
+    ViewBag.Title = "Historique des Livraisons en Pharmacie";
+}
+
+
+<div class="row" style="margin-top:2em">
+    <div class="col-lg-4">
+        <a href="" class="btn btn-primary" title="Créer une nouvelle Caisse" style="width:100%">
+            <span class="glyphicon glyphicon-plus"></span> Enregistrer une Livraion 
+        </a>
+    </div>
+</div>
+
+<div class="row" style="margin-top:1em">
+    <section class="col-lg-12 bloc-scrollable table-responsive table-scrollable">
+        <table class="table table-bordered_ table-striped table-condensed">
+
+            @if (Model == null)
+            {
+                <caption style="color:#000"><h5>Il n'y aucune Livraison Pharmacie effectuée. </h5></caption>
+            }
+            else
+            {
+                <caption style="color:#000"><h5> Livraison Pharmacie </h5></caption>
+                <thead>
+                    <tr>
+                        <th>Reference</th>
+                        <th> Caisse</th>
+                        <th> Type d'operation </th>
+                        <th> Montant </th>
+                        <th> Raison </th>
+                        <th> Date </th>
+                        <th> Etat  </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var Mouvement in Model)
+                    {
+                    <tr>
+                        <td> @Mouvement.Reference </td>
+                        <td> <a href="#"> @Mouvement.Caisse.Nom </a> </td>
+                        <td> @Mouvement.Direction </td>
+                        <td> @Mouvement.Montant </td>
+                        <td> @Mouvement.Raison </td>
+                        <td> @Mouvement.Date </td>
+                        <td> @Mouvement.EstValide </td>
+                    </tr>
+                    }
+
+                </tbody>
+            }
+
+        </table>
+    </section>
+</div>
+

@@ -1,0 +1,132 @@
+﻿@model SoftCare.ViewModels.ProduitVM2
+@{
+    Layout = "../../Views/Shared/_SoftCareLayoutPage.cshtml";
+    ViewBag.Title = "Details Produit";
+}
+
+<div class="row" style="margin:3em">
+
+    <div class="row">
+
+        @using (Html.BeginForm("", "", FormMethod.Post, new { @class = "col-lg-12" }))
+        {
+            <div class="row" style="margin-top:0em">
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        @Html.LabelFor(Model => Model.NomProduit)
+                        @Html.TextBoxFor(Model => Model.NomProduit, new { @class = "form-control", disabled = "disabled" })
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        @Html.LabelFor(Model => Model.ReferenceProduit)
+                        @Html.TextBoxFor(Model => Model.ReferenceProduit, new { @class = "form-control", disabled = "disabled" })
+                    </div>
+                </div>
+
+                <div class="col-lg-2">
+                    <div class="form-group">
+                        @Html.LabelFor(Model => Model.SeuilAlert)
+                        @Html.TextBoxFor(Model => Model.SeuilAlert, new { @class = "form-control", disabled = "disabled" })
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row">
+
+                <div class="col-lg-3">
+                    <div class="form-group">
+                        @Html.LabelFor(Model => Model.PrixVente)
+                        @Html.TextBoxFor(Model => Model.PrixVente, new { @class = "form-control", disabled = "disabled" })
+                    </div>
+                </div>
+
+                <div class="col-lg-3">
+                    <div class="form-group">
+                        @Html.LabelFor(Model => Model.PrixAchat)
+                        @Html.TextBoxFor(Model => Model.PrixAchat, new { @class = "form-control", disabled = "disabled" })
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        @Html.LabelFor(Model => Model.DateExpiration)
+                        @Html.TextBoxFor(Model => Model.DateExpiration, new { @class = "form-control", disabled = "disabled" })
+                    </div>
+                </div>
+
+
+                <div class="col-lg-2">
+                    <div class="form-group">
+                        @Html.LabelFor(Model => Model.ReferenceProduit)
+                        @Html.TextBoxFor(Model => Model.ReferenceProduit, new { @class = "form-control", disabled = "disabled" })
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row">
+
+                <div class="col-lg-6">
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <div class="form-group">
+                                @Html.LabelFor(Model => Model.NomStock)
+                                @Html.TextBoxFor(Model => Model.NomStock, new { @class = "form-control", disabled = "disabled" })
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                @Html.LabelFor(Model => Model.QuantiteStock)
+                                @Html.TextBoxFor(Model => Model.QuantiteStock, new { @class = "form-control", disabled = "disabled" })
+                            </div>
+                        </div>
+
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                @Html.LabelFor(Model => Model.NomRayon)
+                                @Html.TextBoxFor(Model => Model.NomRayon, new { @class = "form-control", disabled = "disabled" })
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                @Html.LabelFor(Model => Model.NomFabricant)
+                                @Html.TextBoxFor(Model => Model.NomFabricant, new { @class = "form-control", disabled = "disabled" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                @Html.LabelFor(Model => Model.Description)
+                                @Html.TextAreaFor(Model => Model.Description, new { @class = "form-control", style = "height:12.3em", disabled = "disabled" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" style="margin-top:3em">
+
+
+                <div class="col-lg-4  col-lg-offset-4">
+                    <div class="form-group">
+                        <a href="~/GestionStock/CONSULTERLISTEPRODUITS" class="btn btn-warning" style="width:100%">
+                            <span class="glyphicon glyphicon-circle-arrow-left"></span>
+                            Retourner à la liste des Produits
+                        </a>
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>
+
+</div>
+
+

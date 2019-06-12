@@ -1,0 +1,93 @@
+﻿@model SoftCare.ViewModels.ExamenMedicalVM
+@{
+    Layout = "../../Views/Shared/_SoftCareLayoutPage.cshtml";
+    ViewBag.Title = "Enregistrement d'un Examen Médical";
+}
+
+<div class="row" style="margin:3em">
+
+    <div class="row">
+
+        @using (Html.BeginForm("ENREGISTREREXAMENMEDICAL", "GestionLaboratoire", FormMethod.Post, new { @class = "col-lg-12" }))
+        {
+            
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="form-group">
+
+                    @Html.LabelFor(model => model.Code)
+                    @Html.TextBoxFor(model => model.Code, new { @class = "form-control", })
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Libele)
+                    @Html.TextBoxFor(model => model.Libele, new { @class = "form-control", })
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Prix)
+                    @Html.TextBoxFor(model => model.Prix, new { @class = "form-control", })
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <label for="ExamenTypeId">
+                        Type d'Examen
+                        <a href="~/GestionLaboratoire/ENREGISTRERTYPEEXAMEN">
+                            <span class="glyphicon glyphicon-plus-sign " title="Ajouter un nouveau type d'examen"></span>
+                        </a>
+                    </label>
+                    <select class="form-control" name="ExamenTypeId">
+                        @if (ViewBag.ListeExamenType != null)
+                        {
+                            foreach (var examType in (List<SoftCare.Models.EXAMENTYPE>)ViewBag.ListeExamenType)
+                            {
+                                <option value="@examType.ExamenTypeID">@examType.Libelle</option>
+                            }
+                        }
+                    </select>
+                </div>
+            </div>
+
+        </div>
+
+            <div class="row">
+
+                <div class="col-lg-12">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Description)
+                        @Html.TextAreaFor(model => model.Description, new { @class = "form-control", style="height:10em;" })
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="row" style="margin-top:2em">
+
+                <div class="col-lg-4 col-lg-offset-2">
+                    <div class="form-group">
+                        <a href="~/GestionLaboratoire/CONSULTERLISTEEXAMENMEDICAUX" class="btn btn-warning" style="width:100%">
+                            <span class="glyphicon glyphicon-circle-arrow-left"></span>
+                            Retourner à la liste
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        <input class="btn btn-primary" type="submit" value="Enregistrer" style="width:100%" />
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>
+
+</div>
+
+

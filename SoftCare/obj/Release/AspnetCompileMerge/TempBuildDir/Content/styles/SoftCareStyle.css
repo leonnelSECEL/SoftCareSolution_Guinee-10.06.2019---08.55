@@ -1,0 +1,236 @@
+﻿body {
+    font-size: 1.1em;
+    font-family: "Segoe UI", Verdana, Helvetica, Sans-Serif;
+    color: #232323;
+}
+
+html, body {
+height:100%;
+}
+
+header, footer, nav, section {
+    display: block;
+}
+
+
+.field-validation-error {
+    color: #f00;
+}
+
+.field-validation-valid {
+    display: none;
+}
+
+.input-validation-error {
+    border: 1px solid #f00;
+    background-color: #fee;
+}
+
+.validation-summary-errors {
+    font-weight: bold;
+    color: #f00;
+}
+
+.validation-summary-valid {
+    display: none;
+}
+
+
+/* Begin: Hn */
+
+.wrapper
+{
+position: fixed;
+width: 200%;
+height: 200%;
+left: -50%;
+background: #fff;
+}
+
+.wrapper2
+{
+position: fixed;
+width: 200%;
+height: 200%;
+left: -50%;
+background: #fff;
+}
+
+.side-bg {
+    background-image: url("../images/side-bg.png");
+    padding:0; 
+    min-height: 46em;
+}
+
+.softcare_bg{
+    background-image: url("../images/softcare_bg.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color:rgba(12, 12, 12, 0.88);
+}
+
+.softcareheader {
+    background-color: #fff;padding: 2.295em  0 0 0;font-size: 2em; border-bottom:1px solid #009EE0;
+}
+
+#LoginMainContent 
+{
+z-index:100;
+position:absolute;    
+color:#fff;
+-font-size:100px;
+font-weight:bold;
+left:37%;
+top:10%;
+width: 23%;
+}
+
+ 
+table tr {
+    background:#f1f1f1;
+ }
+
+table tbody tr:hover {
+  background-color:#f6f5f5 !important;
+}
+
+
+.FormLoginMain legend {
+color: #fff;
+font-size: 3.2em;
+background-color: #009EE0;
+padding:2% 4%;
+font-family: cursive;
+}
+
+.FormLoginMain .input-prepend .LoginInput {
+width:99%;
+height: 30px;
+font-size: 11px;
+color: black;
+padding: 0 0 0 10px;
+}
+
+.FormLoginMain .form-group .row{
+margin:0 0 5% 0;
+}
+
+.FormLoginMain .form-group .row label, .passwordForgotenLink{
+    font-size: 14px;     
+}
+
+.FormLoginMain .form-group .row input{
+    font-weight: 500;
+}
+
+
+#PageMainContent{
+z-index:100;
+position:absolute;    
+color:#fff;
+font-weight:bold;
+left:25%;
+top:0;
+width: 50%;
+}
+
+
+
+.requiredInput, .requiredGroupInput, .blankInput  {
+    font-weight:600;
+    font-size:2em;
+}
+
+.requiredInput {
+    color:#f00;
+}
+
+.requiredGroupInput {
+        color:#ffbe00f0;
+}
+.blankInput {
+        color:#fff;
+}
+
+.bloc-scrollable .table-scrollable {
+    max-height: 20em;overflow-y: auto;
+    }
+
+#profilPatient #profilPatientUpdateLink {
+    display:none;
+}
+
+#profilPatient:hover #profilPatientUpdateLink {
+    display:block;
+}
+
+#profilPatientUpdateLink:hover{
+    color:#ff6a00;
+}
+
+.MainNavBar li div ul {padding: 0;margin-left: 6em;}
+.MainNavBar li div ul li {line-height:2em; list-style:none;}
+.MainNavBar li div ul li a {text-decoration:none;color:#fff;font-size:1.2em; }                                          
+.MainNavBar li div ul li a:hover {color:#EC7404; }
+.MainNavBarLink {color: #fff !important;font-size: 1.6em;font-weight:500; }
+
+.accueil-links .col-lg-4 {
+       
+      height: 18em;
+}
+
+.accueil-links .col-lg-4 img{
+   max-height:100%;
+      
+}
+
+.accueil-links .col-lg-4 .hover-link-explain {
+    border: 1px solid #777;
+    height: 100%;
+    position: absolute;
+    width: 82%;
+    top: 0;
+    background-color: #ffffffed;
+    visibility: hidden;
+    padding: 30% 4%;
+    font-size: medium;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 1px 12px 10px 12px;
+    opacity: 0;
+    transition: visibility 0s, opacity 0.4s linear;
+}
+
+.accueil-links .col-lg-4:hover .hover-link-explain {
+  visibility: visible;
+  opacity: 1;
+}
+
+.impression {
+        font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 2px;
+}     
+
+.impression .impression-titre {
+     font-weight: bold;
+    border-bottom: 0px solid #ddd;
+    margin-top: 8px;
+    padding-bottom: 0px;
+    margin-bottom: 8px;
+    text-decoration:underline;
+}
+
+.datarow {padding: 4px;}
+.datarow .datarow-label {
+    font-weight:bold; width:160px; float:left;
+}
+
+.datarow .datarow-data {
+    float:left;
+}
+
+       
+
+/*End: Hn*/

@@ -1,0 +1,152 @@
+﻿@model SoftCare.ViewModels.DossierVM
+
+@{
+    ViewBag.Title = "Impression du Dossier Patient";
+    Layout = "../../Views/Shared/_SoftCareLayoutImpression.cshtml";
+}
+
+
+  <div class="row" >
+     
+  
+      <table class="col-lg-12 table table-striped" > 
+         
+          <tbody>
+              <tr class="row">
+                  <td> 
+                      @if(Model.Dossier != null)
+                      {
+                          <h5 class="col-lg-12" style="text-align:center; font-weight:bold;"> DOSSIR MEDICAL N° 
+                          @if (Model.Dossier.Code != null)
+                           { @Model.Dossier.Code } 
+                          </h5>
+                         
+                             <section class="col-lg-12 impression ">
+                                
+                                    <div class="impression-titre" > 
+                                        <p style="float:left;" >Informations personnelles </p>
+                                        <div style="float:right;"> <span class="glyphicon glyphicon-user"></span></div>
+                                        <div style="clear:both"></div>
+                                    </div>
+                                    
+                                     <div class="datarow"  > 
+                                        <div class="datarow-label">Nom: </div>  
+                                        <div class="datarow-data"> @if (Model.Dossier.Patient.Nom != null)
+                                                                   {@Model.Dossier.Patient.Nom } </div>
+                                        <div style="clear:both"></div>
+                                    </div>
+
+                                    <div class="datarow"  > 
+                                        <div class="datarow-label">Prénom: </div>  
+                                        <div class="datarow-data"> @if (Model.Dossier.Patient.Prenom != null)
+                                                                   {@Model.Dossier.Patient.Prenom } </div>
+                                        <div style="clear:both"></div>
+                                    </div>
+
+                                    <div class="datarow"  > 
+                                        <div class="datarow-label">Age: </div>  
+                                        <div class="datarow-data"> @if (ViewBag.DateNaissance != null)
+                                                                   {@ViewBag.DateNaissance } </div>
+                                        <div style="clear:both"></div>
+                                    </div>
+
+                                     <div class="datarow"  > 
+                                        <div class="datarow-label">Lieu de naissance: </div>  
+                                        <div class="datarow-data"> @if (Model.Dossier.Patient.LieuNaissance != null)
+                                                                   {@Model.Dossier.Patient.LieuNaissance } </div>
+                                        <div style="clear:both"></div>
+                                    </div>
+
+                                    <div class="impression-titre"  > Coordonnées  </div>
+
+                                     <div class="datarow"  > 
+                                        <div class="datarow-label">Téléphone Principal: </div>  
+                                        <div class="datarow-data"> @if (Model.Dossier.Patient.TelephonePrincipal != null)
+                                                                   {@Model.Dossier.Patient.TelephonePrincipal } </div>
+                                        <div style="clear:both"></div>
+                                    </div>
+
+                                     <div class="datarow"  > 
+                                        <div class="datarow-label">Téléphone Secondaire: </div>  
+                                        <div class="datarow-data"> @if (Model.Dossier.Patient.TelephoneSecondaire != null)
+                                                                   {@Model.Dossier.Patient.TelephoneSecondaire } </div>
+                                        <div style="clear:both"></div>
+                                    </div>
+
+                                    <div class="datarow"  > 
+                                        <div class="datarow-label">Email: </div>  
+                                        <div class="datarow-data"> @if (Model.Dossier.Patient.Email != null)
+                                                                   {@Model.Dossier.Patient.Email } </div>
+                                        <div style="clear:both"></div>
+                                    </div>
+
+                                     
+                                    <div class="impression-titre"  > Note importante  </div>
+
+                                     <div class="" style="font-style:italic"  > 
+                                        @if (Model.Dossier.PenseBete != null) {@Model.Dossier.PenseBete }
+                                    </div>
+
+                                 <div class="impression-titre"  > Informations sur le dossier  </div>
+
+                                 <div class="datarow"  > 
+                                        <div class="datarow-label">Dossier créé le : </div>  
+                                        <div class="datarow-data"> @if (Model.Dossier.DateCreation != null)
+                                                                   {@Model.Dossier.DateCreation } </div>
+                                        <div style="clear:both"></div>
+                                    </div>
+
+                                 <div class="datarow"  > 
+                                        <div class="datarow-label">Dossier archivé : </div>  
+                                        <div class="datarow-data"> 
+                                            @if (Model.Dossier.Archived)
+                                             {
+                                                <span> Oui. Le @Model.Dossier.DateArchivage </span>
+                                             }
+                                            else{<span> Non. </span>} 
+                                        </div>
+                                        <div style="clear:both"></div>
+                                    </div>
+
+                             </section>
+
+                      }
+                      
+                  </td>
+                 <td>
+
+                     <h5 class="col-lg-12" style="text-align:center"> HISTORIQUE DES PARAMETRES  </h5>
+                         
+
+                       <section class="col-lg-12">
+                            <table class="table table-bordered table-striped table-condensed">
+
+                                @if (Model.Parametres != null | Model.Parametres.Count != 0)
+                                { 
+                                    <thead>
+                                        <tr> <th>Date</th> <th>T(°C)</th> <th>Pouls</th> <th>Tension</th> <th>Poids</th> <th>Avis</th>  </tr>
+                                    </thead>
+                                    <tbody>                        
+                                        @foreach (var parametre in Model.Parametres)
+                                        {
+                                            <tr>  
+                                                <td> @parametre.DatePrise.ToShortDateString()  </td> 
+                                                <td> @parametre.Temperature </td> 
+                                                <td> @parametre.Pouls  </td> 
+                                                <td> @parametre.Tension  </td> 
+                                                <td> @parametre.Poids </td> 
+                                                <td> @parametre.Avis  </td> 
+                                            </tr>
+                                        }
+                                    </tbody>
+                                }
+  
+                            </table>
+                        </section>
+                  </td>
+              </tr>
+          </tbody>
+          
+      </table>
+
+    </div>

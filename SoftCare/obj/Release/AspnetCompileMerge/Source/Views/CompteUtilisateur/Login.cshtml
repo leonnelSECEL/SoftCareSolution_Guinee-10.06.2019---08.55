@@ -1,0 +1,52 @@
+﻿@model SoftCare.ViewModels.UtilisateurVM
+
+@{
+    Layout = "~/Views/Shared/_SoftCareLayoutPageLogin.cshtml";
+    ViewBag.Title = "SoftCare Login";
+}
+
+
+
+
+@using (Html.BeginForm("SeConnecter", "CompteUtilisateur", FormMethod.Post, new { @class = "col-lg-12 FormLoginMain" }))
+{
+      <fieldset style="border:0px solid #000; padding:0px 0px; background-color:#ec7404cf">
+          
+         <legend>
+            <img src="~/Content/images/logo.png" alt="logo Medicale-Softcare" class="img-responsive" style="  height:100%; width:40%" />
+         </legend>
+
+         <div class="row">
+             <div class="col-lg-12" style="padding:10%;">
+			   <div class="form-group " >
+
+                    <input class="form-control" id="" name="ReturnUrl" value="@ViewBag.ReturnUrl"  type="hidden" />                          
+                   		
+                    @Html.LabelFor(Model => Model.Login , new { style="" })
+                    @Html.TextBoxFor(Model => Model.Login, new { @class = "form-control", style="", required="required", placeholder="Nom utilisateur",})                      
+                </div>
+               
+                <div class="form-group">
+                    @Html.LabelFor(Model => Model.Password , new { style="" })
+                    @Html.TextBoxFor(Model => Model.Password, new { @class = "form-control", style="", required="required", placeholder="Mot de passe",type="password"})                      
+                </div>
+             </div>
+         </div>
+          <div class="row">
+             <div class="col-lg-12" style="padding:10%;">
+			   <div class="form-group " style="margin:4%;">		
+                    <input style="width:8em; height:3em; font-size:2em" type="submit" class="btn btn-warning pull-right" value="Se connecter"  name="" />                  
+                </div>               
+               @*                
+                   <div class="form-group passwordForgotenLink">
+                       <a href="#" style="color:#fff; text-decoration:none;"> Mot de passe oublié ? </a>                     
+                   </div>
+               *@
+             </div>
+         </div>
+        
+			 
+		</fieldset>
+	
+}		 
+		  

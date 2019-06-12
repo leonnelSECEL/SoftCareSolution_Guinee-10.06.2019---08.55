@@ -1,0 +1,121 @@
+﻿@model SoftCare.ViewModels.ExamenVM
+@{
+    Layout = "../../Views/Shared/_SoftCareLayoutPage.cshtml";
+    ViewBag.Title = "Prescription d'un Examen Médical";
+}
+
+<div class="row" style="margin:1em 0">
+
+        @using (Html.BeginForm("ENREGISTREREXAMEN", "GestionLaboratoire", FormMethod.Post, new { @class = "col-lg-12" }))
+        {
+            <input type="hidden" name="DossierId" value="@Model.DossierId" />
+            <input type="hidden" name="MedecinId" value="@Model.MedecinId" />
+            <input type="hidden" name="DiagnosticId" value="@Model.DiagnosticId" />
+
+            <div class="row">
+                <div class="col-lg-5">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Patient)
+                        @Html.TextBoxFor(model => model.Patient, new { @class = "form-control", disabled = "disabled" })
+                    </div>
+                </div>
+
+                <div class="col-lg-3">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.DateExamen)
+                        @Html.TextBoxFor(model => model.DateExamen, new { @class = "form-control dateExamenMedical", type = "date", required = "required" })
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ExamenTypeId)
+                        <select class="form-control" name="ExamenTypeId">
+                            @if (ViewBag.ListeExamenType != null)
+                            {
+                                foreach (var examType in (List<SoftCare.Models.EXAMENTYPE>)ViewBag.ListeExamenType)
+                                {
+                                    <option value="@examType.ExamenTypeID">@*@SoftCare.Models.CRYPTAGE.StringHelpers.Decrypt(*@ @examType.Libelle  </option>
+                                }
+                            }
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.CodeDossier)
+                        @Html.TextBoxFor(model => model.CodeDossier, new { @class = "form-control", disabled = "disabled" })
+                    </div>
+                </div>
+
+                <div class="col-lg-5">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Medecin)
+                        @Html.TextBoxFor(model => model.Medecin, new { @class = "form-control", disabled = "disabled" })
+                    </div>
+                </div>
+
+                <div class="col-lg-3">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ServiceId)
+                        <select class="form-control" name="ServiceId">
+                            @if (ViewBag.ListeService != null)
+                            {
+                                foreach (var service in (List<SoftCare.Models.SERVICE>)ViewBag.ListeService)
+                                {
+                                    <option value="@service.ServiceID">@*@SoftCare.Models.CRYPTAGE.StringHelpers.Decrypt(*@ @service.Nom  </option>
+                                }
+                            }
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Description)
+                        @Html.TextAreaFor(model => model.Description, new { @class = "form-control", style = "height:10em;" })
+                    </div>
+                </div>
+
+                <section class="col-lg-8 table-responsive" id="patientList" style="max-height:26em;overflow-y: auto;">
+
+                    <div id="loader" class=" aletr" style="display:none">
+                        <img src="~/Content/images/ajax-loader.gif" style="height:200px; width:200px" />
+                    </div>
+
+                    @Html.Partial("PartialViewListeExamens")
+
+                </section>
+
+
+
+            </div>
+
+            <div class="row" style="margin-top:1em">
+
+
+                <div class="col-lg-4 col-lg-offset-2">
+                    <div class="form-group">
+                        <a href="~/GestionLaboratoire/CONSULTERLISTEEXAMENS" class="btn btn-warning" style="width:100%">
+                            <span class="glyphicon glyphicon-circle-arrow-left"></span>
+                            Retourner à la liste
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-4 ">
+                    <div class="form-group">
+                        <input class="btn btn-primary" type="submit" value="Enregistrer" style="width:100%" />
+                    </div>
+                </div>
+            </div>
+        }
+
+</div>
+
+<script>
+    var today = new Date().toISOString().split('T')[0];
+    document.getElementsByClassName("dateExamenMedical")[0].setAttribute('min', today);
+</script>
+
+

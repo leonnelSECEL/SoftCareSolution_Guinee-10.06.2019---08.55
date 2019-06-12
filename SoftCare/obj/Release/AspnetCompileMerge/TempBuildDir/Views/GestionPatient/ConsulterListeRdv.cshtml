@@ -1,0 +1,157 @@
+﻿@model IEnumerable<SoftCare.ViewModels.RendezVousVM>
+
+@{
+    Layout = "~/Views/Shared/_SoftCareLayoutPage.cshtml";
+    
+    ViewBag.Title = "Liste des Rendez-vous";
+}
+
+
+    <section class="col-lg-12" style="margin:10px">
+     
+@*        @using (Ajax.BeginForm("CONSULTERRENDEZVOUS", "GestionPatient", new AjaxOptions { InsertionMode = InsertionMode.Replace, UpdateTargetId = "listeRendezVous"  /*, LoadingElementId = "loader"*/ }, new { @class = "form-inline" }))
+        {
+            <div class="row"> 
+                 
+                 <div class="col-lg-3" style="padding:0 5px;">
+                    <div class="form-group" style="width: 100%;">
+                        <label for="select" class="sr-only" style="width:100%"> Spécialiste </label>                       
+                        @Html.DropDownList("SpecialisteID", (SelectList)ViewBag.ListeSpecialiste, new {@class="form-control", style="display:inline; width:100%"})                     
+                   </div>
+                </div>
+
+                <div class="col-lg-3" style="padding:0 5px;">
+                    <div class="form-group softcare-search-attente-by-date" style="width: 100%;">
+                        <label class="control-label sr-only" for="date-salle-attente">Date</label>
+                        <input class="form-control" id="date-salle-attente" name="dateRdv" placeholder="Date" type="text"  style="width:100%"/>
+                    </div>
+                </div> 
+                 
+                <div class="col-lg-3" style="padding:0 5px;">    
+                    <div class="form-group"  style="width:100%">
+                        <label for="select" class="sr-only"> Type </label>
+                        <select class="form-control" name="type"  style="width:100%">
+                            <option value="-1"> Type </option>   
+                            <option value="1">  En attente </option>                     
+                            <option value="0">  Récu </option>                    
+                         </select>  
+                     </div>
+                </div>
+ 
+                <div class="col-lg-3" style="padding:0 5px;">    
+                     <div class="form-group" style="width: 100%;">
+                         <button type="submit" class="btn btn-info" style="width:100%"> <span class="glyphicon glyphicon-ok-sign"></span> Affiner la recherche</button>
+                     </div> 
+                </div>
+
+                  
+       
+           </div>
+        }*@
+
+    </section>
+  
+    
+
+ <div class="row" style="margin:10px">
+    @*<div class="col-lg-2">
+        <a href="~/GestionPatient/AJOUTERRDV/@ViewBag.DossierId" >  
+            <button class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Rendez-vous </button>
+        </a>
+    </div>*@
+</div>
+
+<div class="row"> 
+    
+    <section class="col-lg-12 table-responsive" style="max-height: 37em;overflow-x: auto;" id="listeRendezVous">
+       
+<table class="table @*table-bordered*@ table-striped table-condensed" style="margin-bottom:0px;">               
+                                       
+    @if (Model == null )
+    {                         
+        <caption style="color:#000"><h6> Aucun résultat </h6></caption>
+    }else{               
+            <thead>
+                <tr><th>Date</th> <th>Nom Patient</th> <th>Spécialiste</th> <th>Objet </th> <th> Actions </th>  </tr> 
+            </thead>
+            <tbody>                        
+            @foreach (var rendezVous in Model)
+            {
+                if (rendezVous != null)
+                {
+                    <tr><td>@rendezVous.Horaire</td><td>@rendezVous.Patient</td><td>@rendezVous.Specialiste</td><td>@rendezVous.Objet</td>
+                            <td> 
+                                 
+                            @if(rendezVous.Actif && !rendezVous.Recu && !rendezVous.Manque){ 
+                                <a href="~/GestionPatient/ENVOYERENSALLEATTENTE/@SoftCare.Models.CRYPTAGE.StringHelpers.Decrypt(rendezVous.RdvId)" class="btn btn-primary btn-xs" title="Mettre ce patient en salle d'attente"> <span class="glyphicon glyphicon-ok"></span></a>
+                            }
+                                    
+                            @if (rendezVous.Actif && !rendezVous.Recu && !rendezVous.Manque)
+                            { 
+                                <a href="~/GestionPatient/REPROGRAMMERRDV/@SoftCare.Models.CRYPTAGE.StringHelpers.Decrypt(rendezVous.RdvId)" class="btn btn-warning btn-xs" title="Réprogrammer ce rendez-vous"><span class="glyphicon glyphicon-refresh"></span></a>
+                            }                                   
+                                  
+                            @if (rendezVous.Actif && !rendezVous.Recu && !rendezVous.Manque)
+                            {  
+                                <a class="btn btn-danger btn-xs" data_toggle="modal" href="~/GestionPatient/ANNULERRDV/@SoftCare.Models.CRYPTAGE.StringHelpers.Decrypt(rendezVous.RdvId)" @*href="~/GestionPatient/ANNULERRDV/@rendezVous.RdvId"*@ title="Annuler ce rendez-vous">
+                                   <span  class="glyphicon glyphicon-trash"></span>
+                                </a>
+                                
+                                    <div class="modal " id="annulerRendezVous_@SoftCare.Models.CRYPTAGE.StringHelpers.Decrypt(rendezVous.RdvId)"  data-backdrop="false" style="background-color: #0c0c0c87;" >
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal">x</button>
+                                                    <h4 class="modal-title">Confirmation</h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    Voulez-vous vraiment annuler cet rendez-vous ?
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button class="btn btn-info" id="NePasAnnulerRdv_@SoftCare.Models.CRYPTAGE.StringHelpers.Decrypt(rendezVous.RdvId)" data-dismiss="modal">Ne pas annuler ce rendez-vous</button>
+                                                    <button class="btn btn-danger" id="annulerRdv_@SoftCare.Models.CRYPTAGE.StringHelpers.Decrypt(rendezVous.RdvId)" data-dismiss="modal">Annuler ce rendez-vous</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                
+                                   <script>
+                                      $(function(){
+                                          $("#NePasAnnulerRdv_@SoftCare.Models.CRYPTAGE.StringHelpers.Decrypt(rendezVous.RdvId)").click(function (e) {                                            
+                                              $("#annulerRendezVous_@SoftCare.Models.CRYPTAGE.StringHelpers.Decrypt(rendezVous.RdvId)").modal("hide");         
+                                          });
+
+                                          $("#annulerRdv_@SoftCare.Models.CRYPTAGE.StringHelpers.Decrypt(rendezVous.RdvId)").click(function (e) {
+                                              $("#annulerRdv_@SoftCare.Models.CRYPTAGE.StringHelpers.Decrypt(rendezVous.RdvId)").modal("hide");
+                                              window.location.href = "~/GestionPatient/ANNULERRDV/@SoftCare.Models.CRYPTAGE.StringHelpers.Decrypt(rendezVous.RdvId)";
+                                          });
+                                      });
+                                    </script>
+                                
+                            }
+                            @if (rendezVous.Actif && rendezVous.Recu && !rendezVous.Manque)
+                            {  
+                                <span>Rendez-vous honoré</span>
+                            }
+                            @if (rendezVous.Manque && rendezVous.Actif && !rendezVous.Recu)
+                            {  
+                                <span class="info">Rendez-vous manqué</span>
+                            }
+                            @if(!rendezVous.Manque && !rendezVous.Actif && !rendezVous.Recu)
+                            {  
+                                <span class="danger">Rendez-vous annulé</span>
+                            }
+                        </td>
+                    </tr>   
+                }
+            }  
+
+                            
+        </tbody>
+    }   
+</table>
+
+
+    </section>
+
+</div>

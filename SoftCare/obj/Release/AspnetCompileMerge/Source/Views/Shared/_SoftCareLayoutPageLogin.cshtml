@@ -1,0 +1,36 @@
+﻿<!DOCTYPE html>
+  
+   <html lang="fr">
+    
+       <head>
+
+          @Html.Partial("PartialViewHead")
+      
+          <title>@ViewBag.Title - SoftCare </title>
+
+       </head>
+       <body>
+           
+           <div class="container softcare_bg" style="border:0px dashed red; background-color:rgba(12, 12, 12, 0.88); _height:100%">
+            
+               <div class="row">
+                       <div class="col-lg-6 col-lg-offset-1" style="margin-top: 9%;color: #009ee0;background-color: #dee4e6c9;padding: 6.5em 1em;font-size: 2.5em;">
+                           Pour que les enfants que nous accueillons ne basculent, demain, dans la precarité.   
+                       </div>
+                       <section class="col-lg-4" style="border:0px solid red; margin-top:9%">
+                           @RenderBody()
+                       </section>
+
+               </div>
+
+               <footer class="row" style="border:px solid #f00;">
+                    <div class="col-xs-12 col-sm-10 col-sm-offset-1  col-md-8 col-md-offset-2  col-lg-5 col-lg-offset-3" style="border:px solid #024019; color:#000;font-size: 14px;height: 34px;text-align:center; height:100%; padding: 0.4% 0px;">
+                        @Html.Partial("PartialViewFooter")
+                   </div>
+               </footer>
+
+          </div>          
+  
+  </body>
+</html>
+ 

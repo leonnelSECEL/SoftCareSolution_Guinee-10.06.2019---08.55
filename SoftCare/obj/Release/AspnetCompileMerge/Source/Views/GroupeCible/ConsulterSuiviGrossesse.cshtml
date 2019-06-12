@@ -1,0 +1,105 @@
+﻿
+@{
+    ViewBag.Title = "Consulter le suivi de Grossesse";
+    Layout = "~/Views/Shared/_SoftCareLayoutPage.cshtml";
+
+    Boolean isPregnant = ViewBag.Choix;
+    String disableThisField = "disabled =\"disabled\" ";
+}
+
+
+
+@using (Html.BeginForm("CONSULTERGROSSESSE", "GroupeCible", FormMethod.Post, new { @class = "col-lg-12" }))
+      { 
+      
+          <div class="row" style="margin-top:4%;">
+          
+              <input class="form-control"  id="idGrossesse" name="idGrossesse" value="@ViewBag.GrossesseID"  type="hidden" />                                                             
+
+               <div class="col-lg-6">
+                    <div class="form-group">
+                        <label class="control-label" for="NomPatient" style = "width:100%;">Nom du Patient</label>
+                        <input class="form-control" id="NomPatient" name="NomPatient" value="@ViewBag.NomPatient"  type="text" style="display:inline; width:100%" disabled="disabled" />                                                         
+                    </div>
+                </div>
+               <div class="col-lg-6">
+                    <div class="form-group">
+                        <label class="control-label" for="CodeDossier" style = "width:100%;">Code du Dossier</label>
+                        <input class="form-control" id="CodeDossier" name="CodeDossier" value="@ViewBag.CodeDossier"  type="text" style="display:inline; width:100%" disabled="disabled" />                                                         
+                    </div>
+               </div>
+
+          </div>
+          <div class="row" style="margin-top:;">
+
+               <div class="col-lg-6">
+                     <div class="form-group">   
+                             <label class="control-label" for="NomPatient" style = "width:100%;">Spécialiste</label>                       
+                             @if(isPregnant){   
+                             <select class="form-control" name="SpecialisteID" style="display:inline; width:100%">                             
+                                    @if (ViewBag.ListeSpecialiste != null)
+                                    {
+                                        String TypeSelected = "";
+                                        foreach (var specialiste in (List<SoftCare.ViewModels.SpecialisteVM>)ViewBag.ListeSpecialiste) 
+                                        {                                                                          
+                                            <option  value="@specialiste.Id" @TypeSelected  >@specialiste.NomSpecialiste</option>
+                                        }                             
+                                    }
+                                </select>  
+                             } else {
+                             <input class="form-control" id="SpecialisteID" name="SpecialisteID" value="@ViewBag.Specialiste"  type="text" style="display:inline; width:100%" disabled="disabled" />                                                         
+                             }
+                         
+                    </div>
+                </div>
+               <div class="col-lg-6">
+                     <div class="form-group">   
+                         <label class="control-label" for="NomPatient" style = "width:100%;">Résultat grossesse </label>                       
+                         @if(isPregnant){   
+                         <select class="form-control" name="resultat" style="display:inline; width:100%">                             
+                                <option value="0" > Grossesse en cours </option>
+                                <option value="2" > Grossesse à terme | Accouchement normal </option>
+                                <option value="1" > Grossesse à terme | Accouchement par césarienne </option>
+                                <option value="-1" > Grossesse à terme | Enfant(s) décédé(s) à la naissance </option>
+                                <option value="-2" > Fausse couche </option>
+                                <option value="-3" > Grossesse à terme | Décès de la mère </option>
+                                <option value="-4" > Grossesse à terme | Décès de la mère et de(s) l'enfant(s) </option>
+                            </select>  
+                         } else {
+                         <input class="form-control" id="ResultatGrossesse" name="ResultatGrossesse" value="@ViewBag.ResultatGrossesse"  type="text" style="display:inline; width:100%" disabled="disabled" />                                                         
+                         }
+                      </div>
+                </div>
+
+
+          </div>  
+         
+         if(!isPregnant){   
+          <div class="row" style="margin-top:;">
+          
+                <div class="col-lg-6"> 
+                    <div class="form-group">
+                        <label class="control-label" for="DateResultat" style = "width:100%;">Date résultat Grossesse</label>
+                        <input class="form-control" id="DateResultat" name="DateResultat" value="@ViewBag.DateResultat"  type="text" style="display:inline; width:100%" disabled="disabled" />                                                         
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label class="control-label" for="CodeGroupe" style = "width:100%;">Code du Groupe</label>
+                        <input class="form-control" id="CodeGroupe" name="CodeGroupe" value="@ViewBag.CodeGroupe"  type="text" style="display:inline; width:100%" disabled="disabled" />                                                         
+                    </div>
+                </div>
+          </div>
+         }
+    
+          <div class="col-lg-2 col-lg-offset-3" style="text-align:center;margin-top: 3%;">
+                
+                     @if(isPregnant){ <input class="btn btn-primary" type="submit" value="Enregistrer le résultat" />}
+      </div>
+    <div class="col-lg-6" style="text-align:center;margin-top: 3%;">
+              <a href="~/GroupeCible/CONSULTERLISTEGROUPECIBLE" class="btn btn-warning"><span class="glyphicon glyphicon-circle-arrow-left"></span> Retourner aux Groupes</a>
+           
+    </div>
+}
+                       

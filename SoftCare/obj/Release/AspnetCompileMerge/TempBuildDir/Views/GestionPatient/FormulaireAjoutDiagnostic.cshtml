@@ -1,0 +1,83 @@
+﻿@model SoftCare.ViewModels.DiagnosticVM
+
+@{
+    Layout = "../../Views/Shared/_SoftCareLayoutPage.cshtml";
+    ViewBag.Title = "Ajout diagnostic Patient";
+}
+
+
+<div class="row"> 
+     
+ <div class="col-lg-12" style="">
+    
+    @using (Html.BeginForm("AJOUTDIAGNOSTIC", "GestionPatient", FormMethod.Post, new { @class = "col-lg-12" }))
+    {
+     
+     <div class="form-group" style="padding:2%">
+
+         <input type="hidden" name="DossierID" value="@ViewBag.DossierId" />
+
+         <div class="row">
+
+             <div class="col-lg-6">
+                 <div class="form-group">
+                     <label class="control-label" for="nomPatient" style="width:100%;">Nom du patient</label>
+                     <input class="form-control" id="nomPatient" name="nomPatient" placeholder="nomPatient" type="text" value="@ViewBag.NomPatient" style="display:inline; width:100%" disabled="disabled" />
+                 </div>
+             </div>
+
+             <div class="col-lg-6">
+                 <div class="form-group">
+                     <label for="select"> Maladie y associée </label>
+
+                     <select class="form-control" name="MaladieId">
+
+                         <option value="0">--- Cas Général --- </option>
+
+                         @if (ViewBag.ListeMaladie != null)
+                         {
+
+                             foreach (var maladie in (List<SoftCare.Models.MALADIE>)ViewBag.ListeMaladie)
+                             {
+                                 <option value="@maladie.MaladieID">@maladie.Intitule</option>
+                             }
+                         }
+                     </select>
+                 </div>
+             </div>
+
+         </div>
+
+         <div class="row">
+             <div class="col-lg-12">
+                 <div class="form-group">
+                     @Html.LabelFor(Model => Model.Avis, new { style = "" })
+                     @Html.TextAreaFor(Model => Model.Avis, new { @class = "form-control", style = "height: 15em;" })
+                 </div>
+             </div>
+         </div>
+
+         <div class="row" style="margin-top:2em">
+             <div class="col-lg-10 col-lg-offset-2">
+                 <div class="row">
+                     <div class="col-lg-5">
+                         <div class="form-group">
+                             <input class="btn btn-primary" type="submit" value="Enregistrer" style="width: 100%;" />
+                         </div>
+                     </div>
+                     <div class="col-lg-5">
+                         <div class="form-group">
+                             <a href="~/GestionPatient/CONSULTERDOSSIER/@SoftCare.Models.CRYPTAGE.StringHelpers.Decrypt(ViewBag.DossierId)" class="btn btn-warning" style="width: 100%;">Retourner au Dossier</a>
+                         </div>
+                     </div>
+                 </div>
+             </div>
+         </div>
+
+     </div>
+
+    }
+    
+ </div>
+
+</div>
